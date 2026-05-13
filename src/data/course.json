@@ -1,0 +1,3135 @@
+﻿[
+    {
+        "day":  1,
+        "title":  "Ngày 1 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 1 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/14wmh1vHucIFNIMM9RHKnCiztYsHgkoHY/view?usp=drive_link",
+                          "documents":  "https://drive.google.com/file/d/1kNmfZSt-tWdK74_Cee_rWlEHeXQJm6Bu/view?usp=drive_link",
+                          "exercises":  "https://drive.google.com/file/d/1uuSw6-bzoI__ycg57aQZI2hi0NKKiH0F/view?usp=drive_link",
+                          "answers":  "https://drive.google.com/file/d/1P3Qyh-QzjSyLXzMFDmmOley-KoQ0EY5W/view?usp=sharing"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d1-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d1-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d1-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d1-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             },
+                             {
+                                 "id":  "d1-v3",
+                                 "word":  "what",
+                                 "meaning":  "cai gi",
+                                 "example":  "What is your name?",
+                                 "options":  [
+                                                 "cai gi",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "cai gi"
+                             }
+                         ]
+    },
+    {
+        "day":  2,
+        "title":  "Ngày 2 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 2 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO02/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC02A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX02/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS02/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d2-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d2-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d2-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d2-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  3,
+        "title":  "Ngày 3 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 3 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO03/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC03A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX03/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS03/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d3-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d3-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d3-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d3-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  4,
+        "title":  "Ngày 4 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 4 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO04/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC04A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX04/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS04/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d4-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d4-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d4-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d4-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  5,
+        "title":  "Ngày 5 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 5 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO05/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC05A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX05/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS05/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d5-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d5-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d5-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d5-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  6,
+        "title":  "Ngày 6 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 6 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO06/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC06A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX06/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS06/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d6-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d6-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d6-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d6-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  7,
+        "title":  "Ngày 7 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 7 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO07/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC07A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX07/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS07/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d7-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d7-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d7-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d7-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  8,
+        "title":  "Ngày 8 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 8 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO08/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC08A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX08/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS08/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d8-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d8-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d8-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d8-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  9,
+        "title":  "Ngày 9 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 9 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO09/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC09A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX09/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS09/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d9-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d9-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d9-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d9-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  10,
+        "title":  "Ngày 10 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 10 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO10/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC10A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX10/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS10/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d10-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d10-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d10-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d10-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  11,
+        "title":  "Ngày 11 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 11 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO11/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC11A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX11/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS11/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d11-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d11-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d11-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d11-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  12,
+        "title":  "Ngày 12 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 12 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO12/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC12A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX12/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS12/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d12-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d12-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d12-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d12-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  13,
+        "title":  "Ngày 13 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 13 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO13/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC13A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX13/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS13/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d13-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d13-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d13-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d13-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  14,
+        "title":  "Ngày 14 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 14 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO14/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC14A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX14/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS14/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d14-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d14-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d14-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d14-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  15,
+        "title":  "Ngày 15 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 15 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO15/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC15A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX15/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS15/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d15-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d15-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d15-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d15-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  16,
+        "title":  "Ngày 16 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 16 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO16/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC16A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX16/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS16/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d16-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d16-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d16-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d16-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  17,
+        "title":  "Ngày 17 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 17 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO17/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC17A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX17/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS17/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d17-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d17-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d17-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d17-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  18,
+        "title":  "Ngày 18 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 18 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO18/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC18A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX18/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS18/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d18-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d18-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d18-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d18-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  19,
+        "title":  "Ngày 19 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 19 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO19/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC19A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX19/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS19/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d19-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d19-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d19-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d19-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  20,
+        "title":  "Ngày 20 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 20 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO20/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC20A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX20/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS20/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d20-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d20-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d20-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d20-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  21,
+        "title":  "Ngày 21 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 21 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO21/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC21A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX21/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS21/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d21-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d21-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d21-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d21-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  22,
+        "title":  "Ngày 22 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 22 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO22/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC22A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX22/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS22/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d22-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d22-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d22-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d22-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  23,
+        "title":  "Ngày 23 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 23 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO23/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC23A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX23/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS23/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d23-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d23-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d23-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d23-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  24,
+        "title":  "Ngày 24 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 24 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO24/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC24A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX24/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS24/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d24-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d24-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d24-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d24-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  25,
+        "title":  "Ngày 25 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 25 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO25/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC25A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX25/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS25/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d25-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d25-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d25-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d25-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  26,
+        "title":  "Ngày 26 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 26 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO26/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC26A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX26/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS26/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d26-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d26-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d26-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d26-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  27,
+        "title":  "Ngày 27 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 27 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO27/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC27A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX27/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS27/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d27-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d27-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d27-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d27-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  28,
+        "title":  "Ngày 28 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 28 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO28/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC28A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX28/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS28/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d28-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d28-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d28-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d28-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  29,
+        "title":  "Ngày 29 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 29 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO29/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC29A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX29/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS29/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d29-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d29-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d29-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d29-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  30,
+        "title":  "Ngày 30 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 30 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO30/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC30A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX30/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS30/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d30-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d30-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d30-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d30-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  31,
+        "title":  "Ngày 31 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 31 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO31/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC31A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX31/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS31/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d31-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d31-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d31-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d31-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  32,
+        "title":  "Ngày 32 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 32 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO32/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC32A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX32/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS32/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d32-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d32-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d32-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d32-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  33,
+        "title":  "Ngày 33 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 33 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO33/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC33A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX33/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS33/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d33-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d33-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d33-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d33-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  34,
+        "title":  "Ngày 34 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 34 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO34/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC34A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX34/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS34/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d34-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d34-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d34-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d34-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  35,
+        "title":  "Ngày 35 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 35 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO35/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC35A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX35/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS35/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d35-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d35-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d35-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d35-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  36,
+        "title":  "Ngày 36 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 36 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO36/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC36A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX36/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS36/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d36-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d36-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d36-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d36-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  37,
+        "title":  "Ngày 37 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 37 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO37/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC37A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX37/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS37/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d37-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d37-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d37-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d37-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  38,
+        "title":  "Ngày 38 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 38 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO38/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC38A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX38/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS38/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d38-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d38-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d38-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d38-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  39,
+        "title":  "Ngày 39 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 39 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO39/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC39A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX39/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS39/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d39-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d39-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d39-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d39-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  40,
+        "title":  "Ngày 40 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 40 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO40/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC40A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX40/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS40/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d40-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d40-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d40-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d40-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  41,
+        "title":  "Ngày 41 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 41 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO41/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC41A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX41/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS41/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d41-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d41-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d41-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d41-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  42,
+        "title":  "Ngày 42 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 42 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO42/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC42A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX42/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS42/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d42-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d42-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d42-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d42-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  43,
+        "title":  "Ngày 43 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 43 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO43/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC43A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX43/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS43/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d43-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d43-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d43-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d43-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  44,
+        "title":  "Ngày 44 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 44 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO44/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC44A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX44/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS44/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d44-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d44-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d44-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d44-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  45,
+        "title":  "Ngày 45 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 45 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO45/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC45A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX45/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS45/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d45-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d45-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d45-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d45-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  46,
+        "title":  "Ngày 46 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 46 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO46/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC46A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX46/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS46/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d46-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d46-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d46-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d46-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  47,
+        "title":  "Ngày 47 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 47 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO47/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC47A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX47/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS47/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d47-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d47-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d47-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d47-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    },
+    {
+        "day":  48,
+        "title":  "Ngày 48 - Chủ đề nền tảng",
+        "description":  "Bài học ngày 48 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "resources":  {
+                          "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO48/view",
+                          "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC48A/view",
+                          "exercises":  "https://drive.google.com/file/d/1EXAMPLEEX48/view",
+                          "answers":  "https://drive.google.com/file/d/1EXAMPLEANS48/view"
+                      },
+        "vocabularies":  [
+                             {
+                                 "id":  "d48-v1",
+                                 "word":  "foundation",
+                                 "meaning":  "nen tang",
+                                 "example":  "Build a strong English foundation.",
+                                 "options":  [
+                                                 "nen tang",
+                                                 "ket noi",
+                                                 "do chinh xac",
+                                                 "phan xa"
+                                             ],
+                                 "correctAnswer":  "nen tang"
+                             },
+                             {
+                                 "id":  "d48-v2",
+                                 "word":  "habit",
+                                 "meaning":  "thoi quen",
+                                 "example":  "Daily practice forms a habit.",
+                                 "options":  [
+                                                 "tri nho",
+                                                 "thoi quen",
+                                                 "ky nang",
+                                                 "cam hung"
+                                             ],
+                                 "correctAnswer":  "thoi quen"
+                             },
+                             {
+                                 "id":  "d48-v3",
+                                 "word":  "review",
+                                 "meaning":  "on tap",
+                                 "example":  "Review old lessons every weekend.",
+                                 "options":  [
+                                                 "on tap",
+                                                 "bat dau",
+                                                 "bo qua",
+                                                 "tap trung"
+                                             ],
+                                 "correctAnswer":  "on tap"
+                             },
+                             {
+                                 "id":  "d48-v4",
+                                 "word":  "confidence",
+                                 "meaning":  "su tu tin",
+                                 "example":  "Speaking daily boosts confidence.",
+                                 "options":  [
+                                                 "lo lang",
+                                                 "su tu tin",
+                                                 "toc do",
+                                                 "am luong"
+                                             ],
+                                 "correctAnswer":  "su tu tin"
+                             }
+                         ]
+    }
+]
