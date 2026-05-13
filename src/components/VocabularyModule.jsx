@@ -3,14 +3,56 @@ import { LESSON_STATUS, setDayStatus } from '../services/courseService'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import Flashcard from './Flashcard'
 
+const PHONETIC_MAP = {
+  foundation: '/faʊnˈdeɪʃən/',
+  habit: '/ˈhæbɪt/',
+  review: '/rɪˈvjuː/',
+  confidence: '/ˈkɑːnfɪdəns/',
+}
+
+function enrichWord(word) {
+  if (!word) return null
+  const key = String(word.word || '').trim().toLowerCase()
+  return {
+    ...word,
+    pronunciation: word.pronunciation ?? word.phonetic ?? PHONETIC_MAP[key] ?? '',
+    meaning: word.meaning ?? '',
+    example: word.example ?? '',
+    exampleMeaning: word.exampleMeaning ?? word.exampleVi ?? '',
+  }
+}
+
+function buildLeftItems(words) {
+  return words.map((item) => {
+    const word = enrichWord(item)
+    return {
+      id: word.id,
+      word: word.word,
+      pronunciation: word.pronunciation,
+    }
+  })
+}
+
+function buildRightItems(words) {
+  return words
+    .map((item) => {
+      const word = enrichWord(item)
+      return {
+        id: word.id,
+        meaning: word.meaning,
+      }
+    })
+    .sort(() => Math.random() - 0.5)
+}
+
 function buildListenOptions(words, targetIndex) {
-  const correct = words[targetIndex]
+  const correct = enrichWord(words[targetIndex])
   const others = words.filter((_, index) => index !== targetIndex)
   const picked = []
 
   while (picked.length < Math.min(3, others.length)) {
     const randomIndex = Math.floor(Math.random() * others.length)
-    const candidate = others[randomIndex]
+    const candidate = enrichWord(others[randomIndex])
     if (!picked.includes(candidate)) {
       picked.push(candidate)
     }
@@ -33,8 +75,8 @@ function VocabularyModule({ day, words }) {
   const [listenIndex, setListenIndex] = useState(0)
   const [listenOptions, setListenOptions] = useState(() => buildListenOptions(words, 0))
   const [listenResult, setListenResult] = useState({ status: '', choice: '' })
-  const [leftItems, setLeftItems] = useState(() => words.map((w) => ({ id: w.id, word: w.word, pronunciation: w.pronunciation })))
-  const [rightItems, setRightItems] = useState(() => words.map((w) => ({ id: w.id, meaning: w.meaning })).sort(() => Math.random() - 0.5))
+  const [leftItems, setLeftItems] = useState(() => buildLeftItems(words))
+  const [rightItems, setRightItems] = useState(() => buildRightItems(words))
   const [pairs, setPairs] = useState({})
   const [selectedLeft, setSelectedLeft] = useState(null)
   const [selectedRight, setSelectedRight] = useState(null)
@@ -54,8 +96,8 @@ function VocabularyModule({ day, words }) {
     }
   }, [])
 
-  const currentCard = words[cardIndex]
-  const currentListenWord = words[listenIndex]
+  const currentCard = enrichWord(words[cardIndex])
+  const currentListenWord = enrichWord(words[listenIndex])
 
   const nextCard = () => {
     setCardIndex((prev) => (prev + 1) % words.length)
@@ -65,6 +107,7 @@ function VocabularyModule({ day, words }) {
     if (!window.speechSynthesis) return
     const utter = new SpeechSynthesisUtterance(text)
     utter.lang = 'en-US'
+    utter.rate = 0.8
     window.speechSynthesis.cancel()
     window.speechSynthesis.speak(utter)
   }, [])
@@ -83,7 +126,7 @@ function VocabularyModule({ day, words }) {
     setSelected('')
     setFeedback('')
     setMode('listen')
-    speakWord(words[0].word)
+    speakWord(enrichWord(words[0]).word)
   }
 
   function handleLeftClick(id) {
@@ -146,8 +189,8 @@ function VocabularyModule({ day, words }) {
     setSelectedLeft(null)
     setSelectedRight(null)
     setWrongPair(null)
-    setLeftItems(words.map((w) => ({ id: w.id, word: w.word, pronunciation: w.pronunciation })))
-    setRightItems(words.map((w) => ({ id: w.id, meaning: w.meaning })).sort(() => Math.random() - 0.5))
+    setLeftItems(buildLeftItems(words))
+    setRightItems(buildRightItems(words))
   }
 
   const restartListenExercise = () => {
@@ -164,7 +207,7 @@ function VocabularyModule({ day, words }) {
     setSelected('')
     setFeedback('')
     setMode('listen')
-    speakWord(words[0].word)
+    speakWord(enrichWord(words[0]).word)
   }
 
   const selectListenAnswer = (choice) => {
@@ -202,7 +245,7 @@ function VocabularyModule({ day, words }) {
       setSelected('')
       setFeedback('')
       setListenResult({ status: '', choice: '' })
-      speakWord(words[nextIndex].word)
+      speakWord(enrichWord(words[nextIndex]).word)
     }, 450)
   }
 
@@ -319,8 +362,7 @@ function VocabularyModule({ day, words }) {
         <div className="vocab-card-wrap">
           <h3>Flashcard</h3>
           <Flashcard key={cardIndex} word={currentCard} />
-          {currentCard.example && <p style={{color:'var(--text-soft)'}}>{currentCard.example}</p>}
-          <div style={{ display: 'flex', gap: 8 }}>
+          <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
             <button type="button" className="btn" onClick={() => setCardIndex((prev) => (prev - 1 + words.length) % words.length)}>
               Trước
             </button>

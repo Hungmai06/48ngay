@@ -1,8 +1,7 @@
 ﻿[
     {
         "day":  1,
-        "title":  "Ngày 1 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 1 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Thể khẳng định và phủ định của động từ to be",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/14wmh1vHucIFNIMM9RHKnCiztYsHgkoHY/view?usp=drive_link",
                           "documents":  "https://drive.google.com/file/d/1kNmfZSt-tWdK74_Cee_rWlEHeXQJm6Bu/view?usp=drive_link",
@@ -11,76 +10,205 @@
                       },
         "vocabularies":  [
                              {
-                                 "id":  "d1-v1",
-                                 "word":  "foundation",
-                                 "meaning":  "nen tang",
-                                 "example":  "Build a strong English foundation.",
+                                 "id":  "p1-v1",
+                                 "word":  "I",
+                                 "phonetic":  "/aɪ/",
+                                 "meaning":  "tôi",
+                                 "example":  "I am a student.",
+                                 "exampleMeaning":  "Tôi là một học sinh.",
                                  "options":  [
-                                                 "nen tang",
-                                                 "ket noi",
-                                                 "do chinh xac",
-                                                 "phan xa"
+                                                 "tôi",
+                                                 "bạn",
+                                                 "chúng tôi",
+                                                 "họ"
                                              ],
-                                 "correctAnswer":  "nen tang"
+                                 "correctAnswer":  "tôi"
                              },
                              {
-                                 "id":  "d1-v2",
-                                 "word":  "habit",
-                                 "meaning":  "thoi quen",
-                                 "example":  "Daily practice forms a habit.",
+                                 "id":  "p1-v2",
+                                 "word":  "you",
+                                 "phonetic":  "/ju/",
+                                 "meaning":  "bạn, các bạn",
+                                 "example":  "You are my friend.",
+                                 "exampleMeaning":  "Bạn là bạn của tôi.",
                                  "options":  [
-                                                 "tri nho",
-                                                 "thoi quen",
-                                                 "ky nang",
-                                                 "cam hung"
+                                                 "tôi",
+                                                 "bạn, các bạn",
+                                                 "anh ấy",
+                                                 "nó"
                                              ],
-                                 "correctAnswer":  "thoi quen"
+                                 "correctAnswer":  "bạn, các bạn"
                              },
                              {
-                                 "id":  "d1-v3",
-                                 "word":  "review",
-                                 "meaning":  "on tap",
-                                 "example":  "Review old lessons every weekend.",
+                                 "id":  "p2-v1",
+                                 "word":  "my",
+                                 "phonetic":  "/maɪ/",
+                                 "meaning":  "của tôi",
+                                 "example":  "This is my book.",
+                                 "exampleMeaning":  "Đây là cuốn sách của tôi.",
                                  "options":  [
-                                                 "on tap",
-                                                 "bat dau",
-                                                 "bo qua",
-                                                 "tap trung"
+                                                 "của tôi",
+                                                 "của bạn",
+                                                 "của chúng tôi",
+                                                 "của họ"
                                              ],
-                                 "correctAnswer":  "on tap"
+                                 "correctAnswer":  "của tôi"
                              },
                              {
-                                 "id":  "d1-v4",
-                                 "word":  "confidence",
-                                 "meaning":  "su tu tin",
-                                 "example":  "Speaking daily boosts confidence.",
+                                 "id":  "p3-v1",
+                                 "word":  "man",
+                                 "phonetic":  "/mæn/",
+                                 "meaning":  "người đàn ông",
+                                 "example":  "He is a kind man.",
+                                 "exampleMeaning":  "Ông ấy là một người đàn ông tử tế.",
                                  "options":  [
-                                                 "lo lang",
-                                                 "su tu tin",
-                                                 "toc do",
-                                                 "am luong"
+                                                 "người phụ nữ",
+                                                 "người đàn ông",
+                                                 "đứa bé",
+                                                 "giáo viên"
                                              ],
-                                 "correctAnswer":  "su tu tin"
+                                 "correctAnswer":  "người đàn ông"
                              },
                              {
-                                 "id":  "d1-v3",
-                                 "word":  "what",
-                                 "meaning":  "cai gi",
-                                 "example":  "What is your name?",
+                                 "id":  "p3-v2",
+                                 "word":  "woman",
+                                 "phonetic":  "/ˈwʊmən/",
+                                 "meaning":  "người phụ nữ",
+                                 "example":  "That woman is my teacher.",
+                                 "exampleMeaning":  "Người phụ nữ đó là giáo viên của tôi.",
                                  "options":  [
-                                                 "cai gi",
-                                                 "bat dau",
-                                                 "bo qua",
-                                                 "tap trung"
+                                                 "người phụ nữ",
+                                                 "mẹ",
+                                                 "chị gái",
+                                                 "học sinh"
                                              ],
-                                 "correctAnswer":  "cai gi"
+                                 "correctAnswer":  "người phụ nữ"
+                             },
+                             {
+                                 "id":  "p3-v3",
+                                 "word":  "father",
+                                 "phonetic":  "/ˈfɑːðə(r)/",
+                                 "meaning":  "bố",
+                                 "example":  "My father is a doctor.",
+                                 "exampleMeaning":  "Bố của tôi là một bác sĩ.",
+                                 "options":  [
+                                                 "mẹ",
+                                                 "anh trai",
+                                                 "bố",
+                                                 "ông"
+                                             ],
+                                 "correctAnswer":  "bố"
+                             },
+                             {
+                                 "id":  "p3-v12",
+                                 "word":  "cat",
+                                 "phonetic":  "/kæt/",
+                                 "meaning":  "con mèo",
+                                 "example":  "The cat is sleeping.",
+                                 "exampleMeaning":  "Con mèo đang ngủ.",
+                                 "options":  [
+                                                 "con mèo",
+                                                 "con chó",
+                                                 "con lợn",
+                                                 "con chim"
+                                             ],
+                                 "correctAnswer":  "con mèo"
+                             },
+                             {
+                                 "id":  "p3-v14",
+                                 "word":  "car",
+                                 "phonetic":  "/kɑː(r)/",
+                                 "meaning":  "ô tô",
+                                 "example":  "He has a new car.",
+                                 "exampleMeaning":  "Anh ấy có một chiếc ô tô mới.",
+                                 "options":  [
+                                                 "xe đạp",
+                                                 "ô tô",
+                                                 "xe máy",
+                                                 "máy bay"
+                                             ],
+                                 "correctAnswer":  "ô tô"
+                             },
+                             {
+                                 "id":  "p3-v15",
+                                 "word":  "orange",
+                                 "phonetic":  "/ˈɒrɪndʒ/",
+                                 "meaning":  "quả cam",
+                                 "example":  "I like drinking orange juice.",
+                                 "exampleMeaning":  "Tôi thích uống nước cam.",
+                                 "options":  [
+                                                 "quả táo",
+                                                 "quả cam",
+                                                 "quả chanh",
+                                                 "quả chuối"
+                                             ],
+                                 "correctAnswer":  "quả cam"
+                             },
+                             {
+                                 "id":  "p4-v1",
+                                 "word":  "tall",
+                                 "phonetic":  "/tɔːl/",
+                                 "meaning":  "cao",
+                                 "example":  "He is very tall.",
+                                 "exampleMeaning":  "Anh ấy rất cao.",
+                                 "options":  [
+                                                 "thấp",
+                                                 "cao",
+                                                 "lớn",
+                                                 "nhỏ"
+                                             ],
+                                 "correctAnswer":  "cao"
+                             },
+                             {
+                                 "id":  "p4-v3",
+                                 "word":  "big",
+                                 "phonetic":  "/bɪɡ/",
+                                 "meaning":  "lớn",
+                                 "example":  "This is a big house.",
+                                 "exampleMeaning":  "Đây là một ngôi nhà lớn.",
+                                 "options":  [
+                                                 "nhỏ",
+                                                 "thấp",
+                                                 "lớn",
+                                                 "vui vẻ"
+                                             ],
+                                 "correctAnswer":  "lớn"
+                             },
+                             {
+                                 "id":  "p4-v5",
+                                 "word":  "happy",
+                                 "phonetic":  "/ˈhæpi/",
+                                 "meaning":  "hạnh phúc, vui vẻ",
+                                 "example":  "She looks very happy.",
+                                 "exampleMeaning":  "Cô ấy trông rất hạnh phúc.",
+                                 "options":  [
+                                                 "buồn",
+                                                 "giận dữ",
+                                                 "hạnh phúc, vui vẻ",
+                                                 "mệt mỏi"
+                                             ],
+                                 "correctAnswer":  "hạnh phúc, vui vẻ"
+                             },
+                             {
+                                 "id":  "p4-v6",
+                                 "word":  "sad",
+                                 "phonetic":  "/sæd/",
+                                 "meaning":  "buồn",
+                                 "example":  "Don\u0027t be sad.",
+                                 "exampleMeaning":  "Đừng buồn nhé.",
+                                 "options":  [
+                                                 "vui",
+                                                 "buồn",
+                                                 "cao",
+                                                 "thấp"
+                                             ],
+                                 "correctAnswer":  "buồn"
                              }
                          ]
     },
     {
         "day":  2,
         "title":  "Ngày 2 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 2 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO02/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC02A/view",
@@ -145,7 +273,6 @@
     {
         "day":  3,
         "title":  "Ngày 3 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 3 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO03/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC03A/view",
@@ -209,8 +336,7 @@
     },
     {
         "day":  4,
-        "title":  "Ngày 4 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 4 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Câu hỏi where và when với động từ to be",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO04/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC04A/view",
@@ -274,8 +400,7 @@
     },
     {
         "day":  5,
-        "title":  "Ngày 5 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 5 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Động từ thường ở hiện tại",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO05/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC05A/view",
@@ -339,8 +464,7 @@
     },
     {
         "day":  6,
-        "title":  "Ngày 6 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 6 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Thể phủ định của động từ thường ở hiện tại",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO06/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC06A/view",
@@ -404,8 +528,7 @@
     },
     {
         "day":  7,
-        "title":  "Ngày 7 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 7 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Thể nghi vấn của động từ thường ở hiện tại",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO07/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC07A/view",
@@ -469,8 +592,7 @@
     },
     {
         "day":  8,
-        "title":  "Ngày 8 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 8 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Thì hiện tại đơn",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO08/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC08A/view",
@@ -534,8 +656,7 @@
     },
     {
         "day":  9,
-        "title":  "Ngày 9 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 9 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Từ loại",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO09/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC09A/view",
@@ -599,8 +720,7 @@
     },
     {
         "day":  10,
-        "title":  "Ngày 10 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 10 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Thì hiện tại tiếp diễn",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO10/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC10A/view",
@@ -664,8 +784,7 @@
     },
     {
         "day":  11,
-        "title":  "Ngày 11 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 11 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Phân biệt thì hiện tại đơn và hiện tại tiếp diễn",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO11/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC11A/view",
@@ -729,8 +848,7 @@
     },
     {
         "day":  12,
-        "title":  "Ngày 12 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 12 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Thì quá khứ đơn thể khẳng định",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO12/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC12A/view",
@@ -794,8 +912,7 @@
     },
     {
         "day":  13,
-        "title":  "Ngày 13 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 13 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Thì quá khứ đơn thể phủ định và nghi vấn",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO13/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC13A/view",
@@ -859,8 +976,7 @@
     },
     {
         "day":  14,
-        "title":  "Ngày 14 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 14 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Thì quá khứ tiếp diễn",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO14/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC14A/view",
@@ -924,8 +1040,7 @@
     },
     {
         "day":  15,
-        "title":  "Ngày 15 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 15 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Thì hiện tại hoàn thành",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO15/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC15A/view",
@@ -989,8 +1104,7 @@
     },
     {
         "day":  16,
-        "title":  "Ngày 16 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 16 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Thì tương lai đơn",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO16/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC16A/view",
@@ -1054,8 +1168,7 @@
     },
     {
         "day":  17,
-        "title":  "Ngày 17 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 17 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Thì tương lai hoàn thành",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO17/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC17A/view",
@@ -1119,8 +1232,7 @@
     },
     {
         "day":  18,
-        "title":  "Ngày 18 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 18 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Học ngữ âm với giáo viên nước ngoài",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO18/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC18A/view",
@@ -1184,8 +1296,7 @@
     },
     {
         "day":  19,
-        "title":  "Ngày 19 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 19 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Tìm hiểu về trọng âm trong tiếng Anh",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO19/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC19A/view",
@@ -1249,8 +1360,7 @@
     },
     {
         "day":  20,
-        "title":  "Ngày 20 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 20 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Các câu hỏi với từ để hỏi khác trong tiếng Anh",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO20/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC20A/view",
@@ -1314,8 +1424,7 @@
     },
     {
         "day":  21,
-        "title":  "Ngày 21 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 21 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe số và tên",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO21/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC21A/view",
@@ -1379,8 +1488,7 @@
     },
     {
         "day":  22,
-        "title":  "Ngày 22 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 22 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Động từ khuyết thiếu",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO22/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC22A/view",
@@ -1444,8 +1552,7 @@
     },
     {
         "day":  23,
-        "title":  "Ngày 23 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 23 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Liên từ and, but, or, so và because",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO23/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC23A/view",
@@ -1509,8 +1616,7 @@
     },
     {
         "day":  24,
-        "title":  "Ngày 24 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 24 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Liên từ chỉ thời gian",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO24/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC24A/view",
@@ -1574,8 +1680,7 @@
     },
     {
         "day":  25,
-        "title":  "Ngày 25 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 25 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Liên từ chỉ sự đối lập",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO25/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC25A/view",
@@ -1639,8 +1744,7 @@
     },
     {
         "day":  26,
-        "title":  "Ngày 26 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 26 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Câu điều kiện loại 1",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO26/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC26A/view",
@@ -1704,8 +1808,7 @@
     },
     {
         "day":  27,
-        "title":  "Ngày 27 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 27 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Câu điều kiện loại 2",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO27/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC27A/view",
@@ -1769,8 +1872,7 @@
     },
     {
         "day":  28,
-        "title":  "Ngày 28 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 28 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Câu điều kiện loại 3",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO28/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC28A/view",
@@ -1834,8 +1936,7 @@
     },
     {
         "day":  29,
-        "title":  "Ngày 29 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 29 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe điền từ",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO29/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC29A/view",
@@ -1899,8 +2000,7 @@
     },
     {
         "day":  30,
-        "title":  "Ngày 30 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 30 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe chép chính tả",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO30/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC30A/view",
@@ -1964,8 +2064,7 @@
     },
     {
         "day":  31,
-        "title":  "Ngày 31 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 31 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe về giờ",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO31/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC31A/view",
@@ -2029,8 +2128,7 @@
     },
     {
         "day":  32,
-        "title":  "Ngày 32 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 32 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe ngày tháng",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO32/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC32A/view",
@@ -2094,8 +2192,7 @@
     },
     {
         "day":  33,
-        "title":  "Ngày 33 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 33 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe địa điểm",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO33/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC33A/view",
@@ -2159,8 +2256,7 @@
     },
     {
         "day":  34,
-        "title":  "Ngày 34 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 34 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe về tiền bạc",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO34/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC34A/view",
@@ -2224,8 +2320,7 @@
     },
     {
         "day":  35,
-        "title":  "Ngày 35 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 35 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Đại từ phản thân",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO35/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC35A/view",
@@ -2289,8 +2384,7 @@
     },
     {
         "day":  36,
-        "title":  "Ngày 36 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 36 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Sự hòa hợp về thì",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO36/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC36A/view",
@@ -2354,8 +2448,7 @@
     },
     {
         "day":  37,
-        "title":  "Ngày 37 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 37 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Tiếng Anh giao tiếp (1)",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO37/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC37A/view",
@@ -2419,8 +2512,7 @@
     },
     {
         "day":  38,
-        "title":  "Ngày 38 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 38 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Liên từ tương hỗ",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO38/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC38A/view",
@@ -2484,8 +2576,7 @@
     },
     {
         "day":  39,
-        "title":  "Ngày 39 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 39 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe về các quốc gia và châu lục",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO39/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC39A/view",
@@ -2549,8 +2640,7 @@
     },
     {
         "day":  40,
-        "title":  "Ngày 40 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 40 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe về sở thích",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO40/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC40A/view",
@@ -2614,8 +2704,7 @@
     },
     {
         "day":  41,
-        "title":  "Ngày 41 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 41 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe về các phương tiện giao thông",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO41/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC41A/view",
@@ -2679,8 +2768,7 @@
     },
     {
         "day":  42,
-        "title":  "Ngày 42 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 42 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe về thể thao",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO42/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC42A/view",
@@ -2744,8 +2832,7 @@
     },
     {
         "day":  43,
-        "title":  "Ngày 43 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 43 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe về nghề nghiệp",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO43/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC43A/view",
@@ -2809,8 +2896,7 @@
     },
     {
         "day":  44,
-        "title":  "Ngày 44 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 44 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Luyện nghe về công nghệ",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO44/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC44A/view",
@@ -2874,8 +2960,7 @@
     },
     {
         "day":  45,
-        "title":  "Ngày 45 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 45 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Tiếng Anh giao tiếp (2)",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO45/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC45A/view",
@@ -2939,8 +3024,7 @@
     },
     {
         "day":  46,
-        "title":  "Ngày 46 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 46 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Kỹ năng note-taking",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO46/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC46A/view",
@@ -3004,8 +3088,7 @@
     },
     {
         "day":  47,
-        "title":  "Ngày 47 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 47 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Kỹ năng paraphrasing",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO47/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC47A/view",
@@ -3069,8 +3152,7 @@
     },
     {
         "day":  48,
-        "title":  "Ngày 48 - Chủ đề nền tảng",
-        "description":  "Bài học ngày 48 tập trung luyện nghe, phản xạ và ngữ pháp cốt lõi.",
+        "title":  "Tự tin giới thiệu bản thân và thuyết trình bằng tiếng Anh",
         "resources":  {
                           "video":  "https://drive.google.com/file/d/1EXAMPLEVIDEO48/view",
                           "documents":  "https://drive.google.com/file/d/1EXAMPLEDOC48A/view",

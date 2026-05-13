@@ -1,12 +1,5 @@
 import { useCallback, useState } from 'react'
 
-const pronunciationMap = {
-  foundation: '/faʊnˈdeɪʃən/',
-  habit: '/ˈhæbɪt/',
-  review: '/rɪˈvjuː/',
-  confidence: '/ˈkɑːnfɪdəns/',
-}
-
 export default function Flashcard({ word }) {
   const [flipped, setFlipped] = useState(false)
 
@@ -17,14 +10,14 @@ export default function Flashcard({ word }) {
 
     const utterance = new SpeechSynthesisUtterance(word.word)
     utterance.lang = 'en-US'
-    utterance.rate = 0.95
+    utterance.rate = 0.8
     window.speechSynthesis.cancel()
     window.speechSynthesis.speak(utterance)
   }, [word])
 
   if (!word) return null
 
-  const pronunciation = word.pronunciation ?? pronunciationMap[word.word] ?? ''
+  const pronunciation = word.pronunciation ?? ''
 
   return (
     <div className="flashcard-wrap">
@@ -41,31 +34,46 @@ export default function Flashcard({ word }) {
         <div className="flip-card-inner">
           <div className="flip-card-front">
             <div className="flashcard-topline">
-              <span className="flashcard-tag">Từ vựng</span>
+              <span className="flashcard-tag">Thuật ngữ</span>
               <button type="button" className="flashcard-listen" onClick={speakWord}>
                 Nghe
               </button>
             </div>
 
-            <div className="flashcard-word">{word.word}</div>
+            <div className="flashcard-main">
+              <div className="flashcard-word">{word.word}</div>
 
-            {pronunciation ? (
-              <div className="flashcard-pron">{pronunciation}</div>
-            ) : (
-              <div className="flashcard-pron flashcard-pron-empty">Bấm nghe để luyện phát âm</div>
-            )}
+              {pronunciation ? (
+                <div className="flashcard-pron">{pronunciation}</div>
+              ) : (
+                <div className="flashcard-pron flashcard-pron-empty">Nhấn Nghe để luyện phát âm</div>
+              )}
+            </div>
 
-            <div className="flashcard-hint">Chạm vào thẻ để xem nghĩa</div>
+            <div className="flashcard-hint">Chạm hoặc nhấn Enter để lật thẻ</div>
           </div>
+
           <div className="flip-card-back">
-            <div className="flashcard-back-badge">Nghĩa</div>
-            <div className="flashcard-meaning">{word.meaning}</div>
-            {word.example && (
-              <div className="flashcard-example">{word.example}</div>
-            )}
-            <button type="button" className="flashcard-replay" onClick={speakWord}>
-              Nghe lại
-            </button>
+            <div className="flashcard-topline">
+              <span className="flashcard-back-badge">Nghĩa</span>
+              <button type="button" className="flashcard-replay" onClick={speakWord}>
+                Nghe lại
+              </button>
+            </div>
+
+            <div className="flashcard-back-content">
+              <div className="flashcard-meaning">{word.meaning}</div>
+
+              {word.example && (
+                <>
+                  <div className="flashcard-example-label">Ví dụ</div>
+                  <div className="flashcard-example">{word.example}</div>
+                  {word.exampleMeaning && (
+                    <div className="flashcard-example-meaning">{word.exampleMeaning}</div>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
