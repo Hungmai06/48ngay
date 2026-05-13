@@ -1,36 +1,50 @@
-import allowedEmails from '../data/allowedEmails.json'
-
 const AUTH_KEY = 'english48.auth'
 const DRIVE_NOTICE_KEY = 'english48.driveNoticeSeen'
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+const KEYWORD = 'Khóa Học 48 Ngày Lấy Gốc Tiếng Anh Toàn Diện Cùng Cô Mai Phương (VIP)'
 
-export function login(email) {
+export async function login(email) {
   const normalizedEmail = email.trim().toLowerCase()
 
   if (!normalizedEmail) {
     return { success: false, error: 'Vui lòng nhập email để đăng nhập.' }
   }
 
-  const matched = allowedEmails.find(
-    (item) => item.email.toLowerCase() === normalizedEmail,
-  )
+  try {
+    const url = `${API_BASE}/api/v1/english/check-english-48-ngay?email=${encodeURIComponent(normalizedEmail)}&keyword=${encodeURIComponent(KEYWORD)}`
+    const response = await fetch(url)
 
-  if (!matched) {
+    if (!response.ok) {
+      return {
+        success: false,
+        error: 'Không thể kết nối đến máy chủ. Vui lòng thử lại.',
+      }
+    }
+
+    const isAllowed = await response.json()
+
+    if (!isAllowed) {
+      return {
+        success: false,
+        errorType: 'unregistered',
+        error: 'Email này chưa có trong danh sách học viên.',
+      }
+    }
+
+    const authPayload = {
+      email: normalizedEmail,
+      loggedInAt: new Date().toISOString(),
+    }
+
+    sessionStorage.removeItem(DRIVE_NOTICE_KEY)
+    localStorage.setItem(AUTH_KEY, JSON.stringify(authPayload))
+    return { success: true, user: authPayload }
+  } catch {
     return {
       success: false,
-      errorType: 'unregistered',
-      error: 'Email này chưa có trong danh sách học viên.',
+      error: 'Lỗi kết nối. Vui lòng kiểm tra mạng và thử lại.',
     }
   }
-
-  const authPayload = {
-    email: matched.email,
-    name: matched.name,
-    loggedInAt: new Date().toISOString(),
-  }
-
-  sessionStorage.removeItem(DRIVE_NOTICE_KEY)
-  localStorage.setItem(AUTH_KEY, JSON.stringify(authPayload))
-  return { success: true, user: authPayload }
 }
 
 export function logout() {

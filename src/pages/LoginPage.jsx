@@ -14,11 +14,18 @@ function LoginPage() {
   const [error, setError] = useState('')
   const [showRegisterLink, setShowRegisterLink] = useState(false)
 
+  const [loading, setLoading] = useState(false)
+
   const from = location.state?.from?.pathname || '/'
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    const result = login(form.email)
+    setLoading(true)
+    setError('')
+    setShowRegisterLink(false)
+
+    const result = await login(form.email)
+    setLoading(false)
 
     if (!result.success) {
       setError(result.error)
@@ -26,8 +33,6 @@ function LoginPage() {
       return
     }
 
-    setError('')
-    setShowRegisterLink(false)
     navigate(from, { replace: true })
   }
 
@@ -64,8 +69,8 @@ function LoginPage() {
             </p>
           )}
 
-          <button className="btn btn-primary" type="submit">
-            Đăng nhập
+          <button className="btn btn-primary" type="submit" disabled={loading}>
+            {loading ? 'Đang kiểm tra...' : 'Đăng nhập'}
           </button>
         </form>
       </div>

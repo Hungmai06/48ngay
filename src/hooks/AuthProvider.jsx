@@ -14,8 +14,8 @@ function AuthProvider({ children }) {
     () => ({
       user,
       isLoggedIn: isAuthenticated(),
-      login: (email) => {
-        const result = loginService(email)
+      login: async (email) => {
+        const result = await loginService(email)
         if (result.success) {
           setUser(result.user)
         }
