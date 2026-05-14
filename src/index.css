@@ -1136,6 +1136,101 @@ h3 {
   }
 }
 
+/* ===== IFRAME FALLBACK CARD ===== */
+.iframe-fallback-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(66, 133, 244, 0.06), rgba(15, 157, 88, 0.04));
+  border: 1px solid rgba(66, 133, 244, 0.2);
+  margin-bottom: 12px;
+}
+
+.iframe-fallback-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iframe-fallback-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.iframe-fallback-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  margin: 0;
+}
+
+.iframe-fallback-desc {
+  font-size: 0.875rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.iframe-fallback-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), #2b5eb9);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(49, 130, 206, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  touch-action: manipulation;
+  width: fit-content;
+}
+
+.iframe-fallback-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(49, 130, 206, 0.45);
+}
+
+.iframe-fallback-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(49, 130, 206, 0.3);
+}
+
+.iframe-fallback-arrow {
+  font-size: 1.1em;
+  margin-left: 2px;
+}
+
+/* Convenience link shown below a successfully loaded iframe */
+.iframe-open-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.iframe-open-link:hover {
+  opacity: 0.75;
+}
+
 /* ===== IFRAME LOADING BAR ===== */
 .iframe-loading-bar {
   width: 100%;
