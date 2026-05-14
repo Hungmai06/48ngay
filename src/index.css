@@ -30,11 +30,13 @@ body {
   color: var(--text);
   background-image: url('/src/assets/48background.png');
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: fixed; /* desktop: parallax OK */
   background-position: center;
   background-repeat: no-repeat;
   font-size: 16px;
   line-height: 1.5;
+  /* Smooth scrolling trên mobile */
+  -webkit-overflow-scrolling: touch;
 }
 
 body::before {
@@ -1164,5 +1166,31 @@ h3 {
   .flashcard-listen,
   .flashcard-replay {
     width: 100%;
+  }
+
+  /* ===== MOBILE PERFORMANCE FIX ===== */
+
+  /* Fix #1: background-attachment: fixed cực nặng trên mobile
+     Buộc browser repaint mỗi frame khi scroll → tắt GPU compositing */
+  body {
+    background-attachment: scroll;
+  }
+
+  /* Fix #2: Tắt backdrop-filter blur trên mobile
+     Blur nặng CPU → gây giật lag đặc biệt trên điện thoại tầm trung */
+  .login-promo,
+  .login-card {
+    backdrop-filter: none;
+  }
+
+  .content-shell {
+    backdrop-filter: none;
+  }
+
+  /* Fix #3: Bật touch-action để loại bỏ 300ms tap delay */
+  button,
+  a,
+  [role="button"] {
+    touch-action: manipulation;
   }
 }

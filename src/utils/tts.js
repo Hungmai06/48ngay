@@ -33,32 +33,55 @@ export function speakText(text, opts = {}) {
 
   const { lang = 'en-US', rate = 0.9, pitch = 1, preferGender = 'female' } = opts
 
-  const utter = new SpeechSynthesisUtterance(text)
-  utter.lang = lang
-  utter.rate = rate
-  utter.pitch = pitch
+  // Tạo utterance trong hàm doSpeak để tránh bị dùng lại sau cancel()
+  function doSpeak(voices) {
+    const utter = new SpeechSynthesisUtterance(text)
+    utter.lang = lang
+    utter.rate = rate
+    utter.pitch = pitch
 
-  let voices = window.speechSynthesis.getVoices()
-  if (!voices || voices.length === 0) {
-    // voices not loaded yet — set a handler and speak once voices available
-    const handler = () => {
-      voices = window.speechSynthesis.getVoices() || []
-      const best = findBestVoice(voices, lang, preferGender)
-      if (best) utter.voice = best
-      window.speechSynthesis.speak(utter)
-      window.speechSynthesis.removeEventListener('voiceschanged', handler)
-    }
-    window.speechSynthesis.addEventListener('voiceschanged', handler)
-    // attempt immediate speak (fallback) — will likely be replaced by handler
+    const best = findBestVoice(voices, lang, preferGender)
+    if (best) utter.voice = best
+
     window.speechSynthesis.cancel()
     window.speechSynthesis.speak(utter)
+  }
+
+  const voices = window.speechSynthesis.getVoices()
+
+  if (voices && voices.length > 0) {
+    // Voices đã sẵn sàng → đọc ngay
+    doSpeak(voices)
     return
   }
 
-  const best = findBestVoice(voices, lang, preferGender)
-  if (best) utter.voice = best
-  window.speechSynthesis.cancel()
-  window.speechSynthesis.speak(utter)
+  // Voices chưa load — dùng voiceschanged event
+  let handled = false
+
+  const handler = () => {
+    if (handled) return
+    handled = true
+    window.speechSynthesis.removeEventListener('voiceschanged', handler)
+    doSpeak(window.speechSynthesis.getVoices() || [])
+  }
+
+  window.speechSynthesis.addEventListener('voiceschanged', handler)
+
+  // Fallback polling cho iOS Safari (không bao giờ fire voiceschanged)
+  // Thử lại mỗi 100ms, tối đa 20 lần (= 2 giây)
+  let attempts = 0
+  const poll = setInterval(() => {
+    attempts++
+    const v = window.speechSynthesis.getVoices()
+    if ((v && v.length > 0) || attempts >= 20) {
+      clearInterval(poll)
+      if (!handled) {
+        handled = true
+        window.speechSynthesis.removeEventListener('voiceschanged', handler)
+        doSpeak(v || [])
+      }
+    }
+  }, 100)
 }
 
 export function listAvailableVoices() {
