@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/useAuth'
 import bgImage from '../assets/48ngay.png'
 
 const REGISTER_LINK =
-  'https://khoahocdrivemh.pro.vn/course/403-khoa-hoc-48-ngay-lay-goc-ting-anh-toan-dien-cung-co-mai-phuong'
+  'https://khoahocdrivemh.pro.vn/course/602-khoa-hoc-48-ngay-lay-goc-ting-anh-toan-dien-cung-co-mai-phuong-vip'
 
 const SUPPORT_PAGE_LINK = 'https://www.facebook.com/profile.php?id=61589431153655'
 
