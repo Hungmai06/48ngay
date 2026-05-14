@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { speakText } from '../utils/tts'
 
 export default function Flashcard({ word }) {
   const [flipped, setFlipped] = useState(false)
@@ -6,13 +7,9 @@ export default function Flashcard({ word }) {
   const speakWord = useCallback((event) => {
     event.stopPropagation()
 
-    if (!word || !window.speechSynthesis) return
-
-    const utterance = new SpeechSynthesisUtterance(word.word)
-    utterance.lang = 'en-US'
-    utterance.rate = 0.8
-    window.speechSynthesis.cancel()
-    window.speechSynthesis.speak(utterance)
+    if (!word) return
+    // speak using centralized helper which picks a consistent voice when available
+    speakText(word.word, { lang: 'en-US', rate: 0.85 })
   }, [word])
 
   if (!word) return null

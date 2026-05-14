@@ -2,6 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react'
 import { LESSON_STATUS, setDayStatus } from '../services/courseService'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import Flashcard from './Flashcard'
+import { speakText } from '../utils/tts'
 
 const PHONETIC_MAP = {
   foundation: '/faʊnˈdeɪʃən/',
@@ -47,14 +48,28 @@ function buildRightItems(words) {
 
 function buildListenOptions(words, targetIndex) {
   const correct = enrichWord(words[targetIndex])
-  const others = words.filter((_, index) => index !== targetIndex)
-  const picked = []
+  const others = words
+    .map((w, i) => (i === targetIndex ? null : enrichWord(w)))
+    .filter(Boolean)
 
-  while (picked.length < Math.min(3, others.length)) {
-    const randomIndex = Math.floor(Math.random() * others.length)
-    const candidate = enrichWord(others[randomIndex])
-    if (!picked.includes(candidate)) {
+  // Shuffle others (Fisher-Yates)
+  for (let i = others.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[others[i], others[j]] = [others[j], others[i]]
+  }
+
+  const limit = Math.min(3, others.length)
+  const picked = []
+  const seen = new Set()
+  // mark correct as seen (use id when available, otherwise lowercase word)
+  seen.add(correct.id ?? (String(correct.word || '').toLowerCase()))
+
+  for (let i = 0; i < others.length && picked.length < limit; i++) {
+    const candidate = others[i]
+    const key = candidate.id ?? (String(candidate.word || '').toLowerCase())
+    if (!seen.has(key)) {
       picked.push(candidate)
+      seen.add(key)
     }
   }
 
@@ -104,12 +119,7 @@ function VocabularyModule({ day, words }) {
   }
 
   const speakWord = useCallback((text) => {
-    if (!window.speechSynthesis) return
-    const utter = new SpeechSynthesisUtterance(text)
-    utter.lang = 'en-US'
-    utter.rate = 0.8
-    window.speechSynthesis.cancel()
-    window.speechSynthesis.speak(utter)
+    speakText(text, { lang: 'en-US', rate: 0.85 })
   }, [])
 
   const startListenExercise = () => {
