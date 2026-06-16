@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './48ngay/components/ProtectedRoute'
 import MainLayout from './48ngay/layouts/MainLayout'
@@ -28,6 +29,12 @@ import ReviewSach from './dolphinlearn/pages/ReviewSach'
 
 function App() {
   const { isLoggedIn, isDlLoggedIn } = useAuth()
+
+  useEffect(() => {
+    const apiBase = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081';
+    fetch(`${apiBase}/api/v1/english/visit`, { method: 'POST' })
+      .catch(err => console.error('Failed to record visit:', err));
+  }, []);
 
   return (
     <Routes>
