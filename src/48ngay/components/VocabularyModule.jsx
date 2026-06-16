@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { LESSON_STATUS, setDayStatus } from '../services/courseService'
+import { LESSON_STATUS, setDayStatus, isVocabLearned } from '../services/courseService'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import Flashcard from './Flashcard'
 import { speakText } from '../utils/tts'
@@ -110,6 +110,16 @@ function VocabularyModule({ day, words }) {
       }
     }
   }, [])
+
+  useEffect(() => {
+    async function syncLearnedStatus() {
+      const learned = await isVocabLearned(day)
+      if (learned) {
+        setState((prev) => ({ ...prev, learned: true }))
+      }
+    }
+    syncLearnedStatus()
+  }, [day, setState])
 
   const currentCard = enrichWord(words[cardIndex])
   const currentListenWord = enrichWord(words[listenIndex])
@@ -239,7 +249,7 @@ function VocabularyModule({ day, words }) {
       setFeedback('Bạn đã hoàn thành phần nghe và chọn.')
       setListenComplete(true)
       setState((prev) => ({ ...prev, learned: true }))
-      setDayStatus(day, LESSON_STATUS.COMPLETED)
+      setDayStatus(day, LESSON_STATUS.COMPLETED, true)
       return
     }
 
@@ -278,7 +288,7 @@ function VocabularyModule({ day, words }) {
       setFeedback('Bạn đã hoàn thành phần nghe và chọn.')
       setListenComplete(true)
       setState((prev) => ({ ...prev, learned: true }))
-      setDayStatus(day, LESSON_STATUS.COMPLETED)
+      setDayStatus(day, LESSON_STATUS.COMPLETED, true)
       return
     }
 
@@ -301,7 +311,7 @@ function VocabularyModule({ day, words }) {
 
   const markLearned = () => {
     setState((prev) => ({ ...prev, learned: true }))
-    setDayStatus(day, LESSON_STATUS.COMPLETED)
+    setDayStatus(day, LESSON_STATUS.COMPLETED, true)
   }
 
   return (

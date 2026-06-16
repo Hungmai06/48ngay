@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import CourseHeader from '../components/CourseHeader'
+import Navbar from '../../dolphinlearn/components/Navbar'
+import Footer from '../../dolphinlearn/components/Footer'
+import { useAuth } from '../hooks/useAuth'
 
 const DRIVE_NOTICE_KEY = 'english48.driveNoticeSeen'
 
 function MainLayout() {
+  const { isLoggedIn } = useAuth()
   const [showDriveNotice, setShowDriveNotice] = useState(
     () => sessionStorage.getItem(DRIVE_NOTICE_KEY) !== '1',
   )
@@ -15,13 +18,16 @@ function MainLayout() {
   }
 
   return (
-    <div className="app-shell">
-      <CourseHeader />
-      <main className="content-shell">
-        <Outlet />
-      </main>
+    <div className="dl-app flex flex-col md:flex-row min-h-screen bg-slate-50/50">
+      <Navbar />
+      <div className="flex-1 flex flex-col min-h-screen overflow-x-hidden">
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
 
-      {showDriveNotice && (
+      {isLoggedIn && showDriveNotice && (
         <div className="drive-notice-overlay" role="dialog" aria-modal="true" aria-labelledby="drive-notice-title">
           <div className="drive-notice-card">
             <h2 id="drive-notice-title">Thông báo quan trọng</h2>

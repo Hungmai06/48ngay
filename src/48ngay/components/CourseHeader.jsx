@@ -7,7 +7,7 @@ function CourseHeader() {
 
   const handleLogout = () => {
     logout()
-    navigate('/login', { replace: true })
+    navigate('/48ngay/login', { replace: true })
   }
 
   return (

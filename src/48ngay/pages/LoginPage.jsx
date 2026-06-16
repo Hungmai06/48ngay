@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import bgImage from '../assets/48ngay.png'
+import bgImage from '../../assets/48ngay.png'
 
 const REGISTER_LINK =
   'https://khoahocdrivemh.pro.vn/course/602-khoa-hoc-48-ngay-lay-goc-ting-anh-toan-dien-cung-co-mai-phuong-vip'
@@ -13,12 +13,12 @@ function LoginPage() {
   const navigate = useNavigate()
   const location = useLocation()
   const [form, setForm] = useState({ email: '' })
-  const [error, setError] = useState('')
+  const [error, setError] = useState(location.state?.error || '')
   const [showRegisterLink, setShowRegisterLink] = useState(false)
 
   const [loading, setLoading] = useState(false)
 
-  const from = location.state?.from?.pathname || '/'
+  const from = location.state?.from?.pathname || '/48ngay'
 
   const handleSubmit = async (event) => {
     event.preventDefault()

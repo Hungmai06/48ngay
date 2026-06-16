@@ -11,7 +11,7 @@ function DayCard({ day, title, status }) {
   const statusValue = status || LESSON_STATUS.NOT_STARTED
 
   return (
-    <Link to={`/lesson/${day}`} className="day-card">
+    <Link to={`/48ngay/lesson/${day}`} className="day-card">
       <p className="day-number">Day {day}</p>
       <h3>{title}</h3>
       <span className={`status-badge status-${statusValue}`}>{LABELS[statusValue]}</span>
