@@ -90,6 +90,17 @@ export default function LearnPage() {
     }
 
     fetchData()
+
+    // Tính streak ngay khi vào trang học (không cần hoàn thành bộ)
+    const visitUser = getDlCurrentUser()
+    if (visitUser?.email) {
+      const visitEmail = visitUser.email.trim().toLowerCase()
+      fetch(`${API_BASE}/api/v1/english/vocabulary/progress?username=${encodeURIComponent(visitEmail)}&subCollectionId=${id}&mode=visit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify([])
+      }).catch(() => {})
+    }
   }, [id, API_BASE])
 
   const saveProgress = async (learnedWordIdsList = [], modeName = '') => {
@@ -166,6 +177,7 @@ export default function LearnPage() {
               <button 
                 className="sponsor-btn-shopee" 
                 onClick={() => {
+                  localStorage.setItem("review_sach_return_url", window.location.pathname + window.location.search);
                   window.open("/review-sach", "_blank");
                   setHasClickedShopee(true);
                 }}
@@ -266,6 +278,7 @@ export default function LearnPage() {
               <QuizMode 
                 words={words} 
                 onComplete={(ids) => saveProgress(ids, 'quiz')} 
+                onCorrectAnswer={(wordId) => saveProgress([wordId], 'quiz')}
                 onBack={() => setMode(null)} 
               />
             )}
@@ -273,6 +286,7 @@ export default function LearnPage() {
               <WriteMode 
                 words={words} 
                 onComplete={(ids) => saveProgress(ids, 'write')} 
+                onCorrectAnswer={(wordId) => saveProgress([wordId], 'write')}
                 onBack={() => setMode(null)} 
               />
             )}
@@ -361,7 +375,7 @@ function FlashcardMode({ words, onComplete, onBack }) {
 }
 
 /* ═══ QUIZ ═══ */
-function QuizMode({ words, onComplete, onBack }) {
+function QuizMode({ words, onComplete, onCorrectAnswer, onBack }) {
   const [idx, setIdx] = useState(0)
   const [selected, setSelected] = useState(null)
   const [answered, setAnswered] = useState(false)
@@ -383,6 +397,8 @@ function QuizMode({ words, onComplete, onBack }) {
     if (opt === w.meaning) {
       setScore(s => s + 1)
       setCorrectIds(prev => [...prev, w.id])
+      // Cộng XP ngay lập tức, backend tự chống trùng qua awardedWordIds
+      if (onCorrectAnswer) onCorrectAnswer(w.id)
     }
   }
 
@@ -452,7 +468,7 @@ function QuizMode({ words, onComplete, onBack }) {
 }
 
 /* ═══ WRITE MODE ═══ */
-function WriteMode({ words, onComplete, onBack }) {
+function WriteMode({ words, onComplete, onCorrectAnswer, onBack }) {
   const [idx, setIdx] = useState(0)
   const [userInput, setUserInput] = useState('')
   const [checked, setChecked] = useState(false)
@@ -483,6 +499,8 @@ function WriteMode({ words, onComplete, onBack }) {
     if (correct) {
       setScore(s => s + 1)
       setCorrectIds(prev => [...prev, w.id])
+      // Cộng XP ngay lập tức, backend tự chống trùng qua awardedWordIds
+      if (onCorrectAnswer) onCorrectAnswer(w.id)
     }
   }
 
