@@ -4,6 +4,8 @@ import { getDlCurrentUser } from '../../48ngay/services/authService'
 import { useAuth } from '../../48ngay/hooks/useAuth'
 import { useSEO } from '../hooks/useSEO'
 
+const SHOPEE_LINK = "https://s.shopee.vn/5L9aBvPxg0"; // Link Shopee ủng hộ
+
 const playAudio = (e, text) => {
   if (e) e.stopPropagation();
   if ('speechSynthesis' in window) {
@@ -174,15 +176,16 @@ export default function LearnPage() {
               Để có thêm kinh phí duy trì máy chủ, vui lòng click ủng hộ chúng tôi tại link dưới đây! Không bắt buộc mua đâu nhé, chỉ cần click xem thôi là đã giúp đỡ Admin rất nhiều rồi ạ!
             </p>
             <div className="sponsor-popup-actions">
-              <button 
-                className="sponsor-btn-shopee" 
-                onClick={() => {
-                  window.open(SHOPEE_LINK, "_blank");
-                  setHasClickedShopee(true);
-                }}
+              <a
+                href={SHOPEE_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sponsor-btn-shopee"
+                style={{ display: 'inline-block', textDecoration: 'none', textAlign: 'center' }}
+                onClick={() => setHasClickedShopee(true)}
               >
                 📖 Xem Sách Tiếng Anh Bổ Trợ
-              </button>
+              </a>
               <button
                 className="sponsor-btn-close"
                 onClick={() => {
