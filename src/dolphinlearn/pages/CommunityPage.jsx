@@ -15,7 +15,9 @@ export default function CommunityPage() {
   const { isDlLoggedIn, dlUser } = useAuth()
   const [newMsg, setNewMsg] = useState('')
   const chatEndRef = useRef(null)
+  const chatContainerRef = useRef(null)
   const [messages, setMessages] = useState([])
+  const isNearBottomRef = useRef(true) // track xem user có đang ở gần cuối không
 
   // Fetch chat messages from backend with polling
   useEffect(() => {
@@ -48,14 +50,28 @@ export default function CommunityPage() {
     return () => clearInterval(interval)
   }, [dlUser])
 
-  // Auto scroll to bottom
+  // Auto scroll xuống cuối - chỉ khi user đang ở gần cuối
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (isNearBottomRef.current) {
+      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
   }, [messages])
+
+  // Theo dõi vị trí scroll của user
+  const handleChatScroll = () => {
+    const container = chatContainerRef.current
+    if (!container) return
+    const threshold = 100 // px từ cuối
+    const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight
+    isNearBottomRef.current = distanceFromBottom <= threshold
+  }
 
   const handleSend = async (e) => {
     e.preventDefault()
     if (!newMsg.trim() || !isDlLoggedIn) return
+
+    // Khi user tự gửi tin → cuộn xuống cuối
+    isNearBottomRef.current = true
 
     try {
       const response = await fetch(`${API_BASE}/api/v1/english/chat/messages?email=${encodeURIComponent(dlUser.email)}`, {
@@ -212,7 +228,11 @@ export default function CommunityPage() {
         <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm flex flex-col h-[520px] overflow-hidden relative">
           
           {/* Message List */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50/30">
+          <div 
+            ref={chatContainerRef}
+            onScroll={handleChatScroll}
+            className="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50/30"
+          >
             {messages.map((msg) => (
               <div 
                 key={msg.id} 

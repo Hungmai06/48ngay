@@ -177,8 +177,7 @@ export default function LearnPage() {
               <button 
                 className="sponsor-btn-shopee" 
                 onClick={() => {
-                  localStorage.setItem("review_sach_return_url", window.location.pathname + window.location.search);
-                  window.open("/review-sach", "_blank");
+                  window.open(SHOPEE_LINK, "_blank");
                   setHasClickedShopee(true);
                 }}
               >
