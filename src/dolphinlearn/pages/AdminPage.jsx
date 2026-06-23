@@ -1309,7 +1309,7 @@ export default function AdminPage() {
                     </thead>
                     <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
                       {(() => {
-                        const COLLECTIONS_PER_PAGE = 5;
+                        const COLLECTIONS_PER_PAGE = 10;
                         const totalColPages = Math.ceil(collections.length / COLLECTIONS_PER_PAGE) || 1;
                         const currentColPage = Math.min(collectionPage, totalColPages);
                         const paginatedCollections = collections.slice(
@@ -1412,7 +1412,7 @@ export default function AdminPage() {
                     </thead>
                     <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
                       {(() => {
-                        const SUBS_PER_PAGE = 5;
+                        const SUBS_PER_PAGE = 10;
                         const totalSubPages = Math.ceil(subCollections.length / SUBS_PER_PAGE) || 1;
                         const currentSubPage = Math.min(subCollectionPage, totalSubPages);
                         const paginatedSubs = subCollections.slice(
