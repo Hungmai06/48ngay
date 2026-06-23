@@ -14,6 +14,7 @@ export default function DocumentsPage() {
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState(null)
   const [toastMessage, setToastMessage] = useState('')
+  const [selectedDocId, setSelectedDocId] = useState(null)
 
   const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
 
@@ -73,16 +74,22 @@ export default function DocumentsPage() {
       if (docId) {
         const doc = documents.find(d => Number(d.id) === Number(docId))
         if (doc) {
-          handleView(doc)
+          setSelectedDocId(doc.id)
+          // Increment views silently
+          fetch(`${API_BASE}/api/v1/english/documents/${doc.id}/view`, { method: 'POST' }).catch(err => console.error(err))
+          setDocuments(prev => prev.map(d => d.id === doc.id ? { ...d, views: (d.views || 0) + 1 } : d))
           // Clean URL parameters
           const newUrl = window.location.pathname
           window.history.replaceState({}, document.title, newUrl)
         }
       }
     }
-  }, [loading, documents])
+  }, [loading, documents, API_BASE])
 
   const filtered = documents.filter(d => {
+    if (selectedDocId) {
+      return d.id === selectedDocId
+    }
     const title = d.title || ''
     const desc = d.description || ''
     const matchSearch = title.toLowerCase().includes(search.toLowerCase()) || desc.toLowerCase().includes(search.toLowerCase())
@@ -130,6 +137,22 @@ export default function DocumentsPage() {
           ))}
         </div>
 
+        {/* Shared Document Info Banner */}
+        {selectedDocId && (
+          <div className="mb-8 bg-blue-50 border border-blue-100 rounded-2xl p-4 flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between animate-fade-in shadow-sm">
+            <div className="flex items-center gap-2.5 text-blue-700 font-semibold text-sm">
+              <span className="material-symbols-outlined text-[20px]">info</span>
+              <span>Bạn đang xem tài liệu được chia sẻ riêng biệt</span>
+            </div>
+            <button 
+              onClick={() => setSelectedDocId(null)} 
+              className="text-xs bg-blue-600 text-white font-bold px-3 py-1.5 rounded-xl hover:bg-blue-700 transition-all cursor-pointer shadow-sm"
+            >
+              Hiển thị tất cả tài liệu
+            </button>
+          </div>
+        )}
+
         {/* Grid */}
         {filtered.length === 0 ? (
           <div className="text-center py-20">
@@ -139,7 +162,7 @@ export default function DocumentsPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map(doc => (
-              <div key={doc.id} className="dl-card-hover bg-white rounded-2xl border border-border p-6 flex flex-col justify-between">
+              <div key={doc.id} className={`dl-card-hover rounded-2xl border p-6 flex flex-col justify-between transition-all ${selectedDocId === doc.id ? 'border-primary ring-4 ring-primary/10 bg-primary/5 shadow-md' : 'bg-white border-border'}`}>
                 <div className="flex flex-col flex-1">
                   <h3 className="font-display font-semibold mb-1 text-base text-slate-800">{doc.title}</h3>
                   <p className="text-sm text-text-muted flex-1 mb-4">{doc.description}</p>
