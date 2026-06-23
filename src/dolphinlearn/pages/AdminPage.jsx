@@ -47,6 +47,9 @@ export default function AdminPage() {
   const [debouncedWordSearch, setDebouncedWordSearch] = useState('')
   const [selectedSubCollFilter, setSelectedSubCollFilter] = useState('all')
 
+  const [collectionPage, setCollectionPage] = useState(1)
+  const [subCollectionPage, setSubCollectionPage] = useState(1)
+
   const [docPage, setDocPage] = useState(1)
   const [docTotalPages, setDocTotalPages] = useState(1)
   const [docTotalElements, setDocTotalElements] = useState(0)
@@ -1305,35 +1308,77 @@ export default function AdminPage() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
-                      {collections.map(c => (
-                        <tr key={c.id} className="hover:bg-slate-50/50">
-                          <td className="py-3 pl-2 text-slate-400">#{c.id}</td>
-                          <td className="py-3 font-bold text-slate-800 flex items-center gap-1.5">
-                            <span className="material-symbols-outlined text-[16px] text-primary">{c.icon || 'school'}</span>
-                            {c.title}
-                          </td>
-                          <td className="py-3 text-slate-400 max-w-[150px] truncate">{c.description}</td>
-                          <td className="py-3">
-                            <span className="px-2 py-0.5 bg-slate-100 rounded text-[10px] font-bold text-slate-600 uppercase">{c.color}</span>
-                          </td>
-                          <td className="py-3 text-right pr-2">
-                            <div className="flex justify-end gap-1.5">
-                              <button
-                                onClick={() => { setModalType('editCollection'); setCurrentEditItem(c); setFormData(c); }}
-                                className="w-7 h-7 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary transition-all"
-                              >
-                                <span className="material-symbols-outlined text-[16px]">edit</span>
-                              </button>
-                              <button
-                                onClick={() => handleDeleteCollection(c.id)}
-                                className="w-7 h-7 rounded-lg border border-red-100 text-red-400 flex items-center justify-center hover:bg-red-50 transition-all"
-                              >
-                                <span className="material-symbols-outlined text-[16px]">delete</span>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                      {(() => {
+                        const COLLECTIONS_PER_PAGE = 5;
+                        const totalColPages = Math.ceil(collections.length / COLLECTIONS_PER_PAGE) || 1;
+                        const currentColPage = Math.min(collectionPage, totalColPages);
+                        const paginatedCollections = collections.slice(
+                          (currentColPage - 1) * COLLECTIONS_PER_PAGE,
+                          currentColPage * COLLECTIONS_PER_PAGE
+                        );
+
+                        return (
+                          <>
+                            {paginatedCollections.map(c => (
+                              <tr key={c.id} className="hover:bg-slate-50/50">
+                                <td className="py-3 pl-2 text-slate-400">#{c.id}</td>
+                                <td className="py-3 font-bold text-slate-800 flex items-center gap-1.5">
+                                  <span className="material-symbols-outlined text-[16px] text-primary">{c.icon || 'school'}</span>
+                                  {c.title}
+                                </td>
+                                <td className="py-3 text-slate-400 max-w-[150px] truncate">{c.description}</td>
+                                <td className="py-3">
+                                  <span className="px-2 py-0.5 bg-slate-100 rounded text-[10px] font-bold text-slate-600 uppercase">{c.color}</span>
+                                </td>
+                                <td className="py-3 text-right pr-2">
+                                  <div className="flex justify-end gap-1.5">
+                                    <button
+                                      onClick={() => { setModalType('editCollection'); setCurrentEditItem(c); setFormData(c); }}
+                                      className="w-7 h-7 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary transition-all cursor-pointer"
+                                    >
+                                      <span className="material-symbols-outlined text-[16px]">edit</span>
+                                    </button>
+                                    <button
+                                      onClick={() => handleDeleteCollection(c.id)}
+                                      className="w-7 h-7 rounded-lg border border-red-100 text-red-400 flex items-center justify-center hover:bg-red-50 transition-all cursor-pointer"
+                                    >
+                                      <span className="material-symbols-outlined text-[16px]">delete</span>
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+
+                            {totalColPages > 1 && (
+                              <tr>
+                                <td colSpan="5" className="pt-3">
+                                  <div className="flex items-center justify-between border-t border-slate-100 pt-3 text-[10px] font-semibold text-slate-500">
+                                    <span>Trang {currentColPage} / {totalColPages}</span>
+                                    <div className="flex gap-1.5">
+                                      <button
+                                        type="button"
+                                        disabled={currentColPage === 1}
+                                        onClick={() => setCollectionPage(prev => Math.max(1, prev - 1))}
+                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                                      >
+                                        Trước
+                                      </button>
+                                      <button
+                                        type="button"
+                                        disabled={currentColPage === totalColPages}
+                                        onClick={() => setCollectionPage(prev => Math.min(totalColPages, prev + 1))}
+                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                                      >
+                                        Sau
+                                      </button>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            )}
+                          </>
+                        );
+                      })()}
                     </tbody>
                   </table>
                 </div>
@@ -1366,33 +1411,75 @@ export default function AdminPage() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
-                      {subCollections.map(s => {
-                        const parent = collections.find(c => c.id === s.collectionId)?.title || 'Không rõ'
+                      {(() => {
+                        const SUBS_PER_PAGE = 5;
+                        const totalSubPages = Math.ceil(subCollections.length / SUBS_PER_PAGE) || 1;
+                        const currentSubPage = Math.min(subCollectionPage, totalSubPages);
+                        const paginatedSubs = subCollections.slice(
+                          (currentSubPage - 1) * SUBS_PER_PAGE,
+                          currentSubPage * SUBS_PER_PAGE
+                        );
+
                         return (
-                          <tr key={s.id} className="hover:bg-slate-50/50">
-                            <td className="py-3 pl-2 text-slate-400">#{s.id}</td>
-                            <td className="py-3 font-bold text-slate-800">{s.title}</td>
-                            <td className="py-3 text-slate-500 font-semibold">{parent}</td>
-                            <td className="py-3 text-primary font-bold">{s.wordCount} từ</td>
-                            <td className="py-3 text-right pr-2">
-                              <div className="flex justify-end gap-1.5">
-                                <button
-                                  onClick={() => { setModalType('editSubCollection'); setCurrentEditItem(s); setFormData(s); }}
-                                  className="w-7 h-7 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary transition-all"
-                                >
-                                  <span className="material-symbols-outlined text-[16px]">edit</span>
-                                </button>
-                                <button
-                                  onClick={() => handleDeleteSubCollection(s.id)}
-                                  className="w-7 h-7 rounded-lg border border-red-100 text-red-400 flex items-center justify-center hover:bg-red-50 transition-all"
-                                >
-                                  <span className="material-symbols-outlined text-[16px]">delete</span>
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        )
-                      })}
+                          <>
+                            {paginatedSubs.map(s => {
+                              const parent = collections.find(c => c.id === s.collectionId)?.title || 'Không rõ'
+                              return (
+                                <tr key={s.id} className="hover:bg-slate-50/50">
+                                  <td className="py-3 pl-2 text-slate-400">#{s.id}</td>
+                                  <td className="py-3 font-bold text-slate-800">{s.title}</td>
+                                  <td className="py-3 text-slate-500 font-semibold">{parent}</td>
+                                  <td className="py-3 text-primary font-bold">{s.wordCount} từ</td>
+                                  <td className="py-3 text-right pr-2">
+                                    <div className="flex justify-end gap-1.5">
+                                      <button
+                                        onClick={() => { setModalType('editSubCollection'); setCurrentEditItem(s); setFormData(s); }}
+                                        className="w-7 h-7 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary transition-all cursor-pointer"
+                                      >
+                                        <span className="material-symbols-outlined text-[16px]">edit</span>
+                                      </button>
+                                      <button
+                                        onClick={() => handleDeleteSubCollection(s.id)}
+                                        className="w-7 h-7 rounded-lg border border-red-100 text-red-400 flex items-center justify-center hover:bg-red-50 transition-all cursor-pointer"
+                                      >
+                                        <span className="material-symbols-outlined text-[16px]">delete</span>
+                                      </button>
+                                    </div>
+                                  </td>
+                                </tr>
+                              )
+                            })}
+
+                            {totalSubPages > 1 && (
+                              <tr>
+                                <td colSpan="5" className="pt-3">
+                                  <div className="flex items-center justify-between border-t border-slate-100 pt-3 text-[10px] font-semibold text-slate-500">
+                                    <span>Trang {currentSubPage} / {totalSubPages}</span>
+                                    <div className="flex gap-1.5">
+                                      <button
+                                        type="button"
+                                        disabled={currentSubPage === 1}
+                                        onClick={() => setSubCollectionPage(prev => Math.max(1, prev - 1))}
+                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                                      >
+                                        Trước
+                                      </button>
+                                      <button
+                                        type="button"
+                                        disabled={currentSubPage === totalSubPages}
+                                        onClick={() => setSubCollectionPage(prev => Math.min(totalSubPages, prev + 1))}
+                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                                      >
+                                        Sau
+                                      </button>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            )}
+                          </>
+                        );
+                      })()}
                     </tbody>
                   </table>
                 </div>
