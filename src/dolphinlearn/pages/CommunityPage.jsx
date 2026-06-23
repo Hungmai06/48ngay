@@ -50,10 +50,10 @@ export default function CommunityPage() {
     return () => clearInterval(interval)
   }, [dlUser])
 
-  // Auto scroll xuống cuối - chỉ khi user đang ở gần cuối
+  // Cuộn tin nhắn mới nhất trong khung chat - không cuộn trang chính
   useEffect(() => {
-    if (isNearBottomRef.current) {
-      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (isNearBottomRef.current && chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
     }
   }, [messages])
 
@@ -103,40 +103,6 @@ export default function CommunityPage() {
     }
   }
 
-  const socialLinks = [
-    {
-      name: 'Facebook Fanpage',
-      desc: 'Cập nhật tin tức học tập mới nhất.',
-      icon: 'public',
-      color: 'bg-blue-50 text-blue-600 border-blue-100 hover:bg-blue-100/50',
-      actionText: 'Theo dõi Trang',
-      link: 'https://facebook.com/dolphinlearn'
-    },
-    {
-      name: 'Facebook Group',
-      desc: 'Thảo luận cùng 15,000+ thành viên.',
-      icon: 'groups',
-      color: 'bg-indigo-50 text-indigo-600 border-indigo-100 hover:bg-indigo-100/50',
-      actionText: 'Tham gia Nhóm',
-      link: 'https://facebook.com/groups/dolphinlearn'
-    },
-    {
-      name: 'Nhóm Zalo Học Tập',
-      desc: 'Nhận tài liệu PDF độc quyền mỗi ngày.',
-      icon: 'chat',
-      color: 'bg-cyan-50 text-cyan-600 border-cyan-100 hover:bg-cyan-100/50',
-      actionText: 'Vào Nhóm Zalo',
-      link: 'https://zalo.me/g/dolphinlearn'
-    },
-    {
-      name: 'Kênh Youtube',
-      desc: 'Video giảng dạy từ vựng sinh động.',
-      icon: 'video_library',
-      color: 'bg-rose-50 text-rose-600 border-rose-100 hover:bg-rose-100/50',
-      actionText: 'Đăng ký Kênh',
-      link: 'https://youtube.com/c/dolphinlearn'
-    }
-  ]
 
   const announcements = [
     {
@@ -174,40 +140,63 @@ export default function CommunityPage() {
         <div className="absolute left-1/3 bottom-0 translate-y-1/2 w-64 h-64 rounded-full bg-indigo-500/30 blur-2xl pointer-events-none" />
       </div>
 
-      {/* Grid of Social Channels */}
-      <div className="space-y-6">
-        <div>
-          <h2 className="font-display text-xl font-black text-slate-800">Kênh truyền thông & Nhóm học tập</h2>
-          <p className="text-xs text-slate-400 font-bold mt-1">Kết nối với chúng tôi qua các nền tảng mạng xã hội</p>
+      {/* Redesigned Facebook Group Section */}
+      <div className="bg-gradient-to-br from-indigo-50/60 via-slate-50 to-blue-50/40 rounded-3xl border border-indigo-100/70 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm relative overflow-hidden">
+        {/* Decorative backgrounds */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-200/20 rounded-full blur-2xl pointer-events-none" />
+        
+        <div className="space-y-4 max-w-xl z-10">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-[10px] font-black uppercase tracking-wider">
+            <span className="material-symbols-outlined text-[12px] font-black">groups</span>
+            Nhóm cộng đồng Facebook
+          </span>
+          <h2 className="font-display text-2xl md:text-3xl font-black text-slate-800 tracking-tight leading-tight">
+            Gia nhập nhóm học tập ngay hôm nay!
+          </h2>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            Thảo luận bài tập khó, nhận đề thi thử THPT Quốc Gia có đáp án chi tiết và tham gia kho tài liệu PDF độc quyền cập nhật mỗi ngày hoàn toàn miễn phí.
+          </p>
+          
+          {/* Key values */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            {[
+              "Cộng đồng học viên sôi nổi",
+              "Hỏi đáp bài tập 24/7",
+              "Đề thi thử & Tài liệu PDF free",
+              "Chia sẻ kinh nghiệm học tập hiệu quả"
+            ].map((feature, i) => (
+              <div key={i} className="flex items-center gap-2 text-xs font-semibold text-slate-700">
+                <span className="material-symbols-outlined text-indigo-600 font-bold text-[18px]">check_circle</span>
+                {feature}
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {socialLinks.map((item, idx) => (
-            <div 
-              key={idx} 
-              className="bg-white rounded-3xl border border-slate-200/80 p-6 flex flex-col justify-between hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
-            >
-              <div className="space-y-4">
-                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all ${item.color.split(' ')[0]} ${item.color.split(' ')[1]} ${item.color.split(' ')[2]}`}>
-                  <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>{item.icon}</span>
-                </div>
-
-                <div className="space-y-1">
-                  <h3 className="font-display text-base font-black text-slate-800 group-hover:text-primary transition-colors">{item.name}</h3>
-                  <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-
-              <a 
-                href={item.link} 
-                target="_blank" 
-                rel="noreferrer"
-                className={`mt-6 w-full text-center py-2.5 rounded-xl text-xs font-bold transition-all border block ${item.color.split(' ')[0]} ${item.color.split(' ')[1]} ${item.color.split(' ')[2]} hover:shadow-md`}
-              >
-                {item.actionText}
-              </a>
+        <div className="shrink-0 z-10 w-full md:w-auto flex flex-col items-center">
+          {/* Interactive Card */}
+          <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-6 w-full max-w-sm flex flex-col items-center text-center space-y-5 hover:scale-[1.02] hover:shadow-2xl transition-all duration-300">
+            <div className="w-16 h-16 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/25">
+              <span className="material-symbols-outlined text-[36px] font-black" style={{ fontVariationSettings: "'FILL' 1" }}>groups</span>
             </div>
-          ))}
+            
+            <div>
+              <h3 className="font-display text-base font-black text-slate-800">Cộng đồng học sinh 2K9</h3>
+              <p className="text-[10px] text-slate-400 mt-1 font-bold">Hoàn toàn miễn phí</p>
+            </div>
+
+            <a 
+              href="https://www.facebook.com/groups/380922997956806" 
+              target="_blank" 
+              rel="noreferrer"
+              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl text-xs font-black uppercase tracking-wider transition-all shadow-md shadow-indigo-600/20 hover:shadow-lg hover:shadow-indigo-600/30 flex items-center justify-center gap-2 cursor-pointer"
+              style={{ background: 'linear-gradient(135deg, #4F46E5, #7C3AED)' }}
+            >
+              <span className="material-symbols-outlined text-[16px] font-black">login</span>
+              Tham gia nhóm ngay
+            </a>
+          </div>
         </div>
       </div>
 

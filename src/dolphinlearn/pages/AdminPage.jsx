@@ -14,28 +14,82 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState('overview') // 'overview', 'users', 'vocabulary', 'documents'
   const [loading, setLoading] = useState(true)
 
-  // Live States
-  const [users, setUsers] = useState([])
-  const [courseStudents, setCourseStudents] = useState([])
+  // Live States (Lookup)
   const [collections, setCollections] = useState([])
   const [subCollections, setSubCollections] = useState([])
-  const [words, setWords] = useState([])
-  const [docs, setDocs] = useState([])
   const [docCats, setDocCats] = useState([])
   const [stats, setStats] = useState(null)
   const [hoveredVisitorIdx, setHoveredVisitorIdx] = useState(null)
 
-  // Filters / Search
-  const [userSearch, setUserSearch] = useState('')
-  const [wordSearch, setWordSearch] = useState('')
-  const [docSearch, setDocSearch] = useState('')
-  const [selectedSubCollFilter, setSelectedSubCollFilter] = useState('all')
-  const [wordPage, setWordPage] = useState(1)
+  // Live States (Paginated Lists)
+  const [users, setUsers] = useState([])
+  const [courseStudents, setCourseStudents] = useState([])
+  const [words, setWords] = useState([])
+  const [docs, setDocs] = useState([])
 
-  // Reset page when filters change
+  // Pagination & Search States
+  const [userPage, setUserPage] = useState(1)
+  const [userTotalPages, setUserTotalPages] = useState(1)
+  const [userTotalElements, setUserTotalElements] = useState(0)
+  const [userSearch, setUserSearch] = useState('')
+  const [debouncedUserSearch, setDebouncedUserSearch] = useState('')
+
+  const [studentPage, setStudentPage] = useState(1)
+  const [studentTotalPages, setStudentTotalPages] = useState(1)
+  const [studentTotalElements, setStudentTotalElements] = useState(0)
+  const [studentSearch, setStudentSearch] = useState('')
+  const [debouncedStudentSearch, setDebouncedStudentSearch] = useState('')
+
+  const [wordPage, setWordPage] = useState(1)
+  const [wordTotalPages, setWordTotalPages] = useState(1)
+  const [wordTotalElements, setWordTotalElements] = useState(0)
+  const [wordSearch, setWordSearch] = useState('')
+  const [debouncedWordSearch, setDebouncedWordSearch] = useState('')
+  const [selectedSubCollFilter, setSelectedSubCollFilter] = useState('all')
+
+  const [docPage, setDocPage] = useState(1)
+  const [docTotalPages, setDocTotalPages] = useState(1)
+  const [docTotalElements, setDocTotalElements] = useState(0)
+  const [docSearch, setDocSearch] = useState('')
+  const [debouncedDocSearch, setDebouncedDocSearch] = useState('')
+
+  // Debouncing search states
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedUserSearch(userSearch)
+      setUserPage(1)
+    }, 400)
+    return () => clearTimeout(handler)
+  }, [userSearch])
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedStudentSearch(studentSearch)
+      setStudentPage(1)
+    }, 400)
+    return () => clearTimeout(handler)
+  }, [studentSearch])
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedWordSearch(wordSearch)
+      setWordPage(1)
+    }, 400)
+    return () => clearTimeout(handler)
+  }, [wordSearch])
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedDocSearch(docSearch)
+      setDocPage(1)
+    }, 400)
+    return () => clearTimeout(handler)
+  }, [docSearch])
+
+  // Reset word page on subcollection filter change
   useEffect(() => {
     setWordPage(1)
-  }, [selectedSubCollFilter, wordSearch])
+  }, [selectedSubCollFilter])
 
   // Modals / Form States
   const [modalType, setModalType] = useState(null) // 'addUser', 'editUser', 'addCourseStudent', 'addCollection', 'addSubCollection', 'addWord', 'addDoc'
@@ -51,34 +105,126 @@ export default function AdminPage() {
     setTimeout(() => setNotification(null), 3000)
   }
 
-  // Load Initial Data
+  // API List Fetchers
+  const fetchUsers = async (pageVal, searchVal) => {
+    try {
+      const pageParam = pageVal - 1
+      const res = await fetch(`${API_BASE}/api/v1/english/users?page=${pageParam}&size=10&search=${encodeURIComponent(searchVal || '')}`)
+      if (res.ok) {
+        const data = await res.json()
+        if (data.data && data.data.content) {
+          setUsers(data.data.content)
+          setUserTotalPages(data.data.totalPages || 1)
+          setUserTotalElements(data.data.totalElements || 0)
+        } else {
+          setUsers(data.data || [])
+          setUserTotalPages(1)
+          setUserTotalElements((data.data || []).length)
+        }
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const fetchStudents = async (pageVal, searchVal) => {
+    try {
+      const pageParam = pageVal - 1
+      const res = await fetch(`${API_BASE}/api/v1/english/students?page=${pageParam}&size=10&search=${encodeURIComponent(searchVal || '')}`)
+      if (res.ok) {
+        const data = await res.json()
+        if (data.data && data.data.content) {
+          setCourseStudents(data.data.content)
+          setStudentTotalPages(data.data.totalPages || 1)
+          setStudentTotalElements(data.data.totalElements || 0)
+        } else {
+          setCourseStudents(data.data || [])
+          setStudentTotalPages(1)
+          setStudentTotalElements((data.data || []).length)
+        }
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const fetchWords = async (pageVal, searchVal, subCollIdVal) => {
+    try {
+      const pageParam = pageVal - 1
+      let url = `${API_BASE}/api/v1/english/vocabulary/words?page=${pageParam}&size=10&search=${encodeURIComponent(searchVal || '')}`
+      if (subCollIdVal && subCollIdVal !== 'all') {
+        url += `&subCollectionId=${subCollIdVal}`
+      }
+      const res = await fetch(url)
+      if (res.ok) {
+        const data = await res.json()
+        if (data.data && data.data.content) {
+          setWords(data.data.content)
+          setWordTotalPages(data.data.totalPages || 1)
+          setWordTotalElements(data.data.totalElements || 0)
+        } else {
+          setWords(data.data || [])
+          setWordTotalPages(1)
+          setWordTotalElements((data.data || []).length)
+        }
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const fetchDocs = async (pageVal, searchVal) => {
+    try {
+      const pageParam = pageVal - 1
+      const res = await fetch(`${API_BASE}/api/v1/english/documents?page=${pageParam}&size=10&search=${encodeURIComponent(searchVal || '')}`)
+      if (res.ok) {
+        const data = await res.json()
+        if (data.data && data.data.content) {
+          setDocs(data.data.content)
+          setDocTotalPages(data.data.totalPages || 1)
+          setDocTotalElements(data.data.totalElements || 0)
+        } else {
+          setDocs(data.data || [])
+          setDocTotalPages(1)
+          setDocTotalElements((data.data || []).length)
+        }
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  // Trigger list fetchers when query params / page change
+  useEffect(() => {
+    fetchUsers(userPage, debouncedUserSearch)
+  }, [userPage, debouncedUserSearch])
+
+  useEffect(() => {
+    fetchStudents(studentPage, debouncedStudentSearch)
+  }, [studentPage, debouncedStudentSearch])
+
+  useEffect(() => {
+    fetchWords(wordPage, debouncedWordSearch, selectedSubCollFilter)
+  }, [wordPage, debouncedWordSearch, selectedSubCollFilter])
+
+  useEffect(() => {
+    fetchDocs(docPage, debouncedDocSearch)
+  }, [docPage, debouncedDocSearch])
+
+  // Load Lookup Data
   useEffect(() => {
     async function initData() {
       try {
         setLoading(true)
 
-        // 1. Fetch Users
-        const usersRes = await fetch(`${API_BASE}/api/v1/english/users`)
-        if (usersRes.ok) {
-          const usersData = await usersRes.json()
-          setUsers(usersData.data || [])
-        }
-
-        // 2. Fetch Course Students
-        const studentsRes = await fetch(`${API_BASE}/api/v1/english/students`)
-        if (studentsRes.ok) {
-          const studentsData = await studentsRes.json()
-          setCourseStudents(studentsData.data || [])
-        }
-
-        // 3. Fetch Collections
+        // 1. Fetch Collections
         const colRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections`)
         if (colRes.ok) {
           const colData = await colRes.json()
           const fetchedCollections = colData.data || []
           setCollections(fetchedCollections)
 
-          // 4. Fetch SubCollections for each Collection
+          // 2. Fetch SubCollections for each Collection
           let allSubs = []
           for (let col of fetchedCollections) {
             const subRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections/${col.id}/subs`)
@@ -89,34 +235,16 @@ export default function AdminPage() {
             }
           }
           setSubCollections(allSubs)
-
-          // 5. Fetch all Words from all subcollections
-          let allWords = []
-          for (let sub of allSubs) {
-            const wordsRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/subs/${sub.id}/words`)
-            if (wordsRes.ok) {
-              const wordsData = await wordsRes.json()
-              const wordsList = wordsData.data || []
-              allWords = allWords.concat(wordsList)
-            }
-          }
-          setWords(allWords)
         }
 
-        // 6. Fetch Documents & Categories
-        const docRes = await fetch(`${API_BASE}/api/v1/english/documents`)
-        if (docRes.ok) {
-          const docData = await docRes.json()
-          setDocs(docData.data || [])
-        }
-
+        // 3. Fetch Categories
         const catRes = await fetch(`${API_BASE}/api/v1/english/documents/categories`)
         if (catRes.ok) {
           const catData = await catRes.json()
           setDocCats(catData.data || [])
         }
 
-        // 7. Fetch admin statistics
+        // 4. Fetch admin statistics
         const statsRes = await fetch(`${API_BASE}/api/v1/english/admin/statistics`)
         if (statsRes.ok) {
           const statsData = await statsRes.json()
@@ -124,7 +252,7 @@ export default function AdminPage() {
         }
 
       } catch (error) {
-        console.error('Error loading admin control panel data:', error)
+        console.error('Error loading admin control panel lookup data:', error)
       } finally {
         setLoading(false)
       }
@@ -153,8 +281,7 @@ export default function AdminPage() {
           })
         })
         if (response.ok) {
-          const res = await response.json()
-          setUsers([...users, res.data])
+          fetchUsers(userPage, debouncedUserSearch)
           showNotification('Đã thêm người dùng mới thành công!')
         } else {
           showNotification('Không thể thêm người dùng mới.')
@@ -172,8 +299,7 @@ export default function AdminPage() {
           })
         })
         if (response.ok) {
-          const res = await response.json()
-          setUsers(users.map(u => u.id === currentEditItem.id ? res.data : u))
+          fetchUsers(userPage, debouncedUserSearch)
           showNotification('Đã cập nhật thông tin người dùng!')
         } else {
           showNotification('Không thể cập nhật người dùng.')
@@ -199,8 +325,7 @@ export default function AdminPage() {
         })
       })
       if (response.ok) {
-        const res = await response.json()
-        setCourseStudents([...courseStudents, res.data])
+        fetchStudents(studentPage, debouncedStudentSearch)
         showNotification('Đã tạo tài khoản học viên 48 ngày!')
       } else {
         showNotification('Lỗi khi tạo tài khoản học viên.')
@@ -225,7 +350,7 @@ export default function AdminPage() {
               method: 'DELETE'
             })
             if (response.ok) {
-              setUsers(users.filter(u => u.id !== id))
+              fetchUsers(userPage, debouncedUserSearch)
               showNotification('Đã xóa người dùng!')
             } else {
               showNotification('Không thể xóa người dùng.')
@@ -235,7 +360,7 @@ export default function AdminPage() {
               method: 'DELETE'
             })
             if (response.ok) {
-              setCourseStudents(courseStudents.filter(s => s.id !== id))
+              fetchStudents(studentPage, debouncedStudentSearch)
               showNotification('Đã xóa học viên!')
             } else {
               showNotification('Lỗi khi xóa học viên.')
@@ -400,15 +525,6 @@ export default function AdminPage() {
     e.preventDefault()
     try {
       if (modalType === 'addWord') {
-        // Prevent duplicates in current subcollection
-        const existsInSub = words.some(
-          w => w.subCollectionId === Number(formData.subCollectionId) && w.word.toLowerCase() === formData.word.toLowerCase()
-        );
-        if (existsInSub) {
-          showNotification('Từ vựng này đã tồn tại trong chủ đề!');
-          return;
-        }
-
         const response = await fetch(`${API_BASE}/api/v1/english/vocabulary/subs/${formData.subCollectionId}/words`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -419,20 +535,16 @@ export default function AdminPage() {
           })
         })
         if (response.ok) {
-          const res = await response.json()
-          const newWord = res.data
-          newWord.subCollectionId = Number(formData.subCollectionId)
-          setWords([...words, newWord])
-
+          fetchWords(wordPage, debouncedWordSearch, selectedSubCollFilter)
           // Update word count in subCollection
           setSubCollections(subCollections.map(sub =>
             sub.id === Number(formData.subCollectionId)
-              ? { ...sub, wordCount: sub.wordCount + 1 }
+              ? { ...sub, wordCount: (sub.wordCount || 0) + 1 }
               : sub
           ))
           showNotification('Đã thêm từ vựng mới thành công!')
         } else {
-          showNotification('Không thể thêm từ vựng.')
+          showNotification('Không thể thêm từ vựng. Từ vựng có thể đã tồn tại trong chủ đề!')
         }
       } else if (modalType === 'editWord') {
         const response = await fetch(`${API_BASE}/api/v1/english/vocabulary/words/${currentEditItem.id}`, {
@@ -445,10 +557,7 @@ export default function AdminPage() {
           })
         })
         if (response.ok) {
-          const res = await response.json()
-          const updatedWord = res.data
-          updatedWord.subCollectionId = currentEditItem.subCollectionId
-          setWords(words.map(w => w.id === currentEditItem.id ? updatedWord : w))
+          fetchWords(wordPage, debouncedWordSearch, selectedSubCollFilter)
           showNotification('Đã cập nhật từ vựng thành công!')
         } else {
           showNotification('Không thể cập nhật từ vựng.')
@@ -472,7 +581,6 @@ export default function AdminPage() {
     const lines = text.split('\n')
     let importedCount = 0
     let skippedCount = 0
-    const newWords = []
 
     for (let line of lines) {
       line = line.trim()
@@ -507,25 +615,6 @@ export default function AdminPage() {
         }
       }
 
-      // Prevent duplicates: Check if word text already exists in THIS sub-collection
-      const existsInSub = words.some(
-        w => w.subCollectionId === subId && w.word.toLowerCase() === wordText.toLowerCase()
-      ) || newWords.some(
-        w => w.subCollectionId === subId && w.word.toLowerCase() === wordText.toLowerCase()
-      )
-
-      if (existsInSub) {
-        skippedCount++
-        continue
-      }
-
-      // Check if it exists globally to auto-fill missing details
-      const globalMatch = words.find(w => w.word.toLowerCase() === wordText.toLowerCase())
-      if (globalMatch) {
-        if (!pronunciation) pronunciation = globalMatch.pronunciation
-        if (!meaning) meaning = globalMatch.meaning
-      }
-
       if (!meaning) {
         meaning = 'Chưa dịch'
       }
@@ -541,10 +630,6 @@ export default function AdminPage() {
           })
         })
         if (response.ok) {
-          const res = await response.json()
-          const savedWord = res.data
-          savedWord.subCollectionId = subId
-          newWords.push(savedWord)
           importedCount++
         } else {
           skippedCount++
@@ -556,11 +641,11 @@ export default function AdminPage() {
     }
 
     if (importedCount > 0) {
-      setWords(prev => [...prev, ...newWords])
+      fetchWords(wordPage, debouncedWordSearch, selectedSubCollFilter)
       // Update wordCount in subCollection
       setSubCollections(prev => prev.map(sub =>
         sub.id === subId
-          ? { ...sub, wordCount: sub.wordCount + importedCount }
+          ? { ...sub, wordCount: (sub.wordCount || 0) + importedCount }
           : sub
       ))
       showNotification(`Đã import thành công ${importedCount} từ! (Bỏ qua/Lỗi: ${skippedCount})`)
@@ -576,16 +661,16 @@ export default function AdminPage() {
       message: 'Bạn có chắc chắn muốn xóa từ vựng này không?',
       onConfirm: async () => {
         try {
+          const wordToDelete = words.find(w => w.id === id)
           const response = await fetch(`${API_BASE}/api/v1/english/vocabulary/words/${id}`, {
             method: 'DELETE'
           })
           if (response.ok) {
-            const wordToDelete = words.find(w => w.id === id)
-            setWords(words.filter(w => w.id !== id))
+            fetchWords(wordPage, debouncedWordSearch, selectedSubCollFilter)
             if (wordToDelete) {
               setSubCollections(subCollections.map(sub =>
                 sub.id === wordToDelete.subCollectionId
-                  ? { ...sub, wordCount: Math.max(0, sub.wordCount - 1) }
+                  ? { ...sub, wordCount: Math.max(0, (sub.wordCount || 0) - 1) }
                   : sub
               ))
             }
@@ -620,8 +705,7 @@ export default function AdminPage() {
           })
         })
         if (response.ok) {
-          const res = await response.json()
-          setDocs([...docs, res.data])
+          fetchDocs(docPage, debouncedDocSearch)
           showNotification('Đã thêm tài liệu mới!')
         } else {
           showNotification('Không thể thêm tài liệu.')
@@ -637,8 +721,7 @@ export default function AdminPage() {
           })
         })
         if (response.ok) {
-          const res = await response.json()
-          setDocs(docs.map(d => d.id === currentEditItem.id ? res.data : d))
+          fetchDocs(docPage, debouncedDocSearch)
           showNotification('Đã cập nhật tài liệu thành công!')
         } else {
           showNotification('Không thể cập nhật tài liệu.')
@@ -661,7 +744,7 @@ export default function AdminPage() {
             method: 'DELETE'
           })
           if (response.ok) {
-            setDocs(docs.filter(d => d.id !== id))
+            fetchDocs(docPage, debouncedDocSearch)
             showNotification('Đã xóa tài liệu!')
           } else {
             showNotification('Không thể xóa tài liệu.')
@@ -1035,7 +1118,7 @@ export default function AdminPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
-                    {users.filter(u => (u.name || '').toLowerCase().includes(userSearch.toLowerCase()) || (u.email || '').toLowerCase().includes(userSearch.toLowerCase())).map(u => (
+                    {users.map(u => (
                       <tr key={u.id} className="hover:bg-slate-50/50">
                         <td className="py-3.5 pl-2 text-slate-400">#{u.id}</td>
                         <td className="py-3.5 font-bold text-slate-800">{u.name}</td>
@@ -1068,6 +1151,36 @@ export default function AdminPage() {
                   </tbody>
                 </table>
               </div>
+
+              {/* Pagination Controls */}
+              {userTotalPages > 1 && (
+                <div className="flex items-center justify-between border-t border-slate-100 pt-4 mt-4 text-xs font-semibold text-slate-500">
+                  <div>
+                    Hiển thị từ {Math.min(userTotalElements, (userPage - 1) * 10 + 1)} đến {Math.min(userTotalElements, userPage * 10)} trong tổng số {userTotalElements} thành viên
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      disabled={userPage === 1}
+                      onClick={() => setUserPage(prev => Math.max(1, prev - 1))}
+                      className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                    >
+                      Trước
+                    </button>
+                    <span className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg">
+                      Trang {userPage} / {userTotalPages}
+                    </span>
+                    <button
+                      type="button"
+                      disabled={userPage === userTotalPages}
+                      onClick={() => setUserPage(prev => Math.min(userTotalPages, prev + 1))}
+                      className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                    >
+                      Sau
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* 48ngay Course Students */}
@@ -1077,12 +1190,21 @@ export default function AdminPage() {
                   <h2 className="font-display text-lg font-bold text-slate-800">Học viên Khóa học 48 Ngày</h2>
                   <p className="text-xs text-text-muted">Tài khoản học khóa chính cấp bằng Số điện thoại.</p>
                 </div>
-                <button
-                  onClick={() => { setModalType('addCourseStudent'); setFormData({}); }}
-                  className="bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-slate-900 transition-all flex items-center gap-1.5 ml-auto"
-                >
-                  <span className="material-symbols-outlined text-[16px]">person_add</span>Thêm học viên 48 ngày
-                </button>
+                <div className="flex gap-3 w-full sm:w-auto items-center">
+                  <input
+                    type="text"
+                    placeholder="Tìm học viên..."
+                    value={studentSearch}
+                    onChange={e => setStudentSearch(e.target.value)}
+                    className="px-4 py-2 border border-slate-200 rounded-xl text-xs outline-none focus:border-primary flex-1 sm:w-60"
+                  />
+                  <button
+                    onClick={() => { setModalType('addCourseStudent'); setFormData({}); }}
+                    className="bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-slate-900 transition-all flex items-center gap-1.5 shrink-0"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">person_add</span>Thêm học viên 48 ngày
+                  </button>
+                </div>
               </div>
 
               <div className="overflow-x-auto">
@@ -1116,6 +1238,36 @@ export default function AdminPage() {
                   </tbody>
                 </table>
               </div>
+
+              {/* Pagination Controls */}
+              {studentTotalPages > 1 && (
+                <div className="flex items-center justify-between border-t border-slate-100 pt-4 mt-4 text-xs font-semibold text-slate-500">
+                  <div>
+                    Hiển thị từ {Math.min(studentTotalElements, (studentPage - 1) * 10 + 1)} đến {Math.min(studentTotalElements, studentPage * 10)} trong tổng số {studentTotalElements} học viên
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      disabled={studentPage === 1}
+                      onClick={() => setStudentPage(prev => Math.max(1, prev - 1))}
+                      className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                    >
+                      Trước
+                    </button>
+                    <span className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg">
+                      Trang {studentPage} / {studentTotalPages}
+                    </span>
+                    <button
+                      type="button"
+                      disabled={studentPage === studentTotalPages}
+                      onClick={() => setStudentPage(prev => Math.min(studentTotalPages, prev + 1))}
+                      className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                    >
+                      Sau
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -1310,85 +1462,67 @@ export default function AdminPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
-                    {(() => {
-                      const filteredWords = words
-                        .filter(w => selectedSubCollFilter === 'all' || w.subCollectionId === Number(selectedSubCollFilter))
-                        .filter(w => (w.word || '').toLowerCase().includes(wordSearch.toLowerCase()));
-                      
-                      const WORDS_PER_PAGE = 10;
-                      const totalWordPages = Math.ceil(filteredWords.length / WORDS_PER_PAGE) || 1;
-                      const currentPage = Math.min(wordPage, totalWordPages);
-                      const paginatedWords = filteredWords.slice(
-                        (currentPage - 1) * WORDS_PER_PAGE,
-                        currentPage * WORDS_PER_PAGE
-                      );
-
+                    {words.map(w => {
+                      const parentSub = subCollections.find(sub => sub.id === w.subCollectionId)?.title || 'Không rõ'
                       return (
-                        <>
-                          {paginatedWords.map(w => {
-                            const parentSub = subCollections.find(sub => sub.id === w.subCollectionId)?.title || 'Không rõ'
-                            return (
-                              <tr key={w.id} className="hover:bg-slate-50/50">
-                                <td className="py-3 pl-2 font-display font-extrabold text-sm text-slate-800">{w.word}</td>
-                                <td className="py-3 text-slate-400 font-semibold">{w.pronunciation}</td>
-                                <td className="py-3 text-slate-700 font-bold">{w.meaning}</td>
-                                <td className="py-3 text-slate-500 font-semibold">{parentSub}</td>
-                                <td className="py-3 text-right pr-2">
-                                  <div className="flex justify-end gap-1.5">
-                                    <button
-                                      onClick={() => { setModalType('editWord'); setCurrentEditItem(w); setFormData(w); }}
-                                      className="w-7 h-7 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary transition-all cursor-pointer"
-                                    >
-                                      <span className="material-symbols-outlined text-[16px]">edit</span>
-                                    </button>
-                                    <button
-                                      onClick={() => handleDeleteWord(w.id)}
-                                      className="w-7 h-7 rounded-lg border border-red-100 text-red-400 flex items-center justify-center hover:bg-red-50 transition-all cursor-pointer"
-                                    >
-                                      <span className="material-symbols-outlined text-[16px]">delete</span>
-                                    </button>
-                                  </div>
-                                </td>
-                              </tr>
-                            )
-                          })}
+                        <tr key={w.id} className="hover:bg-slate-50/50">
+                          <td className="py-3 pl-2 font-display font-extrabold text-sm text-slate-800">{w.word}</td>
+                          <td className="py-3 text-slate-400 font-semibold">{w.pronunciation}</td>
+                          <td className="py-3 text-slate-700 font-bold">{w.meaning}</td>
+                          <td className="py-3 text-slate-500 font-semibold">{parentSub}</td>
+                          <td className="py-3 text-right pr-2">
+                            <div className="flex justify-end gap-1.5">
+                              <button
+                                onClick={() => { setModalType('editWord'); setCurrentEditItem(w); setFormData(w); }}
+                                className="w-7 h-7 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary transition-all cursor-pointer"
+                              >
+                                <span className="material-symbols-outlined text-[16px]">edit</span>
+                              </button>
+                              <button
+                                onClick={() => handleDeleteWord(w.id)}
+                                className="w-7 h-7 rounded-lg border border-red-100 text-red-400 flex items-center justify-center hover:bg-red-50 transition-all cursor-pointer"
+                              >
+                                <span className="material-symbols-outlined text-[16px]">delete</span>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    })}
 
-                          {/* Pagination UI Controls inside the block */}
-                          {totalWordPages > 1 && (
-                            <tr>
-                              <td colSpan="5" className="pt-4">
-                                <div className="flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-semibold text-slate-500">
-                                  <div>
-                                    Hiển thị từ {Math.min(filteredWords.length, (currentPage - 1) * WORDS_PER_PAGE + 1)} đến {Math.min(filteredWords.length, currentPage * WORDS_PER_PAGE)} trong tổng số {filteredWords.length} từ
-                                  </div>
-                                  <div className="flex gap-2">
-                                    <button
-                                      type="button"
-                                      disabled={currentPage === 1}
-                                      onClick={() => setWordPage(prev => Math.max(1, prev - 1))}
-                                      className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
-                                    >
-                                      Trước
-                                    </button>
-                                    <span className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg">
-                                      Trang {currentPage} / {totalWordPages}
-                                    </span>
-                                    <button
-                                      type="button"
-                                      disabled={currentPage === totalWordPages}
-                                      onClick={() => setWordPage(prev => Math.min(totalWordPages, prev + 1))}
-                                      className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
-                                    >
-                                      Sau
-                                    </button>
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-                          )}
-                        </>
-                      );
-                    })()}
+                    {/* Pagination UI Controls inside the block */}
+                    {wordTotalPages > 1 && (
+                      <tr>
+                        <td colSpan="5" className="pt-4">
+                          <div className="flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-semibold text-slate-500">
+                            <div>
+                              Hiển thị từ {Math.min(wordTotalElements, (wordPage - 1) * 10 + 1)} đến {Math.min(wordTotalElements, wordPage * 10)} trong tổng số {wordTotalElements} từ
+                            </div>
+                            <div className="flex gap-2">
+                              <button
+                                type="button"
+                                disabled={wordPage === 1}
+                                onClick={() => setWordPage(prev => Math.max(1, prev - 1))}
+                                className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                              >
+                                Trước
+                              </button>
+                              <span className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg">
+                                Trang {wordPage} / {wordTotalPages}
+                              </span>
+                              <button
+                                type="button"
+                                disabled={wordPage === wordTotalPages}
+                                onClick={() => setWordPage(prev => Math.min(wordTotalPages, prev + 1))}
+                                className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                              >
+                                Sau
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -1434,7 +1568,7 @@ export default function AdminPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
-                  {docs.filter(d => (d.title || '').toLowerCase().includes(docSearch.toLowerCase())).map(d => {
+                  {docs.map(d => {
                     const category = docCats.find(cat => Number(cat.id) === Number(d.categoryId))?.name || 'Khác'
                     return (
                       <tr key={d.id} className="hover:bg-slate-50/50">
@@ -1471,6 +1605,36 @@ export default function AdminPage() {
                 </tbody>
               </table>
             </div>
+
+            {/* Pagination Controls */}
+            {docTotalPages > 1 && (
+              <div className="flex items-center justify-between border-t border-slate-100 pt-4 mt-4 text-xs font-semibold text-slate-500">
+                <div>
+                  Hiển thị từ {Math.min(docTotalElements, (docPage - 1) * 10 + 1)} đến {Math.min(docTotalElements, docPage * 10)} trong tổng số {docTotalElements} tài liệu
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    disabled={docPage === 1}
+                    onClick={() => setDocPage(prev => Math.max(1, prev - 1))}
+                    className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                  >
+                    Trước
+                  </button>
+                  <span className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg">
+                    Trang {docPage} / {docTotalPages}
+                  </span>
+                  <button
+                    type="button"
+                    disabled={docPage === docTotalPages}
+                    onClick={() => setDocPage(prev => Math.min(docTotalPages, prev + 1))}
+                    className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                  >
+                    Sau
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

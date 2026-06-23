@@ -13,6 +13,7 @@ export default function DocumentsPage() {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState(null)
+  const [toastMessage, setToastMessage] = useState('')
 
   const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
 
@@ -52,6 +53,34 @@ export default function DocumentsPage() {
       window.open(doc.downloadUrl, '_blank')
     }
   }
+
+  const handleCopyLink = (doc) => {
+    const shareUrl = `${window.location.origin}/documents?id=${doc.id}`
+    navigator.clipboard.writeText(shareUrl)
+      .then(() => {
+        setToastMessage(`Đã sao chép link tài liệu: ${doc.title}`)
+        setTimeout(() => setToastMessage(''), 2500)
+      })
+      .catch(err => {
+        console.error('Failed to copy link: ', err)
+      })
+  }
+
+  useEffect(() => {
+    if (!loading && documents.length > 0) {
+      const queryParams = new URLSearchParams(window.location.search)
+      const docId = queryParams.get('id')
+      if (docId) {
+        const doc = documents.find(d => Number(d.id) === Number(docId))
+        if (doc) {
+          handleView(doc)
+          // Clean URL parameters
+          const newUrl = window.location.pathname
+          window.history.replaceState({}, document.title, newUrl)
+        }
+      }
+    }
+  }, [loading, documents])
 
   const filtered = documents.filter(d => {
     const title = d.title || ''
@@ -119,13 +148,33 @@ export default function DocumentsPage() {
                       <span className="material-symbols-outlined text-[16px]">visibility</span>
                       <span>{doc.views || 0} lượt xem</span>
                     </div>
-                    <button onClick={() => handleView(doc)} className="px-4 py-2 bg-primary/5 text-primary text-xs font-semibold rounded-full hover:bg-primary hover:text-white transition-all">
-                      Xem
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button 
+                        onClick={() => handleCopyLink(doc)} 
+                        className="p-2 bg-slate-50 text-slate-500 rounded-full hover:bg-slate-100 hover:text-primary transition-all flex items-center justify-center cursor-pointer"
+                        title="Sao chép link chia sẻ"
+                      >
+                        <span className="material-symbols-outlined text-[16px]">share</span>
+                      </button>
+                      <button 
+                        onClick={() => handleView(doc)} 
+                        className="px-4 py-2 bg-primary/5 text-primary text-xs font-semibold rounded-full hover:bg-primary hover:text-white transition-all"
+                      >
+                        Xem
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Toast Notification */}
+        {toastMessage && (
+          <div className="fixed bottom-6 right-6 bg-slate-900/95 backdrop-blur text-white text-xs md:text-sm font-bold px-5 py-3 rounded-2xl shadow-2xl z-[9999] flex items-center gap-2 transition-all duration-300 transform translate-y-0">
+            <span className="material-symbols-outlined text-[18px] text-emerald-400">check_circle</span>
+            <span>{toastMessage}</span>
           </div>
         )}
       </div>

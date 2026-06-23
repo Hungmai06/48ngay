@@ -50,6 +50,16 @@ export default function LearnPage() {
   const [mode, setMode] = useState(null)
   const [showSponsorPopup, setShowSponsorPopup] = useState(false)
   const [hasClickedShopee, setHasClickedShopee] = useState(false)
+  const [pendingMode, setPendingMode] = useState(null)
+  const [activeWords, setActiveWords] = useState([])
+  const [configOption, setConfigOption] = useState('full')
+  const [randomCount, setRandomCount] = useState(10)
+
+  const handleModeClick = (modeKey) => {
+    setPendingMode(modeKey)
+    setConfigOption('full')
+    setRandomCount(Math.min(10, words.length || 10))
+  }
 
   const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
 
@@ -201,7 +211,167 @@ export default function LearnPage() {
         </div>
       )}
 
-      <div className={showSponsorPopup ? 'blur-md pointer-events-none select-none' : ''}>
+      {/* Modal Cấu hình Ôn tập */}
+      {pendingMode && (
+        <div className="fixed inset-0 bg-slate-900/65 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 md:p-8 shadow-2xl border border-slate-100 relative animate-[dlPopIn_0.4s_cubic-bezier(0.34,1.56,0.64,1)_forwards]">
+            {/* Header */}
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
+                <span className="material-symbols-outlined text-[36px]">
+                  {pendingMode === 'flashcard' ? 'style' : pendingMode === 'quiz' ? 'fact_check' : 'edit_note'}
+                </span>
+              </div>
+              <h2 className="font-display text-xl md:text-2xl font-extrabold text-slate-800">
+                Cài đặt chế độ ôn tập
+              </h2>
+              <p className="text-xs md:text-sm text-text-muted mt-1 font-semibold">
+                {pendingMode === 'flashcard' ? 'Flashcard (Thẻ ghi nhớ)' : pendingMode === 'quiz' ? 'Luyện Trắc Nghiệm' : 'Gõ Nghĩa Từ'}
+              </p>
+            </div>
+
+            {/* Config Mode selection */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              {/* Học toàn bộ */}
+              <button
+                type="button"
+                onClick={() => setConfigOption('full')}
+                className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all cursor-pointer ${
+                  configOption === 'full'
+                    ? 'border-primary bg-primary/5 text-primary'
+                    : 'border-slate-200 hover:border-slate-300 text-slate-600 bg-white'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[28px] mb-2">library_books</span>
+                <span className="font-bold text-sm">Học toàn bộ</span>
+                <span className="text-[10px] opacity-75 mt-0.5">{words.length} từ vựng</span>
+              </button>
+
+              {/* Học ngẫu nhiên */}
+              <button
+                type="button"
+                onClick={() => {
+                  setConfigOption('random');
+                  if (randomCount > words.length) {
+                    setRandomCount(Math.min(10, words.length));
+                  }
+                }}
+                className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all cursor-pointer ${
+                  configOption === 'random'
+                    ? 'border-primary bg-primary/5 text-primary'
+                    : 'border-slate-200 hover:border-slate-300 text-slate-600 bg-white'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[28px] mb-2">shuffle</span>
+                <span className="font-bold text-sm">Học ngẫu nhiên</span>
+                <span className="text-[10px] opacity-75 mt-0.5">Tùy chọn số lượng</span>
+              </button>
+            </div>
+
+            {/* Random options panel */}
+            {configOption === 'random' && (
+              <div className="bg-slate-50 rounded-2xl p-4 mb-6 border border-slate-100 animate-fade-in text-left">
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-3">
+                  Chọn số lượng từ ôn tập:
+                </label>
+                
+                {/* presets */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {[5, 10, 20, 50].map((preset) => {
+                    if (preset > words.length) return null;
+                    return (
+                      <button
+                        key={preset}
+                        type="button"
+                        onClick={() => setRandomCount(preset)}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                          randomCount === preset
+                            ? 'bg-primary text-white shadow-sm'
+                            : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300'
+                        }`}
+                      >
+                        {preset} từ
+                      </button>
+                    );
+                  })}
+                  <button
+                    type="button"
+                    onClick={() => setRandomCount(words.length)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      randomCount === words.length
+                        ? 'bg-primary text-white shadow-sm'
+                        : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300'
+                    }`}
+                  >
+                    Tối đa ({words.length})
+                  </button>
+                </div>
+
+                {/* Slider */}
+                <div className="flex items-center gap-4">
+                  <input
+                    type="range"
+                    min="1"
+                    max={words.length}
+                    value={randomCount}
+                    onChange={(e) => setRandomCount(Number(e.target.value))}
+                    className="flex-1 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                  />
+                  <div className="flex items-center gap-1.5">
+                    <input
+                      type="number"
+                      min="1"
+                      max={words.length}
+                      value={randomCount}
+                      onChange={(e) => {
+                        let val = Number(e.target.value);
+                        if (val < 1) val = 1;
+                        if (val > words.length) val = words.length;
+                        setRandomCount(val);
+                      }}
+                      className="w-14 px-2 py-1 bg-white border border-slate-200 rounded-lg text-center text-sm font-bold text-slate-700 focus:outline-none focus:border-primary"
+                    />
+                    <span className="text-xs font-bold text-slate-400">từ</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Action buttons */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  let selectedWords = [];
+                  if (configOption === 'full') {
+                    selectedWords = [...words];
+                  } else {
+                    const count = Math.min(randomCount, words.length);
+                    const shuffled = [...words].sort(() => Math.random() - 0.5);
+                    selectedWords = shuffled.slice(0, count);
+                  }
+                  setActiveWords(selectedWords);
+                  setMode(pendingMode);
+                  setPendingMode(null);
+                }}
+                className="flex-1 py-3 bg-primary text-white rounded-full font-bold hover:bg-primary-dark transition-all cursor-pointer shadow-md shadow-primary/20 text-sm flex items-center justify-center gap-1.5"
+              >
+                <span className="material-symbols-outlined text-[18px]">play_arrow</span>
+                Bắt đầu học ngay
+              </button>
+              <button
+                type="button"
+                onClick={() => setPendingMode(null)}
+                className="py-3 px-6 bg-slate-100 text-slate-600 rounded-full font-bold hover:bg-slate-200 transition-all cursor-pointer text-sm"
+              >
+                Hủy
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className={(showSponsorPopup || pendingMode) ? 'blur-md pointer-events-none select-none' : ''}>
         {!mode ? (
           <div className="max-w-5xl mx-auto px-6 py-10">
             {/* Back Link */}
@@ -230,7 +400,7 @@ export default function LearnPage() {
               {selectorModes.map((m) => (
                 <button
                   key={m.key}
-                  onClick={() => setMode(m.key)}
+                  onClick={() => handleModeClick(m.key)}
                   className={`dl-card-hover bg-gradient-to-br ${m.color} border border-slate-200/60 rounded-3xl p-6 flex flex-col items-center text-center justify-between text-left cursor-pointer transition-all min-h-[280px] shadow-sm`}
                 >
                   <div className="flex flex-col items-center">
@@ -271,14 +441,15 @@ export default function LearnPage() {
 
             {mode === 'flashcard' && (
               <FlashcardMode 
-                words={words} 
-                onComplete={() => saveProgress(words.map(w => w.id), 'flashcard')} 
+                words={activeWords} 
+                onComplete={() => saveProgress(activeWords.map(w => w.id), 'flashcard')} 
                 onBack={() => setMode(null)} 
               />
             )}
             {mode === 'quiz' && (
               <QuizMode 
-                words={words} 
+                words={activeWords} 
+                allWords={words}
                 onComplete={(ids) => saveProgress(ids, 'quiz')} 
                 onCorrectAnswer={(wordId) => saveProgress([wordId], 'quiz')}
                 onBack={() => setMode(null)} 
@@ -286,7 +457,7 @@ export default function LearnPage() {
             )}
             {mode === 'write' && (
               <WriteMode 
-                words={words} 
+                words={activeWords} 
                 onComplete={(ids) => saveProgress(ids, 'write')} 
                 onCorrectAnswer={(wordId) => saveProgress([wordId], 'write')}
                 onBack={() => setMode(null)} 
@@ -377,7 +548,7 @@ function FlashcardMode({ words, onComplete, onBack }) {
 }
 
 /* ═══ QUIZ ═══ */
-function QuizMode({ words, onComplete, onCorrectAnswer, onBack }) {
+function QuizMode({ words, allWords = [], onComplete, onCorrectAnswer, onBack }) {
   const [idx, setIdx] = useState(0)
   const [selected, setSelected] = useState(null)
   const [answered, setAnswered] = useState(false)
@@ -387,10 +558,11 @@ function QuizMode({ words, onComplete, onCorrectAnswer, onBack }) {
   const w = words[idx]
   const options = useMemo(() => {
     if (!w) return []
-    const others = words.filter(x => x.id !== w.id).sort(() => Math.random() - 0.5).slice(0, 3).map(x => x.meaning)
+    const distractorPool = allWords.length > 0 ? allWords : words
+    const others = distractorPool.filter(x => x.id !== w.id).sort(() => Math.random() - 0.5).slice(0, 3).map(x => x.meaning)
     const all = [...others, w.meaning].sort(() => Math.random() - 0.5)
     return all
-  }, [idx, words, w])
+  }, [idx, words, allWords, w])
 
   const handleSelect = (opt) => {
     if (answered) return
