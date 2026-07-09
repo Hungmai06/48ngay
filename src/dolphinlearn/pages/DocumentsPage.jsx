@@ -37,9 +37,27 @@ export default function DocumentsPage() {
   const [selectedDocId, setSelectedDocId] = useState(null)
   const [activeDetailDoc, setActiveDetailDoc] = useState(null)
   const [showSponsorPopup, setShowSponsorPopup] = useState(false)
-  const [hasClickedShopee, setHasClickedShopee] = useState(false)
+  const [hasClickedShopee, setHasClickedShopee] = useState(() => sessionStorage.getItem('dl_shopee_clicked') === 'true')
 
   const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+
+  // On mobile, opening a new tab can reload this page and reset state.
+  // Restore popup + hasClickedShopee from sessionStorage so user can proceed.
+  useEffect(() => {
+    const alreadyClicked = sessionStorage.getItem('dl_shopee_clicked') === 'true'
+    const pendingDocRaw = sessionStorage.getItem('dl_pending_doc')
+    if (alreadyClicked && pendingDocRaw) {
+      try {
+        const pendingDoc = JSON.parse(pendingDocRaw)
+        setActiveDetailDoc(pendingDoc)
+        setHasClickedShopee(true)
+        setShowSponsorPopup(true)
+      } catch (e) {
+        sessionStorage.removeItem('dl_pending_doc')
+        sessionStorage.removeItem('dl_shopee_clicked')
+      }
+    }
+  }, [])
 
   useEffect(() => {
     async function fetchData() {
@@ -88,6 +106,9 @@ export default function DocumentsPage() {
     if (isUnlocked) {
       proceedToView(doc)
     } else {
+      // Store the pending doc so we can open it after page reload on mobile
+      sessionStorage.setItem('dl_pending_doc', JSON.stringify(doc))
+      sessionStorage.removeItem('dl_shopee_clicked')
       setHasClickedShopee(false)
       setShowSponsorPopup(true)
     }
@@ -95,6 +116,8 @@ export default function DocumentsPage() {
 
   const handleSponsorConfirm = () => {
     setCookie('dl_doc_sponsor_unlocked', 'true', 86400)
+    sessionStorage.removeItem('dl_shopee_clicked')
+    sessionStorage.removeItem('dl_pending_doc')
     setShowSponsorPopup(false)
     if (activeDetailDoc) {
       proceedToView(activeDetailDoc)
@@ -200,47 +223,54 @@ export default function DocumentsPage() {
           </div>
         )}
 
-        {/* Grid */}
+        {/* List */}
         {filtered.length === 0 ? (
           <div className="text-center py-20">
             <span className="material-symbols-outlined text-6xl text-border mb-4 block">search_off</span>
             <p className="text-text-muted">Không tìm thấy tài liệu nào</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map(doc => (
-              <div 
-                key={doc.id} 
+          <div className="flex flex-col gap-2">
+            {filtered.map((doc, idx) => (
+              <div
+                key={doc.id}
                 onClick={() => handleOpenDetails(doc)}
-                className={`dl-card-hover rounded-2xl border p-6 flex flex-col justify-between transition-all cursor-pointer ${selectedDocId === doc.id ? 'border-primary ring-4 ring-primary/10 bg-primary/5 shadow-md' : 'bg-white border-border'}`}
+                className={`group flex items-center gap-3 px-4 py-3 rounded-xl border transition-all cursor-pointer hover:shadow-sm ${selectedDocId === doc.id ? 'border-primary bg-primary/5 ring-2 ring-primary/10' : 'bg-white border-border hover:border-primary/40 hover:bg-slate-50/60'}`}
               >
-                <div className="flex flex-col flex-1">
-                  <h3 className="font-display font-semibold mb-1 text-base text-slate-800 hover:text-primary transition-colors">{doc.title}</h3>
-                  <p className="text-sm text-text-muted flex-1 mb-4">{doc.description}</p>
-                  <div className="flex items-center justify-between mt-auto" onClick={e => e.stopPropagation()}>
-                    <div className="flex items-center gap-1.5 text-xs text-text-muted font-medium">
-                      <span className="material-symbols-outlined text-[16px]">visibility</span>
-                      <span>{doc.views || 0} lượt xem</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCopyLink(doc);
-                        }} 
-                        className="p-2 bg-slate-50 text-slate-500 rounded-full hover:bg-slate-100 hover:text-primary transition-all flex items-center justify-center cursor-pointer"
-                        title="Sao chép link chia sẻ"
-                      >
-                        <span className="material-symbols-outlined text-[16px]">share</span>
-                      </button>
-                      <button 
-                        onClick={() => handleOpenDetails(doc)} 
-                        className="px-4 py-2 bg-primary/5 text-primary text-xs font-semibold rounded-full hover:bg-primary hover:text-white transition-all cursor-pointer"
-                      >
-                        Xem
-                      </button>
-                    </div>
-                  </div>
+                {/* Index number */}
+                <span className="text-xs font-bold text-slate-300 w-5 text-center shrink-0 select-none">{idx + 1}</span>
+
+                {/* Icon */}
+                <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>description</span>
+                </div>
+
+                {/* Title */}
+                <span className="flex-1 text-sm font-semibold text-slate-700 group-hover:text-primary transition-colors truncate">
+                  {doc.title}
+                </span>
+
+                {/* Views */}
+                <div className="flex items-center gap-1 text-xs text-slate-400 font-medium shrink-0 mr-1" onClick={e => e.stopPropagation()}>
+                  <span className="material-symbols-outlined text-[14px]">visibility</span>
+                  <span>{doc.views || 0}</span>
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center gap-1.5 shrink-0" onClick={e => e.stopPropagation()}>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); handleCopyLink(doc); }}
+                    className="p-1.5 text-slate-400 rounded-lg hover:bg-slate-100 hover:text-primary transition-all flex items-center justify-center cursor-pointer"
+                    title="Sao chép link chia sẻ"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">share</span>
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); handleOpenDetails(doc); }}
+                    className="px-3 py-1.5 bg-primary/5 text-primary text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all cursor-pointer"
+                  >
+                    Xem
+                  </button>
                 </div>
               </div>
             ))}
@@ -369,7 +399,10 @@ export default function DocumentsPage() {
                   rel="noopener noreferrer"
                   className="sponsor-btn-shopee"
                   style={{ display: 'inline-block', textDecoration: 'none', textAlign: 'center' }}
-                  onClick={() => setHasClickedShopee(true)}
+                  onClick={() => {
+                    sessionStorage.setItem('dl_shopee_clicked', 'true')
+                    setHasClickedShopee(true)
+                  }}
                 >
                   📖 Xem Sách Tiếng Anh Bổ Trợ
                 </a>
