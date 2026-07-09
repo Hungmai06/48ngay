@@ -85,15 +85,18 @@ export default function DocumentsPage() {
   }, [API_BASE])
 
   const proceedToView = async (doc) => {
+    // ⚠️ Phải gọi window.open TRƯỚC await để browser mobile không chặn popup
+    // (mobile chỉ cho phép mở tab mới trong luồng đồng bộ của user gesture)
+    if (doc.downloadUrl) {
+      window.open(doc.downloadUrl, '_blank')
+    }
+    // Sau đó mới ghi lượt xem (bất đồng bộ, không ảnh hưởng đến việc mở link)
     try {
       await fetch(`${API_BASE}/api/v1/english/documents/${doc.id}/view`, { method: 'POST' })
       setDocuments(prev => prev.map(d => d.id === doc.id ? { ...d, views: (d.views || 0) + 1 } : d))
       setActiveDetailDoc(prev => prev && prev.id === doc.id ? { ...prev, views: (prev.views || 0) + 1 } : prev)
     } catch (error) {
       console.error('Failed to increment view count:', error)
-    }
-    if (doc.downloadUrl) {
-      window.open(doc.downloadUrl, '_blank')
     }
   }
 
