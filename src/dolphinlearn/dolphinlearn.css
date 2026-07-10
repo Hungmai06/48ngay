@@ -527,11 +527,15 @@
   bottom: 0;
   background-color: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
+  padding-top: max(16px, env(safe-area-inset-top));
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+  overflow-y: auto;
 }
 
 .sponsor-popup-box {
@@ -539,12 +543,39 @@
   border-radius: 24px;
   max-width: 480px;
   width: 100%;
-  padding: 40px 30px;
+  padding: 32px 24px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(226, 232, 240, 0.8);
   text-align: center;
   position: relative;
   animation: dlPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+@media (max-height: 700px) {
+  .sponsor-popup-box {
+    padding: 20px 18px;
+    border-radius: 18px;
+  }
+
+  .sponsor-popup-heart {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+
+  .sponsor-popup-title {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+
+  .sponsor-popup-text {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
 }
 
 @keyframes dlPopIn {

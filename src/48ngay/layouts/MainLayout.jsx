@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Navbar from '../../dolphinlearn/components/Navbar'
 import Footer from '../../dolphinlearn/components/Footer'
 import { useAuth } from '../hooks/useAuth'
@@ -7,7 +7,8 @@ import { useAuth } from '../hooks/useAuth'
 const DRIVE_NOTICE_KEY = 'english48.driveNoticeSeen'
 
 function MainLayout() {
-  const { isLoggedIn } = useAuth()
+  const { isLoggedIn, user, logout } = useAuth()
+  const navigate = useNavigate()
   const [showDriveNotice, setShowDriveNotice] = useState(
     () => sessionStorage.getItem(DRIVE_NOTICE_KEY) !== '1',
   )
@@ -17,10 +18,33 @@ function MainLayout() {
     setShowDriveNotice(false)
   }
 
+  const handleLogout = () => {
+    logout()
+    navigate('/48ngay/login', { replace: true })
+  }
+
   return (
     <div className="dl-app flex flex-col md:flex-row min-h-screen bg-slate-50/50">
       <Navbar />
       <div className="flex-1 flex flex-col min-h-screen overflow-x-hidden">
+        {/* Logout bar for 48 Ngày */}
+        {isLoggedIn && (
+          <div className="english48-logout-bar">
+            <span className="english48-logout-email">
+              <span className="material-symbols-outlined" style={{ fontSize: '16px', verticalAlign: 'middle' }}>person</span>
+              {user?.email || 'Học viên'}
+            </span>
+            <button
+              type="button"
+              className="english48-logout-btn"
+              onClick={handleLogout}
+              title="Đăng xuất khỏi khóa học 48 Ngày"
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>logout</span>
+              Đăng xuất
+            </button>
+          </div>
+        )}
         <main className="flex-1">
           <Outlet />
         </main>
