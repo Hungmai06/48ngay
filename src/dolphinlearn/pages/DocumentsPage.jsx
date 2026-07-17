@@ -295,7 +295,7 @@ export default function DocumentsPage() {
             onClick={() => setActiveDetailDoc(null)}
           >
             <div 
-              className="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl border border-slate-100 relative animate-[dlPopIn_0.4s_cubic-bezier(0.34,1.56,0.64,1)_forwards]"
+              className="bg-white rounded-3xl max-w-lg w-full p-5 md:p-8 shadow-2xl border border-slate-100 relative animate-[dlPopIn_0.4s_cubic-bezier(0.34,1.56,0.64,1)_forwards] max-h-[90vh] overflow-y-auto"
               onClick={e => e.stopPropagation()}
             >
               {/* Close button */}
@@ -315,7 +315,7 @@ export default function DocumentsPage() {
                   <span className="inline-block px-2.5 py-0.5 bg-primary/10 rounded-full text-[10px] font-bold text-primary uppercase tracking-wide mb-1.5">
                     Tài liệu học tập
                   </span>
-                  <h3 className="font-display font-extrabold text-slate-800 text-lg md:text-xl leading-snug">
+                  <h3 className="font-display font-extrabold text-slate-800 text-lg md:text-xl leading-snug break-words">
                     {activeDetailDoc.title}
                   </h3>
                 </div>
@@ -364,7 +364,7 @@ export default function DocumentsPage() {
               </div>
 
               {/* Actions */}
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={() => handleCopyLink(activeDetailDoc)}
                   className="btn btn-secondary !py-3 !px-4 !text-xs flex items-center justify-center gap-1.5 shrink-0 cursor-pointer"

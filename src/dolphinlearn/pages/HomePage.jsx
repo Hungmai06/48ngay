@@ -120,7 +120,7 @@ export default function HomePage() {
   }, [API_BASE, user])
 
   return (
-    <div className="p-6 max-w-[1280px] mx-auto w-full font-['Outfit',_'Inter',_sans-serif] bg-slate-50 min-h-screen">
+    <div className="p-4 sm:p-6 max-w-[1280px] mx-auto w-full font-['Outfit',_'Inter',_sans-serif] bg-slate-50 min-h-screen">
       
       {/* ═══ TOP SEARCH BAR ═══ */}
       <div className="flex items-center justify-between mb-8 gap-4">
@@ -131,7 +131,7 @@ export default function HomePage() {
             placeholder="Tìm từ vựng, tài liệu, chủ đề..." 
             className="w-full pl-12 pr-16 h-12 bg-white border border-slate-200 rounded-3xl text-sm text-slate-900 font-medium focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all placeholder-[#64748B]"
           />
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium text-slate-500 bg-slate-50 px-[8px] py-1 rounded-lg border border-slate-200">
+          <div className="hidden sm:block absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium text-slate-500 bg-slate-50 px-[8px] py-1 rounded-lg border border-slate-200">
             Ctrl + K
           </div>
         </div>
@@ -151,7 +151,7 @@ export default function HomePage() {
       </div>
 
       {/* ═══ HERO BANNER ═══ */}
-      <div className="bg-gradient-to-br from-blue-100 via-white to-blue-100 shadow-[0_20px_50px_rgba(37,99,235,0.05)] rounded-3xl px-10 py-12 relative overflow-hidden mb-6 border border-slate-200">
+      <div className="bg-gradient-to-br from-blue-100 via-white to-blue-100 shadow-[0_20px_50px_rgba(37,99,235,0.05)] rounded-3xl px-6 py-8 md:px-10 md:py-12 relative overflow-hidden mb-6 border border-slate-200">
         <div className="absolute top-[-50px] left-[-50px] w-[300px] h-[300px] bg-blue-400/20 rounded-full blur-[80px]"></div>
         <div className="absolute bottom-[-50px] right-[-50px] w-[300px] h-[300px] bg-cyan-300/20 rounded-full blur-[80px]"></div>
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between">
@@ -165,7 +165,7 @@ export default function HomePage() {
             <p className="text-sm text-slate-500 mb-8 leading-[1.5]">
               Kho tài liệu miễn phí, bộ sưu tập từ vựng và lộ trình học tập thông minh. Bắt đầu ngay hôm nay!
             </p>
-            <div className="flex gap-4 justify-center md:justify-start">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <Link to="/vocabulary" className="h-12 rounded-2xl px-8 bg-blue-600 hover:bg-blue-700 !text-white text-sm font-bold flex items-center justify-center gap-2 border-b-4 border-blue-900 active:border-b-0 active:translate-y-1 transition-all shadow-sm" style={{ color: '#ffffff' }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-rocket"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 3.82-13.04 1 1 0 0 1 1.76.6l.33 3.74a1 1 0 0 0 .81.91l3.74.33a1 1 0 0 1 .6 1.76A22 22 0 0 1 15 12z"/><path d="m9 10.3 3-3"/><circle cx="15" cy="9" r="1"/></svg>
                 Bắt đầu học ngay
@@ -183,7 +183,7 @@ export default function HomePage() {
       </div>
 
       {/* ═══ STATS GRID ═══ */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {/* Card 1 */}
         <div className="bg-white rounded-2xl p-5 border border-slate-200 flex items-center gap-4 hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:scale-[0.98] transition-all">
           <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
@@ -255,7 +255,7 @@ export default function HomePage() {
             </Link>
           </div>
           
-          <div className="bg-white rounded-2xl p-5 border border-slate-200 flex gap-5 items-center flex-1">
+          <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 flex flex-col sm:flex-row gap-5 items-center flex-1">
             <div className="w-32 h-32 rounded-xl bg-blue-100 shrink-0 overflow-hidden relative flex items-center justify-center">
                <span className="material-symbols-outlined text-blue-600 text-[48px]">beach_access</span>
             </div>
@@ -352,7 +352,7 @@ export default function HomePage() {
             </Link>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {loading ? (
               [1,2,3].map(i => <div key={i} className="h-[200px] bg-white rounded-2xl border border-slate-200 animate-pulse"></div>)
             ) : (
@@ -377,8 +377,7 @@ export default function HomePage() {
               })
             )}
 
-            {/* Create new collection button */}
-            <Link to="/vocabulary" className="btn btn-secondary flex-col h-full items-center justify-center gap-3 cursor-pointer">
+            <Link to="/vocabulary" className="btn btn-secondary flex flex-col h-[200px] sm:h-full items-center justify-center gap-3 cursor-pointer">
               <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center mb-3">
                 <span className="material-symbols-outlined text-xl">add</span>
               </div>
