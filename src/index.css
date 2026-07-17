@@ -83,51 +83,64 @@ h3 {
 }
 
 .btn {
-  border: none;
-  border-radius: 8px;
-  padding: 12px 20px;
-  font-size: 0.95rem;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 14px;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 800;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  background: var(--bg-panel);
-  border: 1px solid var(--line);
-  color: var(--text);
-  box-shadow: var(--shadow-sm);
+  user-select: none;
+  transition: all 0.1s ease;
+  background: #ffffff;
+  color: #0f172a;
+  border: 2px solid #e2e8f0;
+  border-bottom: 5px solid #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-  border-color: var(--primary);
+  background-color: #f8fafc;
 }
 
 .btn:active {
-  transform: translateY(0);
+  transform: translateY(3px);
+  border-bottom-width: 2px;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary), #2b5eb9);
-  border: none;
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(49, 130, 206, 0.3);
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  border: 2px solid transparent !important;
+  border-bottom: 5px solid #1e3a8a !important;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--primary-strong), #1e4e8a);
-  box-shadow: 0 8px 25px rgba(49, 130, 206, 0.4);
+  filter: brightness(1.1);
+}
+
+.btn-primary:active {
+  transform: translateY(3px);
+  border-bottom-width: 2px !important;
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #fff;
-  font-weight: 600;
+  background-color: #e2e8f0 !important;
+  color: #475569 !important;
+  border: 2px solid transparent !important;
+  border-bottom: 5px solid #cbd5e1 !important;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.5);
+  filter: brightness(1.05);
+}
+
+.btn-secondary:active {
+  transform: translateY(3px);
+  border-bottom-width: 2px !important;
 }
 
 .login-page {
@@ -387,24 +400,25 @@ h3 {
 .login-submit {
   min-height: 54px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background-color: #2563eb;
   color: #ffffff;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 1rem;
-  box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.3);
-  border: none;
-  transition: all 0.25s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 2px solid transparent;
+  border-bottom: 6px solid #1e3a8a;
+  transition: all 0.1s ease;
   cursor: pointer;
 }
 
 .login-submit:hover {
-  background: linear-gradient(135deg, #1d4ed8, #1e40af);
-  box-shadow: 0 12px 24px -3px rgba(37, 99, 235, 0.4);
-  transform: translateY(-2px);
+  filter: brightness(1.1);
 }
 
 .login-submit:active {
-  transform: translateY(0);
+  transform: translateY(4px);
+  border-bottom-width: 2px;
 }
 
 @media (max-width: 900px) {
@@ -2648,4 +2662,4 @@ h3 {
 @keyframes slide-up {
   0% { opacity: 0; transform: translateY(10px); }
   100% { opacity: 1; transform: translateY(0); }
-}
+}

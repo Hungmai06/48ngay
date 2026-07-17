@@ -81,10 +81,19 @@ export default function LearnPage() {
         setWords(rawWords)
 
         // Fetch all collections to locate this subcollection's parent
-        const colRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections`)
-        if (colRes.ok) {
-          const colData = await colRes.json()
-          const collectionsList = colData.data || []
+        let collectionsList = []
+        const cacheStr = sessionStorage.getItem('dl_vocab_cache')
+        if (cacheStr) {
+          collectionsList = JSON.parse(cacheStr)
+        } else {
+          const colRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections`)
+          if (colRes.ok) {
+            const colData = await colRes.json()
+            collectionsList = colData.data || []
+            sessionStorage.setItem('dl_vocab_cache', JSON.stringify(collectionsList))
+          }
+        }
+        if (collectionsList.length > 0) {
           for (let col of collectionsList) {
             const foundSub = (col.subCollections || []).find(s => s.id === Number(id))
             if (foundSub) {
@@ -354,7 +363,7 @@ export default function LearnPage() {
                   setMode(pendingMode);
                   setPendingMode(null);
                 }}
-                className="flex-1 py-3 bg-primary text-white rounded-full font-bold hover:bg-primary-dark transition-all cursor-pointer shadow-md shadow-primary/20 text-sm flex items-center justify-center gap-1.5"
+                className="btn btn-primary flex-1 flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span className="material-symbols-outlined text-[18px]">play_arrow</span>
                 Bắt đầu học ngay
@@ -482,8 +491,8 @@ function FlashcardMode({ words, onComplete, onBack }) {
       <h2 className="font-display text-2xl font-extrabold text-slate-800 mb-2">Hoàn thành chủ đề!</h2>
       <p className="text-sm text-text-muted mb-6">Bạn đã xem hết tất cả các thẻ từ vựng của chủ đề này.</p>
       <div className="flex flex-col gap-3">
-        <button onClick={() => { setIdx(0); setFlipped(false); }} className="w-full py-3 bg-primary text-white rounded-full font-bold hover:bg-primary-dark transition-all cursor-pointer shadow-md shadow-primary/20 text-sm">Học lại chủ đề này</button>
-        <button onClick={onBack} className="w-full py-3 bg-slate-100 text-slate-700 rounded-full font-bold hover:bg-slate-200 transition-all cursor-pointer text-sm">Quay lại chọn chế độ</button>
+        <button onClick={() => { setIdx(0); setFlipped(false); }} className="btn btn-primary w-full cursor-pointer">Học lại chủ đề này</button>
+        <button onClick={onBack} className="btn btn-secondary w-full">Quay lại chọn chế độ</button>
       </div>
     </div>
   )
@@ -538,7 +547,7 @@ function FlashcardMode({ words, onComplete, onBack }) {
               setFlipped(false)
             }
           }} 
-          className="px-6 py-2.5 bg-primary text-white rounded-full text-sm font-semibold hover:bg-primary-dark hover:shadow-md transition-all cursor-pointer"
+          className="btn btn-primary cursor-pointer"
         >
           {idx === words.length - 1 ? 'Hoàn thành' : 'Tiếp →'}
         </button>
@@ -593,8 +602,8 @@ function QuizMode({ words, allWords = [], onComplete, onCorrectAnswer, onBack })
       <h2 className="font-display text-2xl font-extrabold text-slate-800 mb-2">Hoàn thành!</h2>
       <p className="text-text-muted mb-6">Bạn đúng {score}/{words.length} câu. Tiến trình của bạn đã được ghi nhận.</p>
       <div className="flex flex-col gap-3">
-        <button onClick={() => { setIdx(0); setScore(0); setSelected(null); setAnswered(false) }} className="w-full py-3 bg-primary text-white rounded-full font-bold hover:bg-primary-dark transition-all cursor-pointer shadow-md shadow-primary/20 text-sm">Làm lại</button>
-        <button onClick={onBack} className="w-full py-3 bg-slate-100 text-slate-700 rounded-full font-bold hover:bg-slate-200 transition-all cursor-pointer text-sm">Quay lại chọn chế độ</button>
+        <button onClick={() => { setIdx(0); setScore(0); setSelected(null); setAnswered(false) }} className="btn btn-primary w-full cursor-pointer">Làm lại</button>
+        <button onClick={onBack} className="btn btn-secondary w-full">Quay lại chọn chế độ</button>
       </div>
     </div>
   )
@@ -632,7 +641,7 @@ function QuizMode({ words, allWords = [], onComplete, onCorrectAnswer, onBack })
       </div>
       {answered && (
         <div className="mt-6">
-          <button onClick={next} className="w-full py-3.5 bg-primary text-white rounded-full font-bold hover:bg-primary-dark transition-all cursor-pointer shadow-md">
+          <button onClick={next} className="btn btn-primary w-full">
             {idx < words.length - 1 ? 'Câu tiếp theo →' : 'Xem kết quả'}
           </button>
         </div>
@@ -696,8 +705,8 @@ function WriteMode({ words, onComplete, onCorrectAnswer, onBack }) {
       <h2 className="font-display text-2xl font-extrabold text-slate-800 mb-2">Hoàn thành!</h2>
       <p className="text-text-muted mb-6">Bạn đã gõ đúng {score}/{words.length} từ. Tiến trình của bạn đã được ghi nhận.</p>
       <div className="flex flex-col gap-3">
-        <button onClick={() => { setIdx(0); setScore(0); setUserInput(''); setChecked(false); setShowHint(false) }} className="w-full py-3 bg-primary text-white rounded-full font-bold hover:bg-primary-dark transition-all cursor-pointer shadow-md shadow-primary/20 text-sm">Làm lại</button>
-        <button onClick={onBack} className="w-full py-3 bg-slate-100 text-slate-700 rounded-full font-bold hover:bg-slate-200 transition-all cursor-pointer text-sm">Quay lại chọn chế độ</button>
+        <button onClick={() => { setIdx(0); setScore(0); setUserInput(''); setChecked(false); setShowHint(false) }} className="btn btn-primary w-full cursor-pointer">Làm lại</button>
+        <button onClick={onBack} className="btn btn-secondary w-full">Quay lại chọn chế độ</button>
       </div>
     </div>
   )
@@ -775,7 +784,7 @@ function WriteMode({ words, onComplete, onCorrectAnswer, onBack }) {
           <button
             type="submit"
             disabled={!userInput.trim()}
-            className="w-full py-3.5 bg-primary text-white font-bold rounded-full hover:bg-primary-dark transition-all shadow-md shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed text-sm flex items-center justify-center gap-1.5 cursor-pointer"
+            className="btn btn-primary w-full flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
           >
             <span className="material-symbols-outlined text-[18px]">verified</span>
             Kiểm tra đáp án

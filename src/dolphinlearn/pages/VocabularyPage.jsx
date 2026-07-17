@@ -20,11 +20,19 @@ export default function VocabularyPage() {
         const user = getDlCurrentUser()
         const email = user?.email || ''
 
-        // Fetch collections
-        const colRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections`)
-        if (!colRes.ok) throw new Error('Failed to fetch collections')
-        const colData = await colRes.json()
-        const fetchedCollections = colData.data || []
+        // Fetch collections (with cache)
+        let fetchedCollections = []
+        const cacheStr = sessionStorage.getItem('dl_vocab_cache')
+        if (cacheStr) {
+          fetchedCollections = JSON.parse(cacheStr)
+        } else {
+          const colRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections`)
+          if (colRes.ok) {
+            const colData = await colRes.json()
+            fetchedCollections = colData.data || []
+            sessionStorage.setItem('dl_vocab_cache', JSON.stringify(fetchedCollections))
+          }
+        }
 
         // Fetch user progress
         let progressMap = {}
@@ -125,7 +133,7 @@ export default function VocabularyPage() {
                   </div>
                 </div>
 
-                <Link to={`/vocabulary/${col.id}`} className="w-full py-2.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark hover:shadow-md hover:shadow-primary/20 transition-all text-center flex items-center justify-center gap-2">
+                <Link to={`/vocabulary/${col.id}`} className="btn btn-primary w-full flex items-center justify-center gap-2">
                   <span className="material-symbols-outlined text-[18px]">list_alt</span>
                   Xem các chủ đề
                 </Link>

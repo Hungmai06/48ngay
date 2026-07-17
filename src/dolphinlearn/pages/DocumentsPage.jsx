@@ -199,11 +199,11 @@ export default function DocumentsPage() {
 
         {/* Categories */}
         <div className="flex gap-2 flex-wrap mb-8">
-          <button onClick={() => setActiveCategory(null)} className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${!activeCategory ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-white text-text-muted border border-border hover:border-primary hover:text-primary'}`}>
+          <button onClick={() => setActiveCategory(null)} className={`btn ${!activeCategory ? "btn-primary" : "btn-secondary"} !rounded-full !px-4 !py-2 !text-sm cursor-pointer`}>
             Tất cả
           </button>
           {categories.map(cat => (
-            <button key={cat.id} onClick={() => setActiveCategory(cat.id)} className={`px-4 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${activeCategory === cat.id ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-white text-text-muted border border-border hover:border-primary hover:text-primary'}`}>
+            <button key={cat.id} onClick={() => setActiveCategory(cat.id)} className={`btn ${activeCategory === cat.id ? "btn-primary" : "btn-secondary"} !rounded-full !px-4 !py-2 !text-sm flex items-center gap-1.5 cursor-pointer`}>
               <span className="material-symbols-outlined text-[16px]">{cat.icon || 'folder'}</span>
               {cat.name}
             </button>
@@ -219,7 +219,7 @@ export default function DocumentsPage() {
             </div>
             <button 
               onClick={() => setSelectedDocId(null)} 
-              className="text-xs bg-blue-600 text-white font-bold px-3 py-1.5 rounded-xl hover:bg-blue-700 transition-all cursor-pointer shadow-sm"
+              className="btn btn-primary !px-3 !py-1.5 !text-xs cursor-pointer"
             >
               Hiển thị tất cả tài liệu
             </button>
@@ -270,7 +270,7 @@ export default function DocumentsPage() {
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); handleOpenDetails(doc); }}
-                    className="px-3 py-1.5 bg-primary/5 text-primary text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-all cursor-pointer"
+                    className="btn btn-primary !px-3 !py-1.5 !text-xs cursor-pointer"
                   >
                     Xem
                   </button>
@@ -356,8 +356,7 @@ export default function DocumentsPage() {
                     href="https://www.facebook.com/groups/380922997956806" 
                     target="_blank" 
                     rel="noreferrer"
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all shadow-md shadow-indigo-600/20 flex items-center gap-1 shrink-0 cursor-pointer"
-                    style={{ background: 'linear-gradient(135deg, #4F46E5, #7C3AED)' }}
+                    className="btn-3d btn-3d-purple !px-4 !py-2 !text-[10px] uppercase tracking-wider flex items-center gap-1 shrink-0 cursor-pointer"
                   >
                     Tham gia
                   </a>
@@ -368,7 +367,7 @@ export default function DocumentsPage() {
               <div className="flex gap-3">
                 <button
                   onClick={() => handleCopyLink(activeDetailDoc)}
-                  className="px-4 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+                  className="btn btn-secondary !py-3 !px-4 !text-xs flex items-center justify-center gap-1.5 shrink-0 cursor-pointer"
                   title="Sao chép link chia sẻ"
                 >
                   <span className="material-symbols-outlined text-[18px]">share</span>
@@ -376,7 +375,7 @@ export default function DocumentsPage() {
                 </button>
                 <button
                   onClick={() => handleXemNgayClick(activeDetailDoc)}
-                  className="flex-1 py-3 bg-primary text-white hover:bg-primary-dark rounded-2xl text-xs font-black uppercase tracking-wider transition-all shadow-md shadow-primary/20 flex items-center justify-center gap-2 cursor-pointer"
+                  className="btn btn-primary flex-1 !py-3 !text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[18px]">download_for_offline</span>
                   Xem ngay

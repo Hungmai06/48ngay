@@ -28,7 +28,7 @@ export default function LeaderboardPage() {
 
         // Map and rank users
         const ranked = rawUsers.map((item, idx) => {
-          const parts = (item.name || 'Học viên').split(' ')
+          const parts = (item.name || 'Học viên').trim().split(/\s+/)
           let avatar = 'DL'
           if (parts.length >= 2) {
             avatar = (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
@@ -42,7 +42,6 @@ export default function LeaderboardPage() {
             streak: item.streak || 0,
             points: item.points || 0,
             school: item.role === 'ADMIN' ? 'Ban quản trị DolphinLearn' : 'Học viên DolphinLearn',
-            level: item.points > 1500 ? 'IELTS 7.5' : item.points > 1000 ? 'TOEIC 850' : 'Cơ bản',
             isUser: item.email === currentEmail,
             rank: idx + 1
           }
@@ -107,8 +106,6 @@ export default function LeaderboardPage() {
                 </div>
               </div>
               <p className="text-xs md:text-sm font-bold text-slate-700 mt-3 text-center truncate w-full">{top2.name}</p>
-              <span className="text-[10px] md:text-xs font-semibold text-text-muted">{top2.level}</span>
-              
               {/* Podium block showing both Streak and Points */}
               <div className="w-full bg-gradient-to-t from-slate-200/90 to-slate-100/90 border border-slate-200/60 rounded-t-2xl mt-4 h-28 md:h-36 flex flex-col items-center justify-center gap-1.5 p-2 shadow-sm">
                 <div className="flex items-center gap-1 text-slate-700 font-bold text-[11px] md:text-xs">
@@ -135,8 +132,6 @@ export default function LeaderboardPage() {
                 </div>
               </div>
               <p className="text-sm md:text-base font-extrabold text-slate-800 mt-3 text-center truncate w-full">{top1.name}</p>
-              <span className="text-[10px] md:text-xs font-bold text-primary">{top1.level}</span>
-              
               {/* Podium block showing both Streak and Points */}
               <div className="w-full bg-gradient-to-t from-amber-100/95 to-amber-50/90 border border-amber-200/60 rounded-t-2xl mt-4 h-36 md:h-48 flex flex-col items-center justify-center gap-2 p-2 shadow-md relative overflow-hidden">
                 <div className="absolute top-0 inset-x-0 h-1 bg-amber-400" />
@@ -164,8 +159,6 @@ export default function LeaderboardPage() {
                 </div>
               </div>
               <p className="text-xs md:text-sm font-bold text-slate-700 mt-3 text-center truncate w-full">{top3.name}</p>
-              <span className="text-[10px] md:text-xs font-semibold text-text-muted">{top3.level}</span>
-              
               {/* Podium block showing both Streak and Points */}
               <div className="w-full bg-gradient-to-t from-orange-100/90 to-orange-50/90 border border-orange-200/60 rounded-t-2xl mt-4 h-24 md:h-32 flex flex-col items-center justify-center gap-1.5 p-2 shadow-sm">
                 <div className="flex items-center gap-1 text-orange-700 font-bold text-[11px] md:text-xs">
@@ -219,7 +212,7 @@ export default function LeaderboardPage() {
                       <p className={`font-bold text-sm ${isUserHighlight ? 'text-primary' : 'text-slate-800'}`}>
                         {item.name} {isUserHighlight && '(Tài khoản của bạn)'}
                       </p>
-                      <p className="text-xs text-slate-400 font-semibold">{item.school} • {item.level}</p>
+                      <p className="text-xs text-slate-400 font-semibold">{item.school}</p>
                     </div>
                   </div>
 

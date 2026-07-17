@@ -185,7 +185,7 @@ export default function VocabularySubCollectionsPage() {
                 {/* Learn button */}
                 <Link 
                   to={`/vocabulary/sub/${sub.id}/learn`} 
-                  className="w-full py-2.5 bg-primary text-white text-xs md:text-sm font-bold rounded-full hover:bg-primary-dark hover:shadow-md hover:shadow-primary/20 transition-all text-center flex items-center justify-center gap-1.5"
+                  className="btn btn-primary w-full flex items-center justify-center gap-1.5"
                 >
                   <span className="material-symbols-outlined text-[16px] md:text-[18px]">play_arrow</span>
                   {sub.progress > 0 ? 'Học tiếp' : 'Bắt đầu học'}

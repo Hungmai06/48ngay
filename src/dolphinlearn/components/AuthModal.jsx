@@ -181,7 +181,7 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
             <button 
               type="submit" 
               disabled={loading} 
-              className="w-full mt-2 px-6 py-3.5 bg-gradient-to-r from-primary to-primary-dark text-white font-bold rounded-2xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/35 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="btn btn-primary w-full mt-2 flex items-center justify-center gap-2 cursor-pointer"
             >
               {loading ? (
                 <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -257,7 +257,7 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose }) {
 
             <button 
               type="submit" 
-              className="w-full mt-2 px-6 py-3.5 bg-gradient-to-r from-primary to-primary-dark text-white font-bold rounded-2xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/35 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="btn btn-primary w-full mt-2 flex items-center justify-center gap-2 cursor-pointer"
             >
               <span className="material-symbols-outlined text-[20px]">person_add</span>
               Đăng ký miễn phí

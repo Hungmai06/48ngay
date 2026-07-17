@@ -6,32 +6,38 @@ import { useSEO } from '../hooks/useSEO'
 
 export default function HomePage() {
   useSEO({
-    title: 'Học ngoại ngữ miễn phí mỗi ngày',
-    description: 'DolphinLearn - Nền tảng học ngoại ngữ miễn phí với kho từ vựng phong phú, tài liệu ôn tập đa dạng (Tiếng Anh, Tiếng Nhật, Tiếng Trung) và lộ trình streak thông minh.',
-    keywords: 'học tiếng anh, học tiếng nhật, học tiếng trung, từ vựng tiếng anh, tài liệu ôn thi thpt'
+    title: 'Trang chủ - DolphinLearn',
+    description: 'DolphinLearn - Nền tảng học ngoại ngữ miễn phí với kho từ vựng phong phú.',
   })
 
   const [collections, setCollections] = useState([])
   const [categories, setCategories] = useState([])
+  const [recentDocs, setRecentDocs] = useState([])
+  const [stats, setStats] = useState({ totalDocs: 0, totalVocab: 0, totalUsers: 2450, rating: 4.8 })
+  const [inProgressCol, setInProgressCol] = useState(null)
   const [loading, setLoading] = useState(true)
+  const user = getDlCurrentUser()
 
   const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
 
   useEffect(() => {
     async function fetchHomeData() {
       try {
-        const user = getDlCurrentUser()
         const email = user?.email || ''
 
-        // 1. Fetch collections
-        const colRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections`)
         let fetchedCollections = []
-        if (colRes.ok) {
-          const colData = await colRes.json()
-          fetchedCollections = colData.data || []
+        const cacheStr = sessionStorage.getItem('dl_vocab_cache')
+        if (cacheStr) {
+          fetchedCollections = JSON.parse(cacheStr)
+        } else {
+          const colRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections`)
+          if (colRes.ok) {
+            const colData = await colRes.json()
+            fetchedCollections = colData.data || []
+            sessionStorage.setItem('dl_vocab_cache', JSON.stringify(fetchedCollections))
+          }
         }
 
-        // 2. Fetch user progress
         let progressMap = {}
         if (email) {
           const progRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/progress?username=${encodeURIComponent(email)}`)
@@ -47,7 +53,9 @@ export default function HomePage() {
           }
         }
 
-        // Process collections to calculate wordCount and progress
+        let globalTotalWords = 0
+        let globalTotalLearned = 0
+        
         const processed = fetchedCollections.map(col => {
           let totalWords = 0
           let totalLearned = 0
@@ -56,11 +64,12 @@ export default function HomePage() {
           subs.forEach(sub => {
             const wordCount = sub.words ? sub.words.length : 0
             totalWords += wordCount
-
+            globalTotalWords += wordCount
             const learnedIds = progressMap[sub.id] || []
             const subWordIds = (sub.words || []).map(w => w.id)
             const learnedCount = learnedIds.filter(id => subWordIds.includes(id)).length
             totalLearned += learnedCount
+            globalTotalLearned += learnedCount
           })
 
           const progressPercent = totalWords > 0 ? Math.round((totalLearned / totalWords) * 100) : 0
@@ -76,13 +85,30 @@ export default function HomePage() {
           }
         })
         setCollections(processed)
+        
+        // Find a collection in progress (progress > 0 and < 100), or default to the first one
+        const inProg = processed.find(c => c.progress > 0 && c.progress < 100) || processed[0]
+        setInProgressCol(inProg)
 
-        // 3. Fetch document categories
-        const catRes = await fetch(`${API_BASE}/api/v1/english/documents/categories`)
+        let docCount = 0
+        const [catRes, docsRes] = await Promise.all([
+          fetch(`${API_BASE}/api/v1/english/documents/categories`),
+          fetch(`${API_BASE}/api/v1/english/documents`)
+        ])
+        
         if (catRes.ok) {
           const catData = await catRes.json()
-          setCategories(catData.data || [])
+          const cats = catData.data || []
+          setCategories(cats)
+          cats.forEach(c => docCount += (c.documents ? c.documents.length : 0))
         }
+        
+        if (docsRes.ok) {
+          const docsData = await docsRes.json()
+          setRecentDocs(docsData.data || [])
+        }
+        
+        setStats(prev => ({ ...prev, totalDocs: docCount || 0, totalVocab: globalTotalWords || 0, totalLearned: globalTotalLearned || 0 }))
       } catch (error) {
         console.error('Error fetching homepage data:', error)
       } finally {
@@ -91,152 +117,323 @@ export default function HomePage() {
     }
 
     fetchHomeData()
-  }, [API_BASE])
+  }, [API_BASE, user])
 
   return (
-    <>
-      {/* ═══ HERO ═══ */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-secondary via-ocean-50 to-surface pt-16 pb-20">
-        {/* Decorative Floating Blobs */}
-        <div className="absolute top-[-10%] right-[-10%] w-[400px] h-[400px] rounded-full bg-blue-400/20 blur-[100px] dl-animate-blob pointer-events-none" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-300/15 blur-[120px] dl-animate-blob-delay-1 pointer-events-none" />
+    <div className="p-6 max-w-[1280px] mx-auto w-full font-['Outfit',_'Inter',_sans-serif] bg-slate-50 min-h-screen">
+      
+      {/* ═══ TOP SEARCH BAR ═══ */}
+      <div className="flex items-center justify-between mb-8 gap-4">
+        <div className="relative flex-1 max-w-[600px]">
+          <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-xl">search</span>
+          <input 
+            type="text" 
+            placeholder="Tìm từ vựng, tài liệu, chủ đề..." 
+            className="w-full pl-12 pr-16 h-12 bg-white border border-slate-200 rounded-3xl text-sm text-slate-900 font-medium focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all placeholder-[#64748B]"
+          />
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium text-slate-500 bg-slate-50 px-[8px] py-1 rounded-lg border border-slate-200">
+            Ctrl + K
+          </div>
+        </div>
+        
+        <div className="hidden md:flex items-center gap-4">
+          <button className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-slate-500 hover:text-blue-600 border border-slate-200 relative transition-colors cursor-pointer">
+            <span className="material-symbols-outlined text-2xl">notifications</span>
+            <span className="absolute top-3 right-3 w-2 h-2 bg-orange-500 rounded-full"></span>
+          </button>
+          <button className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-slate-500 hover:text-blue-600 border border-slate-200 transition-colors cursor-pointer">
+            <span className="material-symbols-outlined text-2xl">mail</span>
+          </button>
+          <div className="w-12 h-12 rounded-full bg-cyan-400/20 border border-cyan-400/30 overflow-hidden shrink-0 ml-2">
+            <img src={`https://ui-avatars.com/api/?name=${user?.name || user?.email || 'User'}&background=22C7EB&color=FFFFFF`} alt="Avatar" className="w-full h-full object-cover" />
+          </div>
+        </div>
+      </div>
 
-        <div className="max-w-7xl mx-auto px-6 flex flex-col-reverse lg:flex-row items-center gap-12 relative z-10">
-          <div className="flex-1 text-center lg:text-left">
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-slate-800">
-              Cùng nhau <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">Học tập</span>, Chia sẻ
-              <br className="hidden md:block" /> & <span className="text-accent-dark">Phát triển</span>
+      {/* ═══ HERO BANNER ═══ */}
+      <div className="bg-gradient-to-br from-blue-100 via-white to-blue-100 shadow-[0_20px_50px_rgba(37,99,235,0.05)] rounded-3xl px-10 py-12 relative overflow-hidden mb-6 border border-slate-200">
+        <div className="absolute top-[-50px] left-[-50px] w-[300px] h-[300px] bg-blue-400/20 rounded-full blur-[80px]"></div>
+        <div className="absolute bottom-[-50px] right-[-50px] w-[300px] h-[300px] bg-cyan-300/20 rounded-full blur-[80px]"></div>
+        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between">
+          <div className="max-w-[500px] text-center md:text-left mb-6 md:mb-0">
+            <h2 className="text-xl font-semibold text-slate-900 mb-2">
+              Xin chào, {user?.name || user?.email?.split('@')[0] || 'Dolphin Learner'}! 👋
+            </h2>
+            <h1 className="text-3xl font-bold text-slate-900 mb-4 leading-[1.2]">
+              Hôm nay bạn muốn <span className="text-blue-600">học gì mới?</span>
             </h1>
-            <p className="text-base md:text-lg text-text-muted max-w-lg mb-8 mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-sm text-slate-500 mb-8 leading-[1.5]">
               Kho tài liệu miễn phí, bộ sưu tập từ vựng và lộ trình học tập thông minh. Bắt đầu ngay hôm nay!
             </p>
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              <Link to="/vocabulary" className="inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-primary to-primary-dark text-white font-semibold rounded-full shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 active:translate-y-0 transition-all">
-                <span className="material-symbols-outlined text-[20px]">school</span>
+            <div className="flex gap-4 justify-center md:justify-start">
+              <Link to="/vocabulary" className="h-12 rounded-2xl px-8 bg-blue-600 hover:bg-blue-700 !text-white text-sm font-bold flex items-center justify-center gap-2 border-b-4 border-blue-900 active:border-b-0 active:translate-y-1 transition-all shadow-sm" style={{ color: '#ffffff' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-rocket"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 3.82-13.04 1 1 0 0 1 1.76.6l.33 3.74a1 1 0 0 0 .81.91l3.74.33a1 1 0 0 1 .6 1.76A22 22 0 0 1 15 12z"/><path d="m9 10.3 3-3"/><circle cx="15" cy="9" r="1"/></svg>
                 Bắt đầu học ngay
               </Link>
-              <Link to="/documents" className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-primary font-semibold rounded-full border border-slate-200 hover:border-primary hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all">
-                <span className="material-symbols-outlined text-[20px]">library_books</span>
+              <Link to="/documents" className="h-12 rounded-2xl px-8 bg-white hover:bg-slate-50 text-slate-900 text-sm font-bold flex items-center justify-center gap-2 border-2 border-slate-200 border-b-4 border-b-slate-300 active:border-b-2 active:translate-y-0.5 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-folder"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
                 Khám phá tài liệu
               </Link>
             </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 md:gap-6 mt-12 max-w-lg mx-auto lg:mx-0">
-              {[{ value: '1,200+', label: 'Tài liệu' }, 
-                { value: '5,000+', label: 'Từ vựng' }, 
-                { value: '2,000+', label: 'Học viên' }].map(s => (
-                <div key={s.label} className="bg-white/60 backdrop-blur-md rounded-2xl p-4 border border-white/60 shadow-sm hover:shadow-md hover:border-primary/20 transition-all hover:-translate-y-1 flex flex-col items-center lg:items-start">
-                  <div className="text-primary font-display text-2xl md:text-3xl font-extrabold">{s.value}</div>
-                  <div className="text-[10px] md:text-xs font-bold text-text-muted mt-1 uppercase tracking-wider">{s.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
+          <div className="relative w-[280px] h-[280px] md:w-[320px] md:h-[320px] flex-shrink-0">
+            <img src={dolphinHero} className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_20px_40px_rgba(37,99,235,0.2)]" alt="Dolphin Mascot" />
+          </div>
+        </div>
+      </div>
 
-          {/* Mascot */}
-          <div className="flex-shrink-0 w-64 lg:w-96 relative flex items-center justify-center">
-            {/* Soft background glow */}
-            <div className="absolute w-[260px] h-[260px] rounded-full bg-primary/10 blur-[50px] animate-pulse pointer-events-none" />
-            <div className="dl-mascot-hover relative z-10 w-full flex justify-center">
-              <img src={dolphinHero} alt="DolphinLearn mascot" className="w-56 lg:w-72 drop-shadow-[0_20px_50px_rgba(59,130,246,0.3)] transition-transform duration-500 hover:scale-105 pointer-events-none" />
+      {/* ═══ STATS GRID ═══ */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {/* Card 1 */}
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 flex items-center gap-4 hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:scale-[0.98] transition-all">
+          <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+            <span className="material-symbols-outlined text-2xl">description</span>
+          </div>
+          <div>
+            <div className="text-xl font-bold text-slate-900">1.200+</div>
+            <div className="text-xs font-medium text-slate-500 mb-1">Tài liệu</div>
+            <div className="text-[10px] font-medium text-green-600 flex items-center gap-1">
+              <span className="material-symbols-outlined text-xs">arrow_upward</span> 12% so với tuần trước
             </div>
           </div>
         </div>
-      </section>
 
-      {/* ═══ VOCABULARY COLLECTIONS ═══ */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="font-display text-2xl font-bold text-slate-800">Bộ sưu tập từ vựng</h2>
-              <p className="text-sm text-text-muted mt-1">Học từ vựng theo chủ đề yêu thích</p>
-            </div>
-            <Link to="/vocabulary" className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
-              Xem tất cả <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </Link>
+        {/* Card 2 */}
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 flex items-center gap-4 hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:scale-[0.98] transition-all">
+          <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center text-green-600 shrink-0">
+            <span className="material-symbols-outlined text-2xl">bookmark</span>
           </div>
+          <div>
+            <div className="text-xl font-bold text-slate-900">5.000+</div>
+            <div className="text-xs font-medium text-slate-500 mb-1">Từ vựng</div>
+            <div className="text-[10px] font-medium text-green-600 flex items-center gap-1">
+              <span className="material-symbols-outlined text-xs">arrow_upward</span> 18% so với tuần trước
+            </div>
+          </div>
+        </div>
 
-          {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[1, 2, 3].map(n => (
-                <div key={n} className="bg-white rounded-2xl p-6 border border-border h-48 animate-pulse" />
+        {/* Card 3 */}
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 flex items-center gap-4 hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:scale-[0.98] transition-all">
+          <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 shrink-0">
+            <span className="material-symbols-outlined text-2xl">school</span>
+          </div>
+          <div>
+            <div className="text-xl font-bold text-slate-900">2.000+</div>
+            <div className="text-xs font-medium text-slate-500 mb-1">Học viên</div>
+            <div className="text-[10px] font-medium text-green-600 flex items-center gap-1">
+              <span className="material-symbols-outlined text-xs">arrow_upward</span> 8% so với tuần trước
+            </div>
+          </div>
+        </div>
+
+        {/* Card 4 */}
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 flex items-center gap-4 hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:scale-[0.98] transition-all">
+          <div className="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center text-orange-500 shrink-0">
+            <span className="material-symbols-outlined text-2xl">star</span>
+          </div>
+          <div>
+            <div className="text-xl font-bold text-slate-900">4.8</div>
+            <div className="text-xs font-medium text-slate-500 mb-1">Đánh giá trung bình</div>
+            <div className="flex gap-0.5 text-orange-500">
+              {[1,2,3,4,5].map(i => (
+                <span key={i} className="material-symbols-outlined text-sm" style={{fontVariationSettings: "'FILL' 1"}}>star</span>
               ))}
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {collections.slice(0, 3).map(col => {
-                const barMap = { primary: 'bg-primary', accent: 'bg-accent', success: 'bg-success' }
+          </div>
+        </div>
+      </div>
+
+      {/* ═══ MIDDLE SECTION: CONTINUE LEARNING & STATS ═══ */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        
+        {/* Tiếp tục học */}
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-semibold text-slate-900">Tiếp tục học</h3>
+            <Link to="/vocabulary" className="btn btn-secondary !px-4 !py-2 !text-xs flex items-center gap-1">
+              Xem tất cả <span className="material-symbols-outlined text-base">arrow_forward</span>
+            </Link>
+          </div>
+          
+          <div className="bg-white rounded-2xl p-5 border border-slate-200 flex gap-5 items-center flex-1">
+            <div className="w-32 h-32 rounded-xl bg-blue-100 shrink-0 overflow-hidden relative flex items-center justify-center">
+               <span className="material-symbols-outlined text-blue-600 text-[48px]">beach_access</span>
+            </div>
+            <div className="flex-1 w-full">
+              <h4 className="font-semibold text-base text-slate-900 mb-1">{inProgressCol ? inProgressCol.title : 'Khám phá từ vựng'}</h4>
+              <p className="text-xs text-slate-500 font-medium mb-4">Tiến độ học: {inProgressCol ? inProgressCol.wordCount : 0} từ</p>
+              
+              <div className="flex justify-end text-xs font-medium text-slate-500 mb-2">
+                <span>{inProgressCol ? inProgressCol.progress : 0}%</span>
+              </div>
+              <div className="h-2 w-full bg-slate-200 rounded overflow-hidden mb-5">
+                <div className="h-full bg-blue-600 rounded" style={{ width: `${inProgressCol ? inProgressCol.progress : 0}%` }}></div>
+              </div>
+              
+              <Link to={inProgressCol ? `/vocabulary/${inProgressCol.id}` : "/vocabulary"} className="btn btn-primary h-12 w-full flex items-center justify-center">
+                {inProgressCol && inProgressCol.progress > 0 ? 'Tiếp tục học' : 'Bắt đầu học'}
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right ml-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Thống kê cá nhân */}
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-semibold text-slate-900 opacity-0">Thống kê</h3>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-4 flex-1">
+             {/* Chuỗi ngày */}
+             <div className="bg-white rounded-2xl p-5 border border-slate-200 flex flex-col justify-between">
+                <div className="flex items-center gap-2 text-orange-500 font-medium text-xs mb-3">
+                  <span className="material-symbols-outlined text-base" style={{fontVariationSettings: "'FILL' 1"}}>local_fire_department</span>
+                  Chuỗi ngày
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-slate-900">{user?.streak || 0} <span className="text-sm font-normal text-slate-500">ngày</span></div>
+                  <div className="text-xs text-slate-500 mt-1">Cố gắng lên!</div>
+                </div>
+             </div>
+             
+             {/* Mục tiêu */}
+             <div className="bg-white rounded-2xl p-5 border border-slate-200 flex flex-col justify-between">
+                <div className="flex items-center gap-2 text-red-500 font-medium text-xs mb-3">
+                  <span className="material-symbols-outlined text-base">track_changes</span>
+                  Mục tiêu hôm nay
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-slate-900">24 <span className="text-sm font-normal text-slate-500">/ 50 từ</span></div>
+                  <div className="text-xs text-slate-500 mt-1">Còn 26 từ nữa</div>
+                </div>
+                <div className="h-1 w-full bg-[#E2E8F0] rounded-sm mt-3">
+                  <div className="h-full bg-[#EF4444] rounded-sm" style={{ width: '48%' }}></div>
+                </div>
+             </div>
+
+             {/* XP */}
+             <div className="bg-white rounded-2xl p-5 border border-slate-200 flex flex-col justify-between">
+                <div className="flex items-center gap-2 text-green-600 font-medium text-xs mb-3">
+                  <span className="material-symbols-outlined text-base" style={{fontVariationSettings: "'FILL' 1"}}>stars</span>
+                  XP hiện tại
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-slate-900">{user?.points || 0} <span className="text-sm font-normal text-slate-500">XP</span></div>
+                  <div className="text-xs text-slate-500 mt-1">Cấp độ {Math.floor((user?.points || 0) / 100) + 1}</div>
+                </div>
+             </div>
+
+             {/* Thời gian */}
+             <div className="bg-white rounded-2xl p-5 border border-slate-200 flex flex-col justify-between">
+                <div className="flex items-center gap-2 text-blue-600 font-medium text-xs mb-3">
+                  <span className="material-symbols-outlined text-base">schedule</span>
+                  Tổng thời gian học
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-slate-900">{user?.studyHours || 0} <span className="text-sm font-normal text-slate-500">giờ</span></div>
+                  <div className="text-xs text-slate-500 mt-1">{user?.studyHours > 0 ? 'Tuyệt vời!' : 'Hãy bắt đầu học nhé!'}</div>
+                </div>
+             </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* ═══ BOTTOM GRID: VOCAB & DOCS ═══ */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        {/* Bộ sưu tập từ vựng */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-semibold text-slate-900">Bộ sưu tập từ vựng</h3>
+            <Link to="/vocabulary" className="btn btn-secondary !px-4 !py-2 !text-xs flex items-center gap-1">
+              Xem tất cả <span className="material-symbols-outlined text-base">arrow_forward</span>
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {loading ? (
+              [1,2,3].map(i => <div key={i} className="h-[200px] bg-white rounded-2xl border border-slate-200 animate-pulse"></div>)
+            ) : (
+              collections.slice(0, 2).map((col, idx) => {
+                const bgColors = ['bg-blue-50', 'bg-red-50', 'bg-green-50']
+                const iconColors = ['text-blue-600', 'text-red-500', 'text-green-600']
                 return (
-                  <Link to={`/vocabulary/${col.id}`} key={col.id} className="dl-card-hover bg-white rounded-2xl p-6 border border-border flex flex-col shadow-sm">
-                    <div className="mb-4">
-                      <h3 className="font-display font-semibold text-lg text-slate-800">{col.title}</h3>
-                      <span className="text-xs text-text-muted">{col.wordCount} từ</span>
+                  <Link to={`/vocabulary/${col.id}`} key={col.id} className="bg-white rounded-2xl p-4 border border-slate-200 hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:scale-[0.98] transition-all flex flex-col">
+                    <div className={`w-full h-24 rounded-xl ${bgColors[idx%3]} mb-4 flex items-center justify-center`}>
+                      <span className={`material-symbols-outlined text-3xl ${iconColors[idx%3]}`}>{col.icon || 'menu_book'}</span>
                     </div>
-                    <p className="text-sm text-text-muted flex-1 mb-5">{col.description}</p>
-                    <div>
-                      <div className="flex justify-between text-xs font-semibold mb-2">
-                        <span className="text-text-muted">Tiến độ</span>
-                        <span className="text-primary">{col.progress}%</span>
-                      </div>
-                      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                        <div className={`h-full rounded-full dl-progress-animate ${barMap[col.color] || 'bg-primary'}`} style={{ width: `${col.progress}%` }} />
+                    <h4 className="font-semibold text-sm text-slate-900 line-clamp-2 mb-1">{col.title}</h4>
+                    <p className="text-xs text-slate-500 mb-4">{col.wordCount} từ</p>
+                    <div className="mt-auto">
+                      <div className="flex justify-end text-[10px] font-medium text-slate-500 mb-1">{col.progress}%</div>
+                      <div className="h-1 w-full bg-[#E2E8F0] rounded-sm overflow-hidden">
+                        <div className="h-full bg-blue-600 rounded-sm" style={{ width: `${col.progress}%` }}></div>
                       </div>
                     </div>
                   </Link>
                 )
-              })}
-            </div>
-          )}
-        </div>
-      </section>
+              })
+            )}
 
-      {/* ═══ DOCUMENT CATEGORIES ═══ */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="font-display text-2xl font-bold text-slate-800">Danh mục tài liệu</h2>
-              <p className="text-sm text-text-muted mt-1">Tìm tài liệu theo lĩnh vực quan tâm</p>
-            </div>
-            <Link to="/documents" className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">
-              Xem tất cả <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+            {/* Create new collection button */}
+            <Link to="/vocabulary" className="btn btn-secondary flex-col h-full items-center justify-center gap-3 cursor-pointer">
+              <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center mb-3">
+                <span className="material-symbols-outlined text-xl">add</span>
+              </div>
+              <span className="text-xs font-medium">Tạo bộ sưu tập mới</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Tài liệu gợi ý */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-semibold text-slate-900">Tài liệu gợi ý cho bạn</h3>
+            <Link to="/documents" className="btn btn-secondary !px-4 !py-2 !text-xs flex items-center gap-1">
+              Xem tất cả <span className="material-symbols-outlined text-base">arrow_forward</span>
             </Link>
           </div>
 
-          {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-              {[1, 2, 3, 4, 5, 6].map(n => (
-                <div key={n} className="bg-slate-50 rounded-2xl p-5 h-28 animate-pulse" />
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {categories.map(cat => (
-                <Link to="/documents" key={cat.id} className="dl-card-hover bg-surface rounded-2xl p-5 text-center border border-transparent hover:border-primary/20">
-                  <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                    <span className="material-symbols-outlined text-[24px]">{cat.icon || 'folder'}</span>
-                  </div>
-                  <span className="text-sm font-semibold text-slate-700">{cat.name}</span>
-                </Link>
-              ))}
-            </div>
-          )}
+          <div className="flex flex-col gap-4">
+            {loading ? (
+              [1, 2, 3].map(i => (
+                <div key={i} className="bg-white rounded-2xl p-4 border border-slate-200 h-24 animate-pulse"></div>
+              ))
+            ) : recentDocs.length > 0 ? (
+              recentDocs.slice(0, 3).map((doc, i) => {
+                const tags = [
+                  { label: 'Mới', color: 'text-green-600 bg-green-50', iconBg: 'bg-blue-900' },
+                  { label: 'Hot', color: 'text-orange-500 bg-orange-50', iconBg: 'bg-orange-500' },
+                  { label: 'Nổi bật', color: 'text-blue-600 bg-blue-50', iconBg: 'bg-[#22C7EB]' }
+                ]
+                const currentTag = tags[i % 3]
+                
+                return (
+                  <Link to={`/documents?id=${doc.id}`} key={doc.id} className="bg-white rounded-2xl p-4 border border-slate-200 hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:scale-[0.98] transition-all flex items-center gap-4">
+                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center shrink-0 text-white ${currentTag.iconBg}`}>
+                       <span className="material-symbols-outlined text-3xl">description</span>
+                    </div>
+                    <div className="flex-1 overflow-hidden">
+                      <h4 className="font-semibold text-sm text-slate-900 mb-1 truncate">{doc.title}</h4>
+                      <p className="text-xs text-slate-500 truncate">{doc.description || 'Tài liệu hữu ích cho việc học ngoại ngữ'}</p>
+                    </div>
+                    <div className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider ${currentTag.color} shrink-0`}>
+                      {currentTag.label}
+                    </div>
+                  </Link>
+                )
+              })
+            ) : (
+              <div className="text-center py-10 bg-white rounded-2xl border border-slate-200">
+                <p className="text-sm text-slate-500">Chưa có tài liệu nào.</p>
+              </div>
+            )}
+          </div>
         </div>
-      </section>
 
-      {/* ═══ CTA ═══ */}
-      <section className="bg-gradient-to-r from-primary to-primary-dark py-16">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-4">Sẵn sàng bắt đầu hành trình?</h2>
-          <p className="text-white/80 max-w-md mx-auto mb-8">Tham gia cùng hàng ngàn học viên và chinh phục ngoại ngữ mỗi ngày</p>
-          <Link to="?auth=register" className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary font-bold rounded-full hover:shadow-xl hover:-translate-y-0.5 transition-all">
-            <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
-            Đăng ký miễn phí
-          </Link>
-        </div>
-      </section>
-    </>
+      </div>
+    </div>
   )
 }

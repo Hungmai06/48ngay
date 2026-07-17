@@ -264,7 +264,7 @@ export default function CommunityPage() {
                 />
                 <button 
                   type="submit"
-                  className="p-3 bg-primary hover:bg-primary-dark text-white rounded-2xl shadow-md shadow-primary/20 hover:shadow-lg transition-all flex items-center justify-center cursor-pointer shrink-0"
+                  className="btn btn-primary flex items-center justify-center shrink-0 p-3"
                 >
                   <span className="material-symbols-outlined text-[18px]">send</span>
                 </button>
@@ -275,7 +275,7 @@ export default function CommunityPage() {
                   <p className="text-xs font-black text-slate-800">Đăng nhập để tham gia trò chuyện cùng cộng đồng!</p>
                   <Link 
                     to="?auth=login" 
-                    className="inline-block px-5 py-2 bg-primary hover:bg-primary-dark text-white text-xs font-black rounded-xl shadow-md shadow-primary/20 hover:shadow-lg transition-all"
+                    className="btn btn-primary"
                   >
                     Đăng nhập ngay
                   </Link>

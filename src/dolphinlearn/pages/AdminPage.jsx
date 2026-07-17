@@ -1100,7 +1100,7 @@ export default function AdminPage() {
                   />
                   <button
                     onClick={() => { setModalType('addUser'); setFormData({}); }}
-                    className="bg-primary text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-primary-dark transition-all flex items-center gap-1.5 shrink-0"
+                    className="btn btn-primary flex items-center gap-1.5 shrink-0"
                   >
                     <span className="material-symbols-outlined text-[16px]">add</span>Thêm mới
                   </button>
@@ -1290,7 +1290,7 @@ export default function AdminPage() {
                   </div>
                   <button
                     onClick={() => { setModalType('addCollection'); setFormData({}); }}
-                    className="bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-xl hover:bg-primary-dark transition-all flex items-center gap-1"
+                    className="btn btn-primary flex items-center gap-1"
                   >
                     <span className="material-symbols-outlined text-[16px]">add</span>Thêm bộ từ
                   </button>
@@ -1393,7 +1393,7 @@ export default function AdminPage() {
                   </div>
                   <button
                     onClick={() => { setModalType('addSubCollection'); setFormData({}); }}
-                    className="bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-xl hover:bg-primary-dark transition-all flex items-center gap-1"
+                    className="btn btn-primary flex items-center gap-1"
                   >
                     <span className="material-symbols-outlined text-[16px]">add</span>Thêm chủ đề con
                   </button>
@@ -1530,7 +1530,7 @@ export default function AdminPage() {
                         subCollectionId: selectedSubCollFilter !== 'all' ? selectedSubCollFilter : ''
                       });
                     }}
-                    className="bg-primary text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-primary-dark transition-all flex items-center gap-1 cursor-pointer"
+                    className="btn btn-primary flex items-center gap-1 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-[16px]">add</span>Thêm từ vựng
                   </button>
@@ -1635,7 +1635,7 @@ export default function AdminPage() {
                 />
                 <button
                   onClick={() => { setModalType('addDoc'); setFormData({}); }}
-                  className="bg-primary text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-primary-dark transition-all flex items-center gap-1"
+                  className="btn btn-primary flex items-center gap-1"
                 >
                   <span className="material-symbols-outlined text-[16px]">add</span>Thêm tài liệu
                 </button>
@@ -1809,7 +1809,7 @@ export default function AdminPage() {
                     <option value="ADMIN">ADMIN</option>
                   </select>
                 </div>
-                <button type="submit" className="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary-dark transition-all mt-4">
+                <button type="submit" className="btn btn-primary w-full mt-4">
                   Lưu thông tin
                 </button>
               </form>
@@ -1850,7 +1850,7 @@ export default function AdminPage() {
                     placeholder="K48"
                   />
                 </div>
-                <button type="submit" className="w-full py-2.5 bg-slate-800 text-white text-xs font-bold rounded-xl hover:bg-slate-900 transition-all mt-4">
+                <button type="submit" className="btn-3d btn-3d-gray w-full mt-4">
                   Cấp tài khoản 48 ngày
                 </button>
               </form>
@@ -1920,7 +1920,7 @@ export default function AdminPage() {
                     </select>
                   </div>
                 </div>
-                <button type="submit" className="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary-dark transition-all mt-4">
+                <button type="submit" className="btn btn-primary w-full mt-4">
                   {modalType === 'editCollection' ? 'Lưu thay đổi' : 'Thêm bộ từ vựng'}
                 </button>
               </form>
@@ -1965,7 +1965,7 @@ export default function AdminPage() {
                     placeholder="Mô tả chủ đề này..."
                   />
                 </div>
-                <button type="submit" className="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary-dark transition-all mt-4">
+                <button type="submit" className="btn btn-primary w-full mt-4">
                   {modalType === 'editSubCollection' ? 'Lưu thay đổi' : 'Thêm chủ đề con'}
                 </button>
               </form>
@@ -2022,7 +2022,7 @@ export default function AdminPage() {
                     placeholder="Ví dụ: Đa dạng sinh học"
                   />
                 </div>
-                <button type="submit" className="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary-dark transition-all mt-4 cursor-pointer">
+                <button type="submit" className="btn btn-primary w-full mt-4">
                   {modalType === 'editWord' ? 'Lưu thay đổi' : 'Thêm vào từ điển'}
                 </button>
               </form>
@@ -2060,7 +2060,7 @@ export default function AdminPage() {
                     * Hệ thống tự động bỏ qua nếu từ vựng đã tồn tại trong chủ đề con này.
                   </p>
                 </div>
-                <button type="submit" className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all mt-4 cursor-pointer">
+                <button type="submit" className="btn-3d btn-3d-green w-full mt-4">
                   Bắt đầu Import
                 </button>
               </form>
@@ -2113,7 +2113,7 @@ export default function AdminPage() {
                     placeholder="https://drive.google.com/..."
                   />
                 </div>
-                <button type="submit" className="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary-dark transition-all mt-4">
+                <button type="submit" className="btn btn-primary w-full mt-4">
                   {modalType === 'editDoc' ? 'Lưu thay đổi' : 'Đăng tài liệu'}
                 </button>
               </form>

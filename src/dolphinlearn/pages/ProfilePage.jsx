@@ -110,7 +110,7 @@ export default function ProfilePage() {
             <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">{learnedCount} từ đã học</span>
           </div>
         </div>
-        <button onClick={handleLogout} className="px-5 py-2.5 border border-error/30 text-error text-sm font-semibold rounded-full hover:bg-error/5 transition-all flex items-center gap-2">
+        <button onClick={handleLogout} className="btn-3d btn-3d-pink flex items-center gap-2">
           <span className="material-symbols-outlined text-[18px]">logout</span>Đăng xuất
         </button>
       </div>

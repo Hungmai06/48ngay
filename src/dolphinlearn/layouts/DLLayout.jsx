@@ -1,13 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Outlet, useSearchParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import AuthModal from '../components/AuthModal'
+import { useAuth } from '../../48ngay/hooks/useAuth'
 
 export default function DLLayout() {
+  const { isDlLoggedIn, refreshUser } = useAuth()
   const [searchParams, setSearchParams] = useSearchParams()
   const [isAuthOpen, setIsAuthOpen] = useState(false)
   const [authMode, setAuthMode] = useState('login')
+
+  const hasRefreshed = useRef(false)
+
+  useEffect(() => {
+    if (isDlLoggedIn && refreshUser && !hasRefreshed.current) {
+      hasRefreshed.current = true
+      refreshUser()
+    }
+  }, [isDlLoggedIn])
 
   useEffect(() => {
     const auth = searchParams.get('auth')
