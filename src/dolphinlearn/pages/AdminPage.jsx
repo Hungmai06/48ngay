@@ -298,7 +298,8 @@ export default function AdminPage() {
             email: formData.email,
             points: Number(formData.points || 0),
             streak: Number(formData.streak || 0),
-            role: formData.role || 'USER'
+            role: formData.role || 'USER',
+            password: formData.password || ''
           })
         })
         if (response.ok) {
@@ -1809,6 +1810,18 @@ export default function AdminPage() {
                     <option value="ADMIN">ADMIN</option>
                   </select>
                 </div>
+                {modalType === 'editUser' && (
+                  <div>
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Mật khẩu mới (Để trống nếu không đổi)</label>
+                    <input
+                      type="text"
+                      value={formData.password || ''}
+                      onChange={e => setFormData({ ...formData, password: e.target.value })}
+                      className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs outline-none focus:border-primary font-medium"
+                      placeholder="Nhập mật khẩu mới..."
+                    />
+                  </div>
+                )}
                 <button type="submit" className="btn btn-primary w-full mt-4">
                   Lưu thông tin
                 </button>
