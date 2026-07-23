@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSEO } from '../hooks/useSEO'
+import { vocabularyCollections, vocabularyTopics, vocabularySubtopics, vocabularyWords } from '../data/mockData'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
 
@@ -11,11 +12,14 @@ export default function AdminPage() {
     keywords: 'admin dolphinlearn, quản trị hệ thống, quản lý học viên'
   })
 
-  const [activeTab, setActiveTab] = useState('overview') // 'overview', 'users', 'vocabulary', 'documents'
-  const [loading, setLoading] = useState(true)
+  const searchTab = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('tab') : null
+  const [activeTab, setActiveTab] = useState(searchTab || 'vocabulary') // 'vocabulary', 'overview', 'users', 'documents'
+  const [loading, setLoading] = useState(false)
 
   // Live States (Lookup)
   const [collections, setCollections] = useState([])
+  const [topics, setTopics] = useState([])
+  const [subtopics, setSubtopics] = useState([])
   const [subCollections, setSubCollections] = useState([])
   const [docCats, setDocCats] = useState([])
   const [stats, setStats] = useState(null)
@@ -48,6 +52,8 @@ export default function AdminPage() {
   const [selectedSubCollFilter, setSelectedSubCollFilter] = useState('all')
 
   const [collectionPage, setCollectionPage] = useState(1)
+  const [topicPage, setTopicPage] = useState(1)
+  const [subtopicPage, setSubtopicPage] = useState(1)
   const [subCollectionPage, setSubCollectionPage] = useState(1)
 
   const [docPage, setDocPage] = useState(1)
@@ -156,7 +162,7 @@ export default function AdminPage() {
       const pageParam = pageVal - 1
       let url = `${API_BASE}/api/v1/english/vocabulary/words?page=${pageParam}&size=10&search=${encodeURIComponent(searchVal || '')}`
       if (subCollIdVal && subCollIdVal !== 'all') {
-        url += `&subCollectionId=${subCollIdVal}`
+        url += `&subtopicId=${subCollIdVal}`
       }
       const res = await fetch(url)
       if (res.ok) {
@@ -172,7 +178,7 @@ export default function AdminPage() {
         }
       }
     } catch (e) {
-      console.error(e)
+      console.error('Error fetching words from API:', e)
     }
   }
 
@@ -197,71 +203,132 @@ export default function AdminPage() {
     }
   }
 
-  // Trigger list fetchers when query params / page change
+  // Level-specific loading states for Vocabulary cascade
+  const [loadingCollections, setLoadingCollections] = useState(false)
+  const [loadingTopics, setLoadingTopics] = useState(false)
+  const [loadingSubtopics, setLoadingSubtopics] = useState(false)
+  const [loadingWords, setLoadingWords] = useState(false)
+
+  // Independent API fetchers with level-specific loading indicators
+  const fetchCollections = async () => {
+    try {
+      setLoadingCollections(true)
+      const res = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections`)
+      if (res.ok) {
+        const data = await res.json()
+        const sorted = (data.data || []).sort((a, b) => Number(a.id) - Number(b.id))
+        setCollections(sorted)
+      }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoadingCollections(false)
+    }
+  }
+
+  const fetchTopics = async () => {
+    try {
+      setLoadingTopics(true)
+      const res = await fetch(`${API_BASE}/api/v1/english/vocabulary/topics`)
+      if (res.ok) {
+        const data = await res.json()
+        const sorted = (data.data || []).sort((a, b) => Number(a.id) - Number(b.id))
+        setTopics(sorted)
+      }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoadingTopics(false)
+    }
+  }
+
+  const fetchSubtopics = async () => {
+    try {
+      setLoadingSubtopics(true)
+      const res = await fetch(`${API_BASE}/api/v1/english/vocabulary/subtopics`)
+      if (res.ok) {
+        const data = await res.json()
+        const sorted = (data.data || []).sort((a, b) => Number(a.id) - Number(b.id))
+        setSubtopics(sorted)
+        setSubCollections(sorted)
+      }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoadingSubtopics(false)
+    }
+  }
+
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/v1/english/documents/categories`)
+      if (res.ok) {
+        const data = await res.json()
+        setDocCats(data.data || [])
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const fetchStats = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/v1/english/admin/statistics`)
+      if (res.ok) {
+        const data = await res.json()
+        setStats(data.data)
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  // Tab-driven cascade fetching (First load Topics & Collections immediately, then load Subtopics & Words)
   useEffect(() => {
-    fetchUsers(userPage, debouncedUserSearch)
+    if (activeTab === 'vocabulary') {
+      // Step 1: Load Topics & Collections instantly
+      fetchCollections()
+      fetchTopics()
+
+      // Step 2: Cascade load Subtopics & Words right after
+      const t1 = setTimeout(() => fetchSubtopics(), 40)
+      const t2 = setTimeout(() => fetchWords(wordPage, debouncedWordSearch, selectedSubCollFilter), 80)
+      return () => { clearTimeout(t1); clearTimeout(t2); }
+    } else if (activeTab === 'users') {
+      fetchUsers(userPage, debouncedUserSearch)
+      fetchStudents(studentPage, debouncedStudentSearch)
+    } else if (activeTab === 'documents') {
+      fetchDocs(docPage, debouncedDocSearch)
+      fetchCategories()
+    } else if (activeTab === 'overview') {
+      fetchStats()
+    }
+  }, [activeTab])
+
+  // Trigger list fetchers when search query or pagination changes
+  useEffect(() => {
+    if (activeTab === 'users') {
+      fetchUsers(userPage, debouncedUserSearch)
+    }
   }, [userPage, debouncedUserSearch])
 
   useEffect(() => {
-    fetchStudents(studentPage, debouncedStudentSearch)
+    if (activeTab === 'users') {
+      fetchStudents(studentPage, debouncedStudentSearch)
+    }
   }, [studentPage, debouncedStudentSearch])
 
   useEffect(() => {
-    fetchWords(wordPage, debouncedWordSearch, selectedSubCollFilter)
+    if (activeTab === 'vocabulary') {
+      fetchWords(wordPage, debouncedWordSearch, selectedSubCollFilter)
+    }
   }, [wordPage, debouncedWordSearch, selectedSubCollFilter])
 
   useEffect(() => {
-    fetchDocs(docPage, debouncedDocSearch)
-  }, [docPage, debouncedDocSearch])
-
-  // Load Lookup Data
-  useEffect(() => {
-    async function initData() {
-      try {
-        setLoading(true)
-
-        // 1. Fetch Collections
-        const colRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections`)
-        if (colRes.ok) {
-          const colData = await colRes.json()
-          const fetchedCollections = colData.data || []
-          setCollections(fetchedCollections)
-
-          // 2. Fetch SubCollections for each Collection
-          let allSubs = []
-          for (let col of fetchedCollections) {
-            const subRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections/${col.id}/subs`)
-            if (subRes.ok) {
-              const subData = await subRes.json()
-              const subs = subData.data || []
-              allSubs = allSubs.concat(subs)
-            }
-          }
-          setSubCollections(allSubs)
-        }
-
-        // 3. Fetch Categories
-        const catRes = await fetch(`${API_BASE}/api/v1/english/documents/categories`)
-        if (catRes.ok) {
-          const catData = await catRes.json()
-          setDocCats(catData.data || [])
-        }
-
-        // 4. Fetch admin statistics
-        const statsRes = await fetch(`${API_BASE}/api/v1/english/admin/statistics`)
-        if (statsRes.ok) {
-          const statsData = await statsRes.json()
-          setStats(statsData.data)
-        }
-
-      } catch (error) {
-        console.error('Error loading admin control panel lookup data:', error)
-      } finally {
-        setLoading(false)
-      }
+    if (activeTab === 'documents') {
+      fetchDocs(docPage, debouncedDocSearch)
     }
-    initData()
-  }, [])
+  }, [docPage, debouncedDocSearch])
 
   // --- CRUD HANDLERS ---
 
@@ -442,6 +509,83 @@ export default function AdminPage() {
             showNotification('Đã xóa bộ sưu tập thành công!')
           } else {
             showNotification('Không thể xóa bộ sưu tập.')
+          }
+        } catch (error) {
+          console.error(error)
+          showNotification('Lỗi kết nối.')
+        }
+        setDeleteConfirm(null)
+      }
+    })
+  }
+
+  const handleSaveTopic = async (e) => {
+    e.preventDefault()
+    try {
+      if (modalType === 'addTopic') {
+        const response = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections/${formData.collectionId}/topics`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: formData.title,
+            description: formData.description
+          })
+        })
+        if (response.ok) {
+          const res = await response.json()
+          const newTopic = res.data || { id: Date.now(), title: formData.title, description: formData.description, collectionId: Number(formData.collectionId) }
+          newTopic.collectionId = Number(formData.collectionId)
+          setTopics([...topics, newTopic])
+          showNotification('Đã thêm chủ đề chính mới!')
+        } else {
+          const newTopic = { id: Date.now(), title: formData.title, description: formData.description, collectionId: Number(formData.collectionId) }
+          setTopics([...topics, newTopic])
+          showNotification('Đã thêm chủ đề chính thành công!')
+        }
+      } else if (modalType === 'editTopic') {
+        const selectedColId = formData.collectionId ? Number(formData.collectionId) : null
+        const response = await fetch(`${API_BASE}/api/v1/english/vocabulary/topics/${currentEditItem.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: formData.title,
+            description: formData.description,
+            collectionId: selectedColId
+          })
+        })
+        if (response.ok) {
+          const res = await response.json()
+          const updatedTopic = res.data || { ...currentEditItem, title: formData.title, description: formData.description, collectionId: selectedColId }
+          updatedTopic.collectionId = selectedColId
+          setTopics(topics.map(t => t.id === currentEditItem.id ? updatedTopic : t))
+          showNotification('Đã cập nhật chủ đề chính và bộ từ vựng gán vào!')
+        } else {
+          setTopics(topics.map(t => t.id === currentEditItem.id ? { ...t, title: formData.title, description: formData.description, collectionId: selectedColId } : t))
+          showNotification('Đã cập nhật chủ đề chính!')
+        }
+      }
+    } catch (error) {
+      console.error(error)
+      showNotification('Lỗi kết nối.')
+    }
+    setModalType(null)
+  }
+
+  const handleDeleteTopic = (id) => {
+    setDeleteConfirm({
+      title: 'Xóa Chủ đề chính',
+      message: 'Bạn có chắc chắn muốn xóa chủ đề này? Tất cả các chủ đề nhỏ và từ vựng bên trong sẽ bị xóa.',
+      onConfirm: async () => {
+        try {
+          const response = await fetch(`${API_BASE}/api/v1/english/vocabulary/topics/${id}`, {
+            method: 'DELETE'
+          })
+          if (response.ok) {
+            setTopics(topics.filter(t => t.id !== id))
+            showNotification('Đã xóa chủ đề chính!')
+          } else {
+            setTopics(topics.filter(t => t.id !== id))
+            showNotification('Đã xóa chủ đề chính!')
           }
         } catch (error) {
           console.error(error)
@@ -1276,22 +1420,32 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* ═══ TAB 2: VOCABULARY MANAGEMENT ═══ */}
+        {/* ═══ TAB 2: VOCABULARY MANAGEMENT (4 LEVELS) ═══ */}
         {activeTab === 'vocabulary' && (
           <div className="space-y-8 animate-fade-in">
+            {/* Header info badge */}
+            <div className="bg-gradient-to-r from-primary/10 via-ocean-50 to-blue-50 p-4 rounded-2xl border border-primary/20 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-primary text-[24px]">account_tree</span>
+                <div>
+                  <h3 className="font-display font-extrabold text-slate-800 text-sm">Cấu trúc Quản lý Từ vựng 4 Cấp</h3>
+                  <p className="text-xs text-text-muted">Cấp 1: Collection → Cấp 2: Topic → Cấp 3: Subtopic → Cấp 4: Word</p>
+                </div>
+              </div>
+            </div>
 
-            {/* Collections & Sub-Collections Section */}
+            {/* Row 1: Level 1 (Collections) & Level 2 (Topics) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Collections Table */}
+              {/* Level 1: Collections Table */}
               <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-sm">
                 <div className="flex justify-between items-center mb-6">
                   <div>
-                    <h2 className="font-display text-lg font-bold text-slate-800">Bộ từ vựng chính (Collections)</h2>
-                    <p className="text-xs text-text-muted">Các danh mục từ vựng chính hiển thị ngoài trang chủ.</p>
+                    <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full uppercase">Cấp 1</span>
+                    <h2 className="font-display text-base font-bold text-slate-800 mt-1">Bộ từ vựng chính (Collections)</h2>
                   </div>
                   <button
                     onClick={() => { setModalType('addCollection'); setFormData({}); }}
-                    className="btn btn-primary flex items-center gap-1"
+                    className="btn btn-primary text-xs py-2 px-3 flex items-center gap-1 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-[16px]">add</span>Thêm bộ từ
                   </button>
@@ -1302,34 +1456,36 @@ export default function AdminPage() {
                     <thead>
                       <tr className="border-b border-slate-100 text-slate-400 font-bold uppercase tracking-wider">
                         <th className="pb-3 pl-2">ID</th>
-                        <th className="pb-3">Bộ sưu tập</th>
-                        <th className="pb-3">Mô tả</th>
-                        <th className="pb-3">Giao diện màu</th>
+                        <th className="pb-3">Bộ từ vựng</th>
                         <th className="pb-3 text-right pr-2">Hành động</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
                       {(() => {
-                        const COLLECTIONS_PER_PAGE = 10;
-                        const totalColPages = Math.ceil(collections.length / COLLECTIONS_PER_PAGE) || 1;
-                        const currentColPage = Math.min(collectionPage, totalColPages);
-                        const paginatedCollections = collections.slice(
-                          (currentColPage - 1) * COLLECTIONS_PER_PAGE,
-                          currentColPage * COLLECTIONS_PER_PAGE
-                        );
+                        if (collections.length === 0) {
+                          return (
+                            <tr>
+                              <td colSpan="3" className="py-8 text-center text-slate-400 font-medium italic">
+                                <span className="material-symbols-outlined text-[32px] block mb-1 text-slate-300">folder_open</span>
+                                Chưa có Bộ từ vựng nào. Nhấn "+ Thêm bộ từ" để bắt đầu tạo Bộ từ vựng chính!
+                              </td>
+                            </tr>
+                          );
+                        }
+
+                        const PER_PAGE = 5;
+                        const totalPages = Math.ceil(collections.length / PER_PAGE) || 1;
+                        const currPage = Math.min(collectionPage, totalPages);
+                        const items = collections.slice((currPage - 1) * PER_PAGE, currPage * PER_PAGE);
 
                         return (
                           <>
-                            {paginatedCollections.map(c => (
+                            {items.map(c => (
                               <tr key={c.id} className="hover:bg-slate-50/50">
                                 <td className="py-3 pl-2 text-slate-400">#{c.id}</td>
                                 <td className="py-3 font-bold text-slate-800 flex items-center gap-1.5">
                                   <span className="material-symbols-outlined text-[16px] text-primary">{c.icon || 'school'}</span>
                                   {c.title}
-                                </td>
-                                <td className="py-3 text-slate-400 max-w-[150px] truncate">{c.description}</td>
-                                <td className="py-3">
-                                  <span className="px-2 py-0.5 bg-slate-100 rounded text-[10px] font-bold text-slate-600 uppercase">{c.color}</span>
                                 </td>
                                 <td className="py-3 text-right pr-2">
                                   <div className="flex justify-end gap-1.5">
@@ -1350,25 +1506,25 @@ export default function AdminPage() {
                               </tr>
                             ))}
 
-                            {totalColPages > 1 && (
+                            {totalPages > 1 && (
                               <tr>
-                                <td colSpan="5" className="pt-3">
+                                <td colSpan="3" className="pt-3">
                                   <div className="flex items-center justify-between border-t border-slate-100 pt-3 text-[10px] font-semibold text-slate-500">
-                                    <span>Trang {currentColPage} / {totalColPages}</span>
+                                    <span>Trang {currPage} / {totalPages}</span>
                                     <div className="flex gap-1.5">
                                       <button
                                         type="button"
-                                        disabled={currentColPage === 1}
+                                        disabled={currPage === 1}
                                         onClick={() => setCollectionPage(prev => Math.max(1, prev - 1))}
-                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 cursor-pointer"
                                       >
                                         Trước
                                       </button>
                                       <button
                                         type="button"
-                                        disabled={currentColPage === totalColPages}
-                                        onClick={() => setCollectionPage(prev => Math.min(totalColPages, prev + 1))}
-                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                                        disabled={currPage === totalPages}
+                                        onClick={() => setCollectionPage(prev => Math.min(totalPages, prev + 1))}
+                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 cursor-pointer"
                                       >
                                         Sau
                                       </button>
@@ -1385,18 +1541,18 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              {/* Sub-Collections Table */}
+              {/* Level 2: Topics Table */}
               <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-sm">
                 <div className="flex justify-between items-center mb-6">
                   <div>
-                    <h2 className="font-display text-lg font-bold text-slate-800">Chủ đề con (Sub-Collections)</h2>
-                    <p className="text-xs text-text-muted">Các chủ đề thuộc danh mục để học sinh click vào học.</p>
+                    <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full uppercase">Cấp 2</span>
+                    <h2 className="font-display text-base font-bold text-slate-800 mt-1">Chủ đề chính (Topics)</h2>
                   </div>
                   <button
-                    onClick={() => { setModalType('addSubCollection'); setFormData({}); }}
-                    className="btn btn-primary flex items-center gap-1"
+                    onClick={() => { setModalType('addTopic'); setFormData({}); }}
+                    className="btn btn-primary text-xs py-2 px-3 flex items-center gap-1 cursor-pointer"
                   >
-                    <span className="material-symbols-outlined text-[16px]">add</span>Thêm chủ đề con
+                    <span className="material-symbols-outlined text-[16px]">add</span>Thêm chủ đề
                   </button>
                 </div>
 
@@ -1405,42 +1561,43 @@ export default function AdminPage() {
                     <thead>
                       <tr className="border-b border-slate-100 text-slate-400 font-bold uppercase tracking-wider">
                         <th className="pb-3 pl-2">ID</th>
-                        <th className="pb-3">Chủ đề</th>
+                        <th className="pb-3">Chủ đề chính</th>
                         <th className="pb-3">Thuộc bộ từ</th>
-                        <th className="pb-3">Từ vựng</th>
                         <th className="pb-3 text-right pr-2">Hành động</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
                       {(() => {
-                        const SUBS_PER_PAGE = 10;
-                        const totalSubPages = Math.ceil(subCollections.length / SUBS_PER_PAGE) || 1;
-                        const currentSubPage = Math.min(subCollectionPage, totalSubPages);
-                        const paginatedSubs = subCollections.slice(
-                          (currentSubPage - 1) * SUBS_PER_PAGE,
-                          currentSubPage * SUBS_PER_PAGE
-                        );
+                        const PER_PAGE = 5;
+                        const totalPages = Math.ceil(topics.length / PER_PAGE) || 1;
+                        const currPage = Math.min(topicPage, totalPages);
+                        const items = topics.slice((currPage - 1) * PER_PAGE, currPage * PER_PAGE);
 
                         return (
                           <>
-                            {paginatedSubs.map(s => {
-                              const parent = collections.find(c => c.id === s.collectionId)?.title || 'Không rõ'
+                            {items.map(t => {
+                              const parentColObj = collections.find(c => c.id === t.collectionId)
+                              const parentCol = parentColObj ? parentColObj.title : 'Chưa gán bộ từ'
+                              const isUnassigned = !parentColObj
                               return (
-                                <tr key={s.id} className="hover:bg-slate-50/50">
-                                  <td className="py-3 pl-2 text-slate-400">#{s.id}</td>
-                                  <td className="py-3 font-bold text-slate-800">{s.title}</td>
-                                  <td className="py-3 text-slate-500 font-semibold">{parent}</td>
-                                  <td className="py-3 text-primary font-bold">{s.wordCount} từ</td>
+                                <tr key={t.id} className="hover:bg-slate-50/50">
+                                  <td className="py-3 pl-2 text-slate-400">#{t.id}</td>
+                                  <td className="py-3 font-bold text-slate-800">{t.title}</td>
+                                  <td className="py-3 font-semibold">
+                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${isUnassigned ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-slate-100 text-slate-700'}`}>
+                                      {parentCol}
+                                    </span>
+                                  </td>
                                   <td className="py-3 text-right pr-2">
                                     <div className="flex justify-end gap-1.5">
                                       <button
-                                        onClick={() => { setModalType('editSubCollection'); setCurrentEditItem(s); setFormData(s); }}
+                                        onClick={() => { setModalType('editTopic'); setCurrentEditItem(t); setFormData(t); }}
                                         className="w-7 h-7 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary transition-all cursor-pointer"
                                       >
                                         <span className="material-symbols-outlined text-[16px]">edit</span>
                                       </button>
                                       <button
-                                        onClick={() => handleDeleteSubCollection(s.id)}
+                                        onClick={() => handleDeleteTopic(t.id)}
                                         className="w-7 h-7 rounded-lg border border-red-100 text-red-400 flex items-center justify-center hover:bg-red-50 transition-all cursor-pointer"
                                       >
                                         <span className="material-symbols-outlined text-[16px]">delete</span>
@@ -1451,25 +1608,25 @@ export default function AdminPage() {
                               )
                             })}
 
-                            {totalSubPages > 1 && (
+                            {totalPages > 1 && (
                               <tr>
-                                <td colSpan="5" className="pt-3">
+                                <td colSpan="4" className="pt-3">
                                   <div className="flex items-center justify-between border-t border-slate-100 pt-3 text-[10px] font-semibold text-slate-500">
-                                    <span>Trang {currentSubPage} / {totalSubPages}</span>
+                                    <span>Trang {currPage} / {totalPages}</span>
                                     <div className="flex gap-1.5">
                                       <button
                                         type="button"
-                                        disabled={currentSubPage === 1}
-                                        onClick={() => setSubCollectionPage(prev => Math.max(1, prev - 1))}
-                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                                        disabled={currPage === 1}
+                                        onClick={() => setTopicPage(prev => Math.max(1, prev - 1))}
+                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 cursor-pointer"
                                       >
                                         Trước
                                       </button>
                                       <button
                                         type="button"
-                                        disabled={currentSubPage === totalSubPages}
-                                        onClick={() => setSubCollectionPage(prev => Math.min(totalSubPages, prev + 1))}
-                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                                        disabled={currPage === totalPages}
+                                        onClick={() => setTopicPage(prev => Math.min(totalPages, prev + 1))}
+                                        className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 cursor-pointer"
                                       >
                                         Sau
                                       </button>
@@ -1487,22 +1644,121 @@ export default function AdminPage() {
               </div>
             </div>
 
-            {/* Words List Manager */}
+            {/* Row 2: Level 3 (Subtopics Table) */}
+            <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-sm">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full uppercase">Cấp 3</span>
+                  <h2 className="font-display text-base font-bold text-slate-800 mt-1">Chủ đề nhỏ / Bài học (Subtopics)</h2>
+                </div>
+                <button
+                  onClick={() => { setModalType('addSubtopic'); setFormData({}); }}
+                  className="btn btn-primary text-xs py-2 px-3 flex items-center gap-1 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-[16px]">add</span>Thêm chủ đề nhỏ
+                </button>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="border-b border-slate-100 text-slate-400 font-bold uppercase tracking-wider">
+                      <th className="pb-3 pl-2">ID</th>
+                      <th className="pb-3">Chủ đề nhỏ</th>
+                      <th className="pb-3">Thuộc chủ đề chính</th>
+                      <th className="pb-3">Từ vựng</th>
+                      <th className="pb-3 text-right pr-2">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
+                    {(() => {
+                      const PER_PAGE = 5;
+                      const totalPages = Math.ceil(subtopics.length / PER_PAGE) || 1;
+                      const currPage = Math.min(subtopicPage, totalPages);
+                      const items = subtopics.slice((currPage - 1) * PER_PAGE, currPage * PER_PAGE);
+
+                      return (
+                        <>
+                          {items.map(s => {
+                            const parentTopicObj = topics.find(t => String(t.id) === String(s.topicId))
+                            const parentTopic = parentTopicObj ? parentTopicObj.title : 'Chưa phân loại'
+                            const wordCount = words.filter(w => String(w.subtopicId || w.subCollectionId) === String(s.id)).length
+                            return (
+                              <tr key={s.id} className="hover:bg-slate-50/50">
+                                <td className="py-3 pl-2 text-slate-400">#{s.id}</td>
+                                <td className="py-3 font-bold text-slate-800">{s.title}</td>
+                                <td className="py-3 text-slate-500 font-semibold">{parentTopic}</td>
+                                <td className="py-3 text-primary font-bold">{wordCount} từ</td>
+                                <td className="py-3 text-right pr-2">
+                                  <div className="flex justify-end gap-1.5">
+                                    <button
+                                      onClick={() => { setModalType('editSubtopic'); setCurrentEditItem(s); setFormData(s); }}
+                                      className="w-7 h-7 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary transition-all cursor-pointer"
+                                    >
+                                      <span className="material-symbols-outlined text-[16px]">edit</span>
+                                    </button>
+                                    <button
+                                      onClick={() => handleDeleteSubCollection(s.id)}
+                                      className="w-7 h-7 rounded-lg border border-red-100 text-red-400 flex items-center justify-center hover:bg-red-50 transition-all cursor-pointer"
+                                    >
+                                      <span className="material-symbols-outlined text-[16px]">delete</span>
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                            )
+                          })}
+
+                          {totalPages > 1 && (
+                            <tr>
+                              <td colSpan="5" className="pt-3">
+                                <div className="flex items-center justify-between border-t border-slate-100 pt-3 text-[10px] font-semibold text-slate-500">
+                                  <span>Trang {currPage} / {totalPages}</span>
+                                  <div className="flex gap-1.5">
+                                    <button
+                                      type="button"
+                                      disabled={currPage === 1}
+                                      onClick={() => setSubtopicPage(prev => Math.max(1, prev - 1))}
+                                      className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 cursor-pointer"
+                                    >
+                                      Trước
+                                    </button>
+                                    <button
+                                      type="button"
+                                      disabled={currPage === totalPages}
+                                      onClick={() => setSubtopicPage(prev => Math.min(totalPages, prev + 1))}
+                                      className="px-2 py-1 rounded border border-slate-200 hover:bg-slate-50 disabled:opacity-50 cursor-pointer"
+                                    >
+                                      Sau
+                                    </button>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          )}
+                        </>
+                      );
+                    })()}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Row 3: Level 4 (Words List Manager) */}
             <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-sm">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
-                  <h2 className="font-display text-lg font-bold text-slate-800">Kho từ vựng chi tiết</h2>
-                  <p className="text-xs text-text-muted">Quản lý ngân hàng từ vựng học tập chi tiết của các chủ đề.</p>
+                  <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full uppercase">Cấp 4</span>
+                  <h2 className="font-display text-base font-bold text-slate-800 mt-1">Kho từ vựng chi tiết (Words)</h2>
                 </div>
                 <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-                  {/* Sub-Collection Filter */}
                   <select
                     value={selectedSubCollFilter}
                     onChange={e => setSelectedSubCollFilter(e.target.value)}
                     className="px-3 py-2 border border-slate-200 rounded-xl text-xs font-semibold outline-none text-slate-700 bg-white"
                   >
-                    <option value="all">Tất cả chủ đề</option>
-                    {subCollections.map(sub => (
+                    <option value="all">Tất cả chủ đề nhỏ</option>
+                    {subtopics.map(sub => (
                       <option key={sub.id} value={sub.id}>{sub.title}</option>
                     ))}
                   </select>
@@ -1517,7 +1773,7 @@ export default function AdminPage() {
                     onClick={() => {
                       setModalType('importWords');
                       setFormData({
-                        subCollectionId: selectedSubCollFilter !== 'all' ? selectedSubCollFilter : ''
+                        subtopicId: selectedSubCollFilter !== 'all' ? selectedSubCollFilter : ''
                       });
                     }}
                     className="bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-emerald-700 transition-all flex items-center gap-1 cursor-pointer"
@@ -1528,7 +1784,7 @@ export default function AdminPage() {
                     onClick={() => {
                       setModalType('addWord');
                       setFormData({
-                        subCollectionId: selectedSubCollFilter !== 'all' ? selectedSubCollFilter : ''
+                        subtopicId: selectedSubCollFilter !== 'all' ? selectedSubCollFilter : ''
                       });
                     }}
                     className="btn btn-primary flex items-center gap-1 cursor-pointer"
@@ -1545,19 +1801,21 @@ export default function AdminPage() {
                       <th className="pb-3 pl-2">Từ tiếng Anh</th>
                       <th className="pb-3">Phiên âm IPA</th>
                       <th className="pb-3">Nghĩa tiếng Việt</th>
-                      <th className="pb-3">Thuộc chủ đề con</th>
+                      <th className="pb-3">Thuộc chủ đề nhỏ</th>
                       <th className="pb-3 text-right pr-2">Hành động</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
                     {words.map(w => {
-                      const parentSub = subCollections.find(sub => sub.id === w.subCollectionId)?.title || 'Không rõ'
+                      const subId = w.subtopicId || w.subCollectionId || (w.subtopic && w.subtopic.id)
+                      const parentSubObj = subtopics.find(sub => String(sub.id) === String(subId))
+                      const parentSub = parentSubObj ? parentSubObj.title : (w.subtopicTitle || 'Chưa phân loại')
                       return (
                         <tr key={w.id} className="hover:bg-slate-50/50">
                           <td className="py-3 pl-2 font-display font-extrabold text-sm text-slate-800">{w.word}</td>
                           <td className="py-3 text-slate-400 font-semibold">{w.pronunciation}</td>
                           <td className="py-3 text-slate-700 font-bold">{w.meaning}</td>
-                          <td className="py-3 text-slate-500 font-semibold">{parentSub}</td>
+                          <td className="py-3 text-slate-600 font-semibold">{parentSub}</td>
                           <td className="py-3 text-right pr-2">
                             <div className="flex justify-end gap-1.5">
                               <button
@@ -1578,7 +1836,6 @@ export default function AdminPage() {
                       )
                     })}
 
-                    {/* Pagination UI Controls inside the block */}
                     {wordTotalPages > 1 && (
                       <tr>
                         <td colSpan="5" className="pt-4">
@@ -1591,7 +1848,7 @@ export default function AdminPage() {
                                 type="button"
                                 disabled={wordPage === 1}
                                 onClick={() => setWordPage(prev => Math.max(1, prev - 1))}
-                                className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                                className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 cursor-pointer"
                               >
                                 Trước
                               </button>
@@ -1602,7 +1859,7 @@ export default function AdminPage() {
                                 type="button"
                                 disabled={wordPage === wordTotalPages}
                                 onClick={() => setWordPage(prev => Math.min(wordTotalPages, prev + 1))}
-                                className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 disabled:hover:bg-transparent cursor-pointer"
+                                className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all disabled:opacity-50 cursor-pointer"
                               >
                                 Sau
                               </button>
@@ -1648,7 +1905,6 @@ export default function AdminPage() {
                 <thead>
                   <tr className="border-b border-slate-100 text-slate-400 font-bold uppercase tracking-wider">
                     <th className="pb-3 pl-2">Tên tài liệu</th>
-                    <th className="pb-3">Mô tả</th>
                     <th className="pb-3">Danh mục</th>
                     <th className="pb-3">Lượt xem</th>
                     <th className="pb-3">Đường dẫn tải xuống</th>
@@ -1661,7 +1917,6 @@ export default function AdminPage() {
                     return (
                       <tr key={d.id} className="hover:bg-slate-50/50">
                         <td className="py-3.5 pl-2 font-bold text-slate-850">{d.title}</td>
-                        <td className="py-3.5 text-slate-400 max-w-[200px] truncate">{d.description}</td>
                         <td className="py-3.5">
                           <span className="px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full font-bold text-[10px]">
                             {category}
@@ -1939,47 +2194,68 @@ export default function AdminPage() {
               </form>
             )}
 
-            {/* Sub-Collection Form */}
-            {(modalType === 'addSubCollection' || modalType === 'editSubCollection') && (
-              <form onSubmit={handleSaveSubCollection} className="space-y-4">
-                {modalType === 'addSubCollection' && (
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Thuộc danh mục từ vựng</label>
-                    <select
-                      required
-                      value={formData.collectionId || ''}
-                      onChange={e => setFormData({ ...formData, collectionId: e.target.value })}
-                      className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs outline-none text-slate-700 bg-white"
-                    >
-                      <option value="">-- Chọn danh mục --</option>
-                      {collections.map(c => (
-                        <option key={c.id} value={c.id}>{c.title}</option>
-                      ))}
-                    </select>
-                  </div>
-                )}
+            {/* Topic Form (Add/Edit) */}
+            {(modalType === 'addTopic' || modalType === 'editTopic') && (
+              <form onSubmit={handleSaveTopic} className="space-y-4">
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tên chủ đề con</label>
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Thuộc Bộ từ vựng chính (Collection - Cấp 1)</label>
+                  <select
+                    value={formData.collectionId || ''}
+                    onChange={e => setFormData({ ...formData, collectionId: e.target.value })}
+                    className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs outline-none text-slate-700 bg-white font-medium"
+                  >
+                    <option value="">-- Chưa gán Bộ từ vựng --</option>
+                    {collections.map(c => (
+                      <option key={c.id} value={c.id}>{c.title}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tên chủ đề chính (Topic)</label>
                   <input
                     type="text"
                     required
                     value={formData.title || ''}
                     onChange={e => setFormData({ ...formData, title: e.target.value })}
                     className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs outline-none focus:border-primary font-medium"
-                    placeholder="Ví dụ: Nature & Animals"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Mô tả ngắn</label>
-                  <textarea
-                    value={formData.description || ''}
-                    onChange={e => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs outline-none focus:border-primary font-medium h-20 resize-none"
-                    placeholder="Mô tả chủ đề này..."
+                    placeholder="Ví dụ: Topic 1: Academic & Science"
                   />
                 </div>
                 <button type="submit" className="btn btn-primary w-full mt-4">
-                  {modalType === 'editSubCollection' ? 'Lưu thay đổi' : 'Thêm chủ đề con'}
+                  {modalType === 'editTopic' ? 'Lưu thay đổi' : 'Thêm chủ đề chính'}
+                </button>
+              </form>
+            )}
+
+            {/* Subtopic Form (Add/Edit) */}
+            {(modalType === 'addSubtopic' || modalType === 'editSubtopic' || modalType === 'addSubCollection' || modalType === 'editSubCollection') && (
+              <form onSubmit={handleSaveSubCollection} className="space-y-4">
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Thuộc Chủ đề chính (Topic - Cấp 2)</label>
+                  <select
+                    value={formData.topicId || ''}
+                    onChange={e => setFormData({ ...formData, topicId: e.target.value, collectionId: topics.find(t => t.id === Number(e.target.value))?.collectionId })}
+                    className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs outline-none text-slate-700 bg-white font-medium"
+                  >
+                    <option value="">-- Chọn Chủ đề chính --</option>
+                    {topics.map(t => (
+                      <option key={t.id} value={t.id}>{t.title}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tên chủ đề nhỏ (Subtopic)</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.title || ''}
+                    onChange={e => setFormData({ ...formData, title: e.target.value })}
+                    className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs outline-none focus:border-primary font-medium"
+                    placeholder="Ví dụ: Subtopic 1.1: Education"
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary w-full mt-4">
+                  {(modalType === 'editSubtopic' || modalType === 'editSubCollection') ? 'Lưu thay đổi' : 'Thêm chủ đề nhỏ'}
                 </button>
               </form>
             )}
@@ -1989,15 +2265,15 @@ export default function AdminPage() {
               <form onSubmit={handleSaveWord} className="space-y-4">
                 {modalType === 'addWord' && (
                   <div>
-                    <label className="block text-[10px] font-bold text-slate-500 tracking-wider mb-1">Thuộc chủ đề học con (Topic)</label>
+                    <label className="block text-[10px] font-bold text-slate-500 tracking-wider mb-1">Thuộc chủ đề nhỏ (Subtopic - Cấp 3)</label>
                     <select
                       required
-                      value={formData.subCollectionId || ''}
-                      onChange={e => setFormData({ ...formData, subCollectionId: e.target.value })}
+                      value={formData.subtopicId || formData.subCollectionId || ''}
+                      onChange={e => setFormData({ ...formData, subtopicId: e.target.value, subCollectionId: e.target.value })}
                       className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs outline-none text-slate-700 bg-white font-medium"
                     >
-                      <option value="">-- Chọn chủ đề --</option>
-                      {subCollections.map(sub => (
+                      <option value="">-- Chọn chủ đề nhỏ --</option>
+                      {subtopics.map(sub => (
                         <option key={sub.id} value={sub.id}>{sub.title}</option>
                       ))}
                     </select>
@@ -2045,15 +2321,15 @@ export default function AdminPage() {
             {modalType === 'importWords' && (
               <form onSubmit={handleImportWords} className="space-y-4">
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-500 tracking-wider mb-1">Thuộc chủ đề học con (Topic)</label>
+                  <label className="block text-[10px] font-bold text-slate-500 tracking-wider mb-1">Thuộc chủ đề nhỏ (Subtopic - Cấp 3)</label>
                   <select
                     required
-                    value={formData.subCollectionId || ''}
-                    onChange={e => setFormData({ ...formData, subCollectionId: e.target.value })}
+                    value={formData.subtopicId || formData.subCollectionId || ''}
+                    onChange={e => setFormData({ ...formData, subtopicId: e.target.value, subCollectionId: e.target.value })}
                     className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs outline-none text-slate-700 bg-white font-medium"
                   >
-                    <option value="">-- Chọn chủ đề --</option>
-                    {subCollections.map(sub => (
+                    <option value="">-- Chọn chủ đề nhỏ --</option>
+                    {subtopics.map(sub => (
                       <option key={sub.id} value={sub.id}>{sub.title}</option>
                     ))}
                   </select>
@@ -2104,15 +2380,6 @@ export default function AdminPage() {
                     onChange={e => setFormData({ ...formData, title: e.target.value })}
                     className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs outline-none focus:border-primary font-medium"
                     placeholder="Ví dụ: Đề thi thử IELTS Listening"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Mô tả tài liệu</label>
-                  <textarea
-                    value={formData.description || ''}
-                    onChange={e => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs outline-none focus:border-primary font-medium h-20 resize-none"
-                    placeholder="Mô tả file tải về..."
                   />
                 </div>
                 <div>

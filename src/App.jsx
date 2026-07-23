@@ -15,7 +15,8 @@ import DLLoginPage from './dolphinlearn/pages/LoginPage'
 import RegisterPage from './dolphinlearn/pages/RegisterPage'
 import DocumentsPage from './dolphinlearn/pages/DocumentsPage'
 import VocabularyPage from './dolphinlearn/pages/VocabularyPage'
-import VocabularySubCollectionsPage from './dolphinlearn/pages/VocabularySubCollectionsPage'
+import VocabularyTopicsPage from './dolphinlearn/pages/VocabularyTopicsPage'
+import VocabularySubtopicsPage from './dolphinlearn/pages/VocabularySubtopicsPage'
 import LearnPage from './dolphinlearn/pages/LearnPage'
 import LeaderboardPage from './dolphinlearn/pages/LeaderboardPage'
 import DashboardPage from './dolphinlearn/pages/DashboardPage'
@@ -43,10 +44,12 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/documents" element={<DocumentsPage />} />
         <Route path="/vocabulary" element={<VocabularyPage />} />
-        <Route path="/vocabulary/:categoryId" element={<VocabularySubCollectionsPage />} />
+        <Route path="/vocabulary/:collectionId" element={<VocabularyTopicsPage />} />
+        <Route path="/vocabulary/topic/:topicId" element={<VocabularySubtopicsPage />} />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/community" element={<CommunityPage />} />
         <Route path="/design-system" element={<DesignSystemPage />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Route>
 
       {/* DolphinLearn Web Auth Routes */}
@@ -64,6 +67,7 @@ function App() {
         <Route element={<DLLayout />}>
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/vocabulary/subtopic/:id/learn" element={<LearnPage />} />
           <Route path="/vocabulary/sub/:id/learn" element={<LearnPage />} />
         </Route>
       </Route>

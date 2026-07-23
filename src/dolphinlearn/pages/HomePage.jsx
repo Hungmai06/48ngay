@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getDlCurrentUser } from '../../48ngay/services/authService'
 import dolphinHero from '../assets/dolphin-hero.png'
 import { useSEO } from '../hooks/useSEO'
+import { vocabularyCollections, vocabularyTopics, vocabularySubtopics, vocabularyWords } from '../data/mockData'
 
 export default function HomePage() {
   useSEO({
@@ -26,30 +27,37 @@ export default function HomePage() {
         const email = user?.email || ''
 
         let fetchedCollections = []
-        const cacheStr = sessionStorage.getItem('dl_vocab_cache')
-        if (cacheStr) {
-          fetchedCollections = JSON.parse(cacheStr)
-        } else {
+        try {
           const colRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections`)
           if (colRes.ok) {
             const colData = await colRes.json()
             fetchedCollections = colData.data || []
-            sessionStorage.setItem('dl_vocab_cache', JSON.stringify(fetchedCollections))
           }
+        } catch (e) {
+          console.warn('API connection error for collections', e)
+        }
+
+        if (!fetchedCollections || fetchedCollections.length === 0) {
+          fetchedCollections = vocabularyCollections
         }
 
         let progressMap = {}
         if (email) {
-          const progRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/progress?username=${encodeURIComponent(email)}`)
-          if (progRes.ok) {
-            const progData = await progRes.json()
-            const progressList = progData.data || []
-            progressList.forEach(p => {
-              if (p.subCollectionId) {
-                const ids = p.learnedWordIds ? p.learnedWordIds.split(',').filter(Boolean).map(Number) : []
-                progressMap[p.subCollectionId] = ids
-              }
-            })
+          try {
+            const progRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/progress?username=${encodeURIComponent(email)}`)
+            if (progRes.ok) {
+              const progData = await progRes.json()
+              const progressList = progData.data || []
+              progressList.forEach(p => {
+                const subId = p.subtopicId || p.subCollectionId
+                if (subId) {
+                  const ids = p.learnedWordIds ? p.learnedWordIds.split(',').filter(Boolean).map(Number) : []
+                  progressMap[subId] = ids
+                }
+              })
+            }
+          } catch (e) {
+            console.warn('Progress fetch error', e)
           }
         }
 
@@ -60,16 +68,20 @@ export default function HomePage() {
           let totalWords = 0
           let totalLearned = 0
 
-          const subs = col.subCollections || []
-          subs.forEach(sub => {
-            const wordCount = sub.words ? sub.words.length : 0
-            totalWords += wordCount
-            globalTotalWords += wordCount
-            const learnedIds = progressMap[sub.id] || []
-            const subWordIds = (sub.words || []).map(w => w.id)
-            const learnedCount = learnedIds.filter(id => subWordIds.includes(id)).length
-            totalLearned += learnedCount
-            globalTotalLearned += learnedCount
+          const topics = col.topics || vocabularyTopics.filter(t => t.collectionId === col.id)
+          topics.forEach(t => {
+            const subtopics = t.subtopics || vocabularySubtopics.filter(st => st.topicId === t.id)
+            subtopics.forEach(sub => {
+              const words = sub.words || vocabularyWords.filter(w => w.subtopicId === sub.id)
+              const wordCount = words.length
+              totalWords += wordCount
+              globalTotalWords += wordCount
+              const learnedIds = progressMap[sub.id] || []
+              const subWordIds = words.map(w => w.id)
+              const learnedCount = learnedIds.filter(id => subWordIds.includes(id)).length
+              totalLearned += learnedCount
+              globalTotalLearned += learnedCount
+            })
           })
 
           const progressPercent = totalWords > 0 ? Math.round((totalLearned / totalWords) * 100) : 0

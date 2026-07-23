@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { getDlCurrentUser } from '../../48ngay/services/authService'
 import { useAuth } from '../../48ngay/hooks/useAuth'
 import { useSEO } from '../hooks/useSEO'
+import { vocabularyCollections, vocabularyTopics, vocabularySubtopics, vocabularyWords } from '../data/mockData'
 
 const SHOPEE_LINK = "https://s.shopee.vn/5L9aBvPxg0"; // Link Shopee ủng hộ
 
@@ -70,38 +71,46 @@ export default function LearnPage() {
     }
   }, []);
 
+  const [topic, setTopic] = useState(null)
+
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch subcollection words
-        const subRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/subs/${id}/words`)
-        if (!subRes.ok) throw new Error('Failed to fetch words')
-        const wordsData = await subRes.json()
-        const rawWords = wordsData.data || []
+        let rawWords = []
+        try {
+          const subRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/subtopics/${id}/words`)
+          if (subRes.ok) {
+            const wordsData = await subRes.json()
+            rawWords = wordsData.data || []
+          }
+        } catch (e) {}
+
+        if (!rawWords || rawWords.length === 0) {
+          try {
+            const subRes2 = await fetch(`${API_BASE}/api/v1/english/vocabulary/subs/${id}/words`)
+            if (subRes2.ok) {
+              const wordsData2 = await subRes2.json()
+              rawWords = wordsData2.data || []
+            }
+          } catch (e) {}
+        }
+
+        if (!rawWords || rawWords.length === 0) {
+          rawWords = vocabularyWords.filter(w => w.subtopicId === Number(id))
+        }
         setWords(rawWords)
 
-        // Fetch all collections to locate this subcollection's parent
-        let collectionsList = []
-        const cacheStr = sessionStorage.getItem('dl_vocab_cache')
-        if (cacheStr) {
-          collectionsList = JSON.parse(cacheStr)
+        const currentSub = vocabularySubtopics.find(s => s.id === Number(id))
+        if (currentSub) {
+          setSubCollection(currentSub)
+          const foundTopic = vocabularyTopics.find(t => t.id === currentSub.topicId)
+          if (foundTopic) {
+            setTopic(foundTopic)
+            const foundCol = vocabularyCollections.find(c => c.id === foundTopic.collectionId)
+            if (foundCol) setCollection(foundCol)
+          }
         } else {
-          const colRes = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections`)
-          if (colRes.ok) {
-            const colData = await colRes.json()
-            collectionsList = colData.data || []
-            sessionStorage.setItem('dl_vocab_cache', JSON.stringify(collectionsList))
-          }
-        }
-        if (collectionsList.length > 0) {
-          for (let col of collectionsList) {
-            const foundSub = (col.subCollections || []).find(s => s.id === Number(id))
-            if (foundSub) {
-              setCollection(col)
-              setSubCollection(foundSub)
-              break
-            }
-          }
+          setSubCollection({ id: Number(id), title: `Bài học #${id}` })
         }
       } catch (error) {
         console.error('Error fetching learn page data:', error)
@@ -112,11 +121,10 @@ export default function LearnPage() {
 
     fetchData()
 
-    // Tính streak ngay khi vào trang học (không cần hoàn thành bộ)
     const visitUser = getDlCurrentUser()
     if (visitUser?.email) {
       const visitEmail = visitUser.email.trim().toLowerCase()
-      fetch(`${API_BASE}/api/v1/english/vocabulary/progress?username=${encodeURIComponent(visitEmail)}&subCollectionId=${id}&mode=visit`, {
+      fetch(`${API_BASE}/api/v1/english/vocabulary/progress?username=${encodeURIComponent(visitEmail)}&subtopicId=${id}&mode=visit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify([])
@@ -130,7 +138,7 @@ export default function LearnPage() {
     if (!email) return
 
     try {
-      await fetch(`${API_BASE}/api/v1/english/vocabulary/progress?username=${encodeURIComponent(email)}&subCollectionId=${id}&mode=${modeName}`, {
+      await fetch(`${API_BASE}/api/v1/english/vocabulary/progress?username=${encodeURIComponent(email)}&subtopicId=${id}&mode=${modeName}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
