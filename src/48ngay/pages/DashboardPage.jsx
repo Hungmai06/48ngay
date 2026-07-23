@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import DayCard from '../components/DayCard'
 import ProgressBar from '../components/ProgressBar'
 import {
@@ -48,6 +49,14 @@ function DashboardPage() {
       <div className="absolute bottom-[20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-emerald-300/10 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* Back Link to DolphinLearn Homepage */}
+        <div className="mb-6">
+          <Link to="/" className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline bg-primary/5 px-3 py-1.5 rounded-full">
+            <span className="material-symbols-outlined text-[14px]">arrow_back</span>
+            Quay lại DolphinLearn
+          </Link>
+        </div>
+
         {/* Header */}
         <div className="mb-8">
           <h1 className="font-display text-3xl font-bold mb-2">48 Ngày Lấy Gốc Tiếng Anh</h1>

@@ -110,7 +110,21 @@ function ResourceFrame({ title, link }) {
 
   return (
     <div className="resource-frame">
-      <p className="resource-title">{title}</p>
+      <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
+        <p className="resource-title !m-0">{title}</p>
+        {!isFolder && (
+          <a
+            href={parsedLink.openUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold rounded-xl transition-all"
+            id={isVideo ? 'open-video-top-link' : 'open-doc-top-link'}
+          >
+            <DriveIcon />
+            Mở tab mới ↗
+          </a>
+        )}
+      </div>
 
       {/* Folder: always redirect (never embeds reliably) */}
       {isFolder && (
@@ -157,7 +171,7 @@ function ResourceFrame({ title, link }) {
               title={title}
               src={previewLink}
               className="resource-iframe"
-              scrolling="no"
+              scrolling="yes"
               allow="autoplay"
               style={status === 'fallback' ? { display: 'none' } : {}}
               onLoad={handleIframeLoad}

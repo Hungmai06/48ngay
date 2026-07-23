@@ -64,7 +64,7 @@ export default function DocumentsPage() {
       try {
         const [catRes, docRes] = await Promise.all([
           fetch(`${API_BASE}/api/v1/english/documents/categories`),
-          fetch(`${API_BASE}/api/v1/english/documents`)
+          fetch(`${API_BASE}/api/v1/english/documents?size=1000`)
         ])
 
         if (!catRes.ok || !docRes.ok) throw new Error('Failed to fetch documents data')
@@ -73,7 +73,18 @@ export default function DocumentsPage() {
         const docData = await docRes.json()
 
         setCategories(catData.data || [])
-        setDocuments(docData.data || [])
+        
+        if (docData.data) {
+          if (Array.isArray(docData.data)) {
+            setDocuments(docData.data)
+          } else if (docData.data.content && Array.isArray(docData.data.content)) {
+            setDocuments(docData.data.content)
+          } else {
+            setDocuments([])
+          }
+        } else {
+          setDocuments([])
+        }
       } catch (error) {
         console.error('Error fetching documents page:', error)
       } finally {
