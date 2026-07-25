@@ -112,12 +112,19 @@ export default function HomePage() {
           const catData = await catRes.json()
           const cats = catData.data || []
           setCategories(cats)
-          cats.forEach(c => docCount += (c.documents ? c.documents.length : 0))
+          cats.forEach(c => docCount += (c.documentCount || 0))
         }
         
         if (docsRes.ok) {
           const docsData = await docsRes.json()
-          setRecentDocs(docsData.data || [])
+          const dList = docsData.data?.content || docsData.data || []
+          const totalElements = docsData.data?.totalElements
+          setRecentDocs(Array.isArray(dList) ? dList : [])
+          if (totalElements !== undefined) {
+            docCount = Math.max(docCount, totalElements)
+          } else if (Array.isArray(dList)) {
+            docCount = Math.max(docCount, dList.length)
+          }
         }
         
         setStats(prev => ({ ...prev, totalDocs: docCount || 0, totalVocab: globalTotalWords || 0, totalLearned: globalTotalLearned || 0 }))
@@ -129,7 +136,7 @@ export default function HomePage() {
     }
 
     fetchHomeData()
-  }, [API_BASE, user])
+  }, [API_BASE, user?.email])
 
   return (
     <div className="p-4 sm:p-6 max-w-[1280px] mx-auto w-full font-['Outfit',_'Inter',_sans-serif] bg-slate-50 min-h-screen">

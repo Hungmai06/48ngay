@@ -54,23 +54,19 @@ export default function VocabularyPage() {
           })
         }
 
-        // Process collections
+        // Process collections - wordCount now comes directly from backend
         const processedCols = fetchedCollections.map(col => {
-          let totalWords = 0
-          let totalLearned = 0
+          // Compute learned progress only (backend provides wordCount)
+          const totalWords = col.wordCount || 0
 
+          // Calculate learned from progress
+          let totalLearned = 0
           const colTopics = col.topics || fetchedTopics.filter(t => Number(t.collectionId) === Number(col.id))
           colTopics.forEach(t => {
             const subtopics = t.subtopics || []
             subtopics.forEach(sub => {
-              const subWords = sub.words || []
-              const wordCount = subWords.length
-              totalWords += wordCount
-
               const learnedIds = progressMap[sub.id] || []
-              const subWordIds = subWords.map(w => w.id)
-              const learnedCount = learnedIds.filter(id => subWordIds.includes(id)).length
-              totalLearned += learnedCount
+              totalLearned += learnedIds.length
             })
           })
 
@@ -82,6 +78,7 @@ export default function VocabularyPage() {
             icon: col.icon || 'school',
             color: col.color || 'primary',
             wordCount: totalWords,
+            topicCount: col.topicCount || colTopics.length,
             progress: progressPercent
           }
         })
@@ -135,7 +132,7 @@ export default function VocabularyPage() {
                       </div>
                       <div>
                         <h3 className="font-display font-semibold text-lg">{col.title}</h3>
-                        <span className="text-xs text-text-muted">{col.wordCount} từ vựng</span>
+                        <span className="text-xs text-text-muted">{col.topicCount || 0} chủ đề · {col.wordCount} từ vựng</span>
                       </div>
                     </div>
                   </div>
@@ -172,7 +169,7 @@ export default function VocabularyPage() {
                       </div>
                       <div>
                         <h3 className="font-display font-bold text-lg text-slate-900">{top.title}</h3>
-                        <span className="text-xs font-semibold text-slate-500">{topWordsCount} từ vựng</span>
+                        <span className="text-xs font-semibold text-slate-500">{top.wordCount || 0} từ vựng</span>
                       </div>
                     </div>
                   </div>

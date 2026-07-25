@@ -463,7 +463,10 @@ export default function AdminPage() {
         })
         if (response.ok) {
           const res = await response.json()
-          setCollections([...collections, res.data])
+          const newCol = res.data
+          newCol.topicCount = 0
+          newCol.wordCount = 0
+          setCollections(prev => [newCol, ...prev])
           showNotification('Đã thêm bộ sưu tập mới!')
         } else {
           showNotification('Không thể thêm bộ sưu tập.')
@@ -535,11 +538,12 @@ export default function AdminPage() {
           const res = await response.json()
           const newTopic = res.data || { id: Date.now(), title: formData.title, description: formData.description, collectionId: Number(formData.collectionId) }
           newTopic.collectionId = Number(formData.collectionId)
-          setTopics([...topics, newTopic])
+          newTopic.subtopicCount = 0
+          setTopics(prev => [newTopic, ...prev])
           showNotification('Đã thêm chủ đề chính mới!')
         } else {
-          const newTopic = { id: Date.now(), title: formData.title, description: formData.description, collectionId: Number(formData.collectionId) }
-          setTopics([...topics, newTopic])
+          const fallbackTopic = { id: Date.now(), title: formData.title, description: formData.description, collectionId: Number(formData.collectionId) }
+          setTopics(prev => [fallbackTopic, ...prev])
           showNotification('Đã thêm chủ đề chính thành công!')
         }
       } else if (modalType === 'editTopic') {
@@ -599,8 +603,13 @@ export default function AdminPage() {
   const handleSaveSubCollection = async (e) => {
     e.preventDefault()
     try {
-      if (modalType === 'addSubCollection') {
-        const response = await fetch(`${API_BASE}/api/v1/english/vocabulary/collections/${formData.collectionId}/subs`, {
+      if (modalType === 'addSubCollection' || modalType === 'addSubtopic') {
+        const isCompat = modalType === 'addSubCollection'
+        const url = isCompat
+          ? `${API_BASE}/api/v1/english/vocabulary/collections/${formData.collectionId}/subs`
+          : `${API_BASE}/api/v1/english/vocabulary/topics/${formData.topicId}/subtopics`
+        
+        const response = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -611,15 +620,25 @@ export default function AdminPage() {
         if (response.ok) {
           const res = await response.json()
           const newSub = res.data
-          newSub.collectionId = Number(formData.collectionId)
+          if (isCompat) {
+            newSub.collectionId = Number(formData.collectionId)
+          } else {
+            newSub.topicId = Number(formData.topicId)
+            newSub.collectionId = topics.find(t => t.id === Number(formData.topicId))?.collectionId
+          }
           newSub.wordCount = 0
-          setSubCollections([...subCollections, newSub])
+          setSubCollections(prev => [newSub, ...prev])
           showNotification('Đã thêm chủ đề con mới!')
         } else {
           showNotification('Không thể thêm chủ đề con.')
         }
-      } else if (modalType === 'editSubCollection') {
-        const response = await fetch(`${API_BASE}/api/v1/english/vocabulary/subs/${currentEditItem.id}`, {
+      } else if (modalType === 'editSubCollection' || modalType === 'editSubtopic') {
+        const isCompat = modalType === 'editSubCollection'
+        const url = isCompat
+          ? `${API_BASE}/api/v1/english/vocabulary/subs/${currentEditItem.id}`
+          : `${API_BASE}/api/v1/english/vocabulary/subtopics/${currentEditItem.id}`
+
+        const response = await fetch(url, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -630,6 +649,7 @@ export default function AdminPage() {
         if (response.ok) {
           const res = await response.json()
           const updatedSub = res.data
+          updatedSub.topicId = currentEditItem.topicId
           updatedSub.collectionId = currentEditItem.collectionId
           updatedSub.wordCount = currentEditItem.wordCount || 0
           setSubCollections(subCollections.map(s => s.id === currentEditItem.id ? updatedSub : s))
@@ -727,78 +747,70 @@ export default function AdminPage() {
     }
     const text = formData.importText || ''
     const lines = text.split('\n')
-    let importedCount = 0
-    let skippedCount = 0
+    const wordRequests = []
 
     for (let line of lines) {
       line = line.trim()
       if (!line) continue
 
-      // Parse line
+      // Parse line: supports | - : separators
       let parts = []
-      if (line.includes('|')) {
-        parts = line.split('|')
-      } else if (line.includes('-')) {
-        parts = line.split('-')
-      } else if (line.includes(':')) {
-        parts = line.split(':')
-      } else {
-        parts = [line]
-      }
+      if (line.includes('|')) parts = line.split('|')
+      else if (line.includes('\t')) parts = line.split('\t')
+      else if (line.includes(' - ')) parts = line.split(' - ')
+      else if (line.includes(':')) parts = line.split(':')
+      else parts = [line]
 
-      let wordText = parts[0]?.trim()
+      const wordText = parts[0]?.trim()
       if (!wordText) continue
 
-      let pronunciation = parts[1]?.trim() || ''
-      let meaning = parts[2]?.trim() || ''
+      let pronunciation = ''
+      let meaning = ''
 
-      if (parts.length === 2) {
+      if (parts.length >= 3) {
+        pronunciation = parts[1]?.trim() || ''
+        meaning = parts[2]?.trim() || ''
+      } else if (parts.length === 2) {
         const p1 = parts[1].trim()
         if (p1.startsWith('/') || p1.endsWith('/')) {
           pronunciation = p1
-          meaning = ''
         } else {
-          pronunciation = ''
           meaning = p1
         }
       }
 
-      if (!meaning) {
-        meaning = 'Chưa dịch'
-      }
-
-      try {
-        const response = await fetch(`${API_BASE}/api/v1/english/vocabulary/subs/${subId}/words`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            word: wordText,
-            pronunciation: pronunciation,
-            meaning: meaning
-          })
-        })
-        if (response.ok) {
-          importedCount++
-        } else {
-          skippedCount++
-        }
-      } catch (error) {
-        console.error('Error importing word:', wordText, error)
-        skippedCount++
-      }
+      wordRequests.push({ word: wordText, pronunciation, meaning: meaning || 'Chưa dịch' })
     }
 
-    if (importedCount > 0) {
-      fetchWords(wordPage, debouncedWordSearch, selectedSubCollFilter)
-      // Update wordCount in subCollection
-      setSubCollections(prev => prev.map(sub =>
-        sub.id === subId
-          ? { ...sub, wordCount: (sub.wordCount || 0) + importedCount }
-          : sub
-      ))
-      showNotification(`Đã import thành công ${importedCount} từ! (Bỏ qua/Lỗi: ${skippedCount})`)
-    } else {
-      showNotification(`Không có từ nào được import thêm. Bỏ qua/Lỗi: ${skippedCount}`)
+    if (wordRequests.length === 0) {
+      showNotification('Không có từ nào để import.')
+      return
+    }
+
+    try {
+      // Single bulk API call - 1 request for all words
+      const response = await fetch(`${API_BASE}/api/v1/english/vocabulary/subtopics/${subId}/words/bulk`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(wordRequests)
+      })
+      if (response.ok) {
+        const res = await response.json()
+        const importedCount = (res.data || []).length
+        const skippedCount = wordRequests.length - importedCount
+        fetchWords(wordPage, debouncedWordSearch, selectedSubCollFilter)
+        setSubCollections(prev => prev.map(sub =>
+          sub.id === subId
+            ? { ...sub, wordCount: (sub.wordCount || 0) + importedCount }
+            : sub
+        ))
+        showNotification(`Đã import thành công ${importedCount} từ! (Bỏ qua/Lỗi trùng: ${skippedCount})`)
+      } else {
+        showNotification('Import thất bại. Vui lòng thử lại.')
+      }
+    } catch (error) {
+      console.error('Bulk import error:', error)
+      showNotification('Lỗi kết nối khi import.')
     }
     setModalType(null)
   }
@@ -1892,7 +1904,7 @@ export default function AdminPage() {
                   className="px-4 py-2 border border-slate-200 rounded-xl text-xs outline-none focus:border-primary flex-1 sm:w-60"
                 />
                 <button
-                  onClick={() => { setModalType('addDoc'); setFormData({}); }}
+                  onClick={() => { setModalType('addDoc'); setFormData({ categoryId: docCats[0]?.id || '' }); }}
                   className="btn btn-primary flex items-center gap-1"
                 >
                   <span className="material-symbols-outlined text-[16px]">add</span>Thêm tài liệu
